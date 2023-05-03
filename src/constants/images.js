@@ -1,0 +1,13 @@
+export const backgroundImage = require('../assets/balanceCard.png');
+export const Logo = require('../assets/logo.png');
+export const Add = require('../assets/add.png');
+export const Send = require('../assets/send.png');
+export const ServiceView = require('../assets/serviceView.png');
+export const Airtime = require('../assets/services/airtime.png');
+export const Data = require('../assets/services/data.png');
+export const CableTv = require('../assets/services/cabletv.png');
+export const Electricity = require('../assets/services/electricity.png');
+export const Insurance = require('../assets/services/insurance.png');
+export const Others = require('../assets/services/others.png');
+export const Ads = require('../assets/ads.png');
+export const FingerPrint =  require('../assets/fingerPrint.png')
