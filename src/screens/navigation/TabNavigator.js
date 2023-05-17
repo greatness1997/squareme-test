@@ -13,12 +13,22 @@ import Settings from '../mainScreen/Settings';
 import Profile from '../mainScreen/Profile';
 
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 const TabNavigator = () => {
 
     
 
-    const hiddenTabRoutes = ['TransferValidate', 'TransferSummary'];
+    const hiddenTabRoutes = [
+        'TransferValidate', 
+        'TransferSummary', 
+        'Completed', 
+        'Provider', 
+        'ElectricityValidation', 
+        'Airtime&Data',
+        'AirtimeOrData',
+        'paymentmethod'
+    ];
 
     return (
         <Tab.Navigator
@@ -34,7 +44,7 @@ const TabNavigator = () => {
                 options={({ route }) => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="home" color="#120549" size={30} />
+                        <MaterialCommunityIcons focused={focused} name="home" color="#120549" size={s(25)} />
                     ),
                     headerShown: false,
                     tabBarStyle: ((route) => {
@@ -53,7 +63,7 @@ const TabNavigator = () => {
                 options={{
                     tabBarLabel: 'History',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#120549" size={30} />
+                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#120549" size={s(25)} />
                     ),
                     headerShown: false
                 }}
@@ -65,7 +75,7 @@ const TabNavigator = () => {
                 options={{
                     tabBarLabel: 'Settings',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="cog" color="#120549" size={30} />
+                        <MaterialCommunityIcons focused={focused} name="cog" color="#120549" size={s(25)} />
                     ),
                     headerShown: false
                 }}
@@ -77,7 +87,7 @@ const TabNavigator = () => {
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#120549" size={30} />
+                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#120549" size={s(25)} />
                     ),
                     headerShown: false
                 }}

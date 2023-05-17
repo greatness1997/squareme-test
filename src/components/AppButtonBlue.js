@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: color.primary2,
         width: "100%",
         borderRadius: 50,
         height: 60,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // textTransform: 'uppercase',
         fontSize: 18,
-        color: color.primary2,
+        color: "white",
     },
 });
 

@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="login"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerShown: false,
@@ -17,6 +17,7 @@ const AppNavigator = () => {
         >
             <Stack.Screen name="login" component={AuthSatck} />
             <Stack.Screen name="Home" component={TabNavigator} />
+            
             
         </Stack.Navigator>
 

@@ -1,3 +1,4 @@
+import "react-native-gesture-handler"
 import React from 'react';
 import {
   SafeAreaView,
@@ -12,6 +13,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/screens/navigation/AppNavigator'
 import { color } from './src/constants/color';
+
+
 
 
 
