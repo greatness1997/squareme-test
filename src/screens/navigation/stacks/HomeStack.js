@@ -13,6 +13,8 @@ import ElectricityValidation from '../../mainScreen/Electricity/ElectricityValid
 import SelectNetwork from '../../mainScreen/Airtime&Data/SlectNetwork';
 import AirtimeOrData from '../../mainScreen/Airtime&Data/AirtimeOrData'
 import PaymentMethod from '../../mainScreen/PaymentMethod'
+import AirtimeVerify from '../../mainScreen/Airtime&Data/AirtimeVerify';
+import DataVerify from '../../mainScreen/Airtime&Data/DataVerify';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +42,8 @@ const HomeStack = () => {
             <Stack.Screen name='AirtimeOrData' component={AirtimeOrData} />
             <Stack.Screen name='paymentmethod' component={PaymentMethod} />
             <Stack.Screen name='TransferPin' component={PinVerify} />
+            <Stack.Screen name='AirtimeVerify' component={AirtimeVerify} />
+            <Stack.Screen name='DataVerify' component={DataVerify} />
         </Stack.Navigator>
     )
 }

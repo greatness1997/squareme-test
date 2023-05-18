@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, Keyboard } from 'react-native'
 import KeyboardAvoidingViewNB from '../../../components/KeyboardAvoidingView'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import InputFieldOTP from "./InputOTP"
+import AirtimeOTP from './AirtimeOTP'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
 
-const Verify = ({ navigation, route }) => {
+const DataVerify = ({ navigation, route }) => {
 
     const data = route.params
 
@@ -32,7 +32,7 @@ const Verify = ({ navigation, route }) => {
                 </View>
                 <View>
 
-                    <InputFieldOTP
+                    <AirtimeOTP
                         code={code}
                         setCode={setCode}
                         setPinReady={setPinReady}
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     text2: {
-        fontSize: s(16),
+        fontSize: s(18),
         marginTop: s(8),
         fontWeight: "bold"
     },
     text1: {
-        fontSize: s(16),
-        marginTop: s(3),
+        fontSize: s(18),
+        marginTop: 5,
         fontWeight: "bold"
     },
     iconCont: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "white",
         width: "90%",
-        height: s(240),
+        height: s(250),
         marginLeft: s(18),
         borderRadius: s(18),
         marginTop: s(130)
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
     // }
 });
 
-export default Verify
+export default DataVerify

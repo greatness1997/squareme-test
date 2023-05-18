@@ -12,6 +12,7 @@ import SummaryCard from '../../../components/SummaryCard';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SwipeButton from '../../../components/SwipeButton';
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
 
@@ -53,21 +54,21 @@ const Summary = ({ navigation, route }) => {
    
 
     return (
-        <View style={{ flex: 1, marginTop: 40, marginLeft: 20, width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(35), marginLeft: s(16), width: "90%" }}>
 
-            <View style={{ flexDirection: "row", marginBottom: 40 }}>
+            <View style={{ flexDirection: "row", marginBottom: s(35) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}> 
-                    <MaterialCommunityIcons name='arrow-left-thick' size={25} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
                 </TouchableWithoutFeedback>
 
-                <View style={{ justifyContent: "center", marginLeft: 100 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "500" }}>Transfer Summary</Text>
+                <View style={{ justifyContent: "center", marginLeft: s(80) }}>
+                    <Text style={{ fontSize: s(16), fontWeight: "500" }}>Transfer Summary</Text>
                 </View>
             </View>
 
             <SummaryCard data={data} />
 
-            <SwipeButton style={{ marginTop: 40 }} onSwipeEnd={() => next(trasnferBody)}/>
+            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody)}/>
           
         </View>
     )
@@ -79,9 +80,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1,
-        paddingBottom: 2,
+        paddingBottom: s(1),
         width: '100%',
-        height: 50,
+        height: s(45),
         marginTop: '2%',
         
     },
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bankList: {
-        padding: 8
+        padding: s(6)
     }
 })
 

@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
                         </View>
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Airtime&Data")}>
+                <TouchableOpacity onPress={() => navigation.navigate("AirtimeOrData")}>
                     <ImageBackground
                         source={Airtime}
                         style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}

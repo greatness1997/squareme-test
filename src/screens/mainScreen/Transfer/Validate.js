@@ -11,6 +11,8 @@ import axios from 'axios'
 import AppButton from '../../../components/AppButtonBlue';
 import KeyboardAvoidingViewNB from '../../../components/KeyboardAvoidingView';
 
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+
 
 
 const Validate = ({ navigation }) => {
@@ -23,6 +25,7 @@ const Validate = ({ navigation }) => {
     const [beneficiary, setBeneficiary] = useState("")
     const [tranId, setTranId] = useState("")
     const [tranRes, setTranRes] = useState({})
+    const [anError, setAnError] = useState(null)
 
     //set banklist in alphabetical order
     const data = banks;
@@ -79,6 +82,7 @@ const Validate = ({ navigation }) => {
             setTranRes(response)
             
         } catch (error) {
+            setAnError(error.response.data)
             console.log(error.response.data, "from catch")
         }
     }
@@ -105,15 +109,15 @@ const Validate = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingViewNB>
-            <View style={{ flex: 1, marginTop: 40, marginLeft: 20, width: "90%" }}>
+            <View style={{ flex: 1, marginTop: s(40), marginLeft: s(18), width: "90%" }}>
 
-                <View style={{ flexDirection: "row", marginBottom: 40 }}>
+                <View style={{ flexDirection: "row", marginBottom: s(40) }}>
                     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name='arrow-left-thick' size={25} />
+                        <MaterialCommunityIcons name='arrow-left-thick' size={s(21)} />
                     </TouchableWithoutFeedback>
 
-                    <View style={{ justifyContent: "center", marginLeft: 100 }}>
-                        <Text style={{ fontSize: 18, fontWeight: "500" }}>Send Money To</Text>
+                    <View style={{ justifyContent: "center", marginLeft: s(80) }}>
+                        <Text style={{ fontSize: s(15), fontWeight: "500" }}>Send Money To</Text>
                     </View>
                 </View>
 
@@ -149,13 +153,13 @@ const Validate = ({ navigation }) => {
                                         value={values.banks}
                                     />
                                     <TouchableWithoutFeedback onPress={() => { setModalVisible(true), getBanks({ service: "transfer" }) }}>
-                                        <MaterialCommunityIcons name='chevron-down' size={30} />
+                                        <MaterialCommunityIcons name='chevron-down' size={s(28)} />
                                     </TouchableWithoutFeedback>
                                 </View>
 
                                 {visible === true && (
                                     <View>
-                                        <Text style={{ marginTop: 30 }}>How much do you want to send</Text>
+                                        <Text style={{ marginTop: s(30) }}>How much do you want to send</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -168,7 +172,7 @@ const Validate = ({ navigation }) => {
 
                                         </View>
 
-                                        <Text style={{ marginTop: 30 }}>Enter Account Number?</Text>
+                                        <Text style={{ marginTop: s(30) }}>Enter Account Number?</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -179,12 +183,12 @@ const Validate = ({ navigation }) => {
                                                 maxLength={10}
                                             />
                                         </View>
-                                       { beneficiary && (<View style={{ marginTop: 10 }}>
-                                            <Text style={{ fontSize: 10, fontWeight: "500", marginBottom: 5 }}>Beneficiary name</Text>
+                                       { beneficiary && (<View style={{ marginTop: s(8) }}>
+                                            <Text style={{ fontSize: s(8), fontWeight: "500", marginBottom: s(5) }}>Beneficiary name</Text>
                                             <Text style={{ color: "#3B81E3" }}>{beneficiary}</Text>
                                         </View> )}
 
-                                        <Text style={{ marginTop: 30 }}>Narration</Text>
+                                        <Text style={{ marginTop: s(30) }}>Narration</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -196,7 +200,7 @@ const Validate = ({ navigation }) => {
                                         </View>
                                     </View>
                                 )}
-                                {visible === true && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: 60 }} />)}
+                                {visible === true && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(50) }} />)}
                             </View>
 
 
@@ -215,7 +219,7 @@ const Validate = ({ navigation }) => {
                         <SafeAreaView style={styles.modalContent}>
                             <View style={styles.closeIconContainer}>
                                 <TouchableWithoutFeedback onPress={close}>
-                                    <MaterialCommunityIcons name="close-circle" size={25} />
+                                    <MaterialCommunityIcons name="close-circle" size={s(25)} />
                                 </TouchableWithoutFeedback>
                             </View>
                             <ScrollView style={styles.scrollView}>
@@ -223,10 +227,10 @@ const Validate = ({ navigation }) => {
                                 {bank.map((item, key) => {
                                     return (
                                         <TouchableOpacity style={styles.bankList} onPress={() => { close(), setValue(item) }} >
-                                            <View style={{ width: 50, height: 50, backgroundColor: "lightgrey", borderRadius: 50, alignItems: "center", justifyContent: "center" }}>
-                                                <MaterialCommunityIcons name="bank" size={25} />
+                                            <View style={{ width: s(50), height: s(50), backgroundColor: "lightgrey", borderRadius: s(50), alignItems: "center", justifyContent: "center" }}>
+                                                <MaterialCommunityIcons name="bank" size={s(22)} />
                                             </View>
-                                            <Text style={{ fontSize: 16, fontWeight: "500", marginLeft: 15 }}>{item.bankName}</Text>
+                                            <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>{item.bankName}</Text>
                                         </TouchableOpacity>
                                     )
                                 })}
@@ -244,20 +248,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottomWidth: 1,
-        paddingBottom: 2,
+        borderBottomWidth: s(0.5),
+        paddingBottom: s(1),
         width: '100%',
-        height: 50,
+        height: s(45),
         marginTop: '2%',
     },
     input: {
         flex: 1
     },
     bankList: {
-        padding: 8,
+        padding: s(6),
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 15
+        marginBottom: s(12)
     },
     modalContainer: {
         flex: 1,
@@ -275,20 +279,20 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: '50%',
         backgroundColor: 'white',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        paddingTop: 20,
+        borderTopLeftRadius: s(18),
+        borderTopRightRadius: s(18),
+        paddingTop: s(18),
     },
     closeIconContainer: {
         flexDirection: 'row-reverse',
         alignItems: 'center',
-        padding: 20,
+        padding: s(18),
     },
 
     loading: {
-        marginTop: 50, 
-        width: 30, 
-        height: 30,
+        marginTop: s(45), 
+        width: s(25), 
+        height: s(25),
         justifyContent: "center",
         alignItems: "center"
     }

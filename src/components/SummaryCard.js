@@ -4,6 +4,8 @@ import { color } from "../constants/color"
 import "intl"
 import "intl/locale-data/jsonp/en";
 
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
@@ -31,33 +33,33 @@ const SummaryCard = ({ data }) => {
 
     return (
         <>
-            <View style={{ alignItems: "center", marginBottom: 10}}>
-                <View style={{ width: 70, height: 70, backgroundColor: "lightgrey", borderRadius: 50, alignItems: "center", justifyContent: "center" }}>
-                    <MaterialCommunityIcons name="bank" size={35} color="#110449" />
+            <View style={{ alignItems: "center", marginBottom: s(8)}}>
+                <View style={{ width: s(60), height: s(60), backgroundColor: "lightgrey", borderRadius: s(45), alignItems: "center", justifyContent: "center" }}>
+                    <MaterialCommunityIcons name="bank" size={s(30)} color="#110449" />
                 </View>
             </View>
 
             <View style={styles.container}>
 
-                <View style={{ justifyContent: "center", alignItems: "center", marginTop: 20 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.tranRes.name}</Text>
-                    <Text style={{ fontSize: 16, fontWeight: "400", color: color.colorFive }}>{data.tranRes.account}</Text>
+                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(18) }}>
+                    <Text style={{ fontSize: s(14), fontWeight: "600", paddingBottom: s(3), color: color.colorSix }}>{data.tranRes.name}</Text>
+                    <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFive }}>{data.tranRes.account}</Text>
                 </View>
-                <View style={{ marginTop: 20 }}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-                        <Text style={{ fontSize: 15, fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.res.amount)}`}</Text>
+                <View style={{ marginTop: s(18) }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18) }}>
+                        <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Amount</Text>
+                        <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.res.amount)}`}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: 15, fontWeight: "400", color: color.colorFour }}>Fee</Text>
-                        <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorThree }}>{`₦${format.format(10)}`}</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(14) }}>
+                        <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Fee</Text>
+                        <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(10)}`}</Text>
                     </View>
                 </View>
-                <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: 20 }}></View>
+                <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: s(18) }}></View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 15 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "400", color: color.colorFour }}>Total</Text>
-                    <View style={{ width: 150, height: 50, backgroundColor: "#00000029", justifyContent: "center", alignItems: "center", borderRadius: 5 }}>
-                        <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorSeven }}>{`₦${formattedAmount}`}</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "400", color: color.colorFour }}>Total</Text>
+                    <View style={{ width: s(120), height: s(40), backgroundColor: "#00000029", justifyContent: "center", alignItems: "center", borderRadius: 5 }}>
+                        <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorSeven }}>{`₦${formattedAmount}`}</Text>
                     </View>
 
                 </View>
@@ -65,10 +67,10 @@ const SummaryCard = ({ data }) => {
 
             </View>
 
-            <View style={{ marginTop: 20, }}>
-                <Text style={{ color: color.colorSeven, fontSize: 16, fontWeight: "600" }}>Save Beneficiary?</Text>
+            <View style={{ marginTop: s(18), }}>
+                <Text style={{ color: color.colorSeven, fontSize: s(14), fontWeight: "600" }}>Save Beneficiary?</Text>
                 <Switch
-                    style={{ marginTop: 10 }}
+                    style={{ marginTop: s(8) }}
                 />
             </View>
         </>
@@ -78,13 +80,13 @@ const SummaryCard = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: 300,
+        height: s(250),
         backgroundColor: "white",
         // alignItems: "center",
-        borderRadius: 10,
+        borderRadius: s(8),
         shadowColor: 'rgba(0, 0, 0, 0.5)',
         marginTop: 0,
-        padding: 20,
+        padding: ms(18),
         position: "relative"
     }
 })
