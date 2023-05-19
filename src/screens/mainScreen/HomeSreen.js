@@ -89,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
                     </View>
 
                     <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30) }}>
-                        <TouchableOpacity style={styles.AddIcon} onPress={() => navigation.navigate("paymentmethod")}>
+                        <TouchableOpacity style={styles.AddIcon} onPress={() => navigation.navigate("Completed")}>
                             <Image source={Add} style={{ height: ms(50), width: s(50), borderRadius: s(50)  }} />
                             <Text style={{ marginLeft: s(8), fontSize: s(12), fontWeight: '500', color: 'white' }}>Add Money</Text>
                         </TouchableOpacity>
