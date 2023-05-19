@@ -314,7 +314,7 @@ const AirtimeData = ({ navigation, route }) => {
 
                                     )}
                                 </View>
-                                {plan && <AppButton title="Buy Data Bundle" style={{ width: "92%", marginLeft: s(16), position: "absolute", marginTop: "100%" }} onPress={handleSubmit} />}
+                                {plan && <AppButton title="Buy Data Bundle" style={{ width: "92%", marginLeft: s(16), position: "absolute", marginTop: "60%" }} onPress={handleSubmit} />}
                             </>
                         );
 

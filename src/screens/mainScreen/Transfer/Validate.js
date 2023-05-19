@@ -109,7 +109,7 @@ const Validate = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingViewNB>
-            <View style={{ flex: 1, marginTop: s(40), marginLeft: s(18), width: "90%" }}>
+            <View style={{ flex: 1, marginTop: s(30), marginLeft: s(18), width: "90%" }}>
 
                 <View style={{ flexDirection: "row", marginBottom: s(40) }}>
                     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -159,7 +159,7 @@ const Validate = ({ navigation }) => {
 
                                 {visible === true && (
                                     <View>
-                                        <Text style={{ marginTop: s(30) }}>How much do you want to send</Text>
+                                        <Text style={{ marginTop: s(25) }}>How much do you want to send</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -172,7 +172,7 @@ const Validate = ({ navigation }) => {
 
                                         </View>
 
-                                        <Text style={{ marginTop: s(30) }}>Enter Account Number?</Text>
+                                        <Text style={{ marginTop: s(25) }}>Enter Account Number?</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -188,7 +188,7 @@ const Validate = ({ navigation }) => {
                                             <Text style={{ color: "#3B81E3" }}>{beneficiary}</Text>
                                         </View> )}
 
-                                        <Text style={{ marginTop: s(30) }}>Narration</Text>
+                                        <Text style={{ marginTop: s(25) }}>Narration</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
@@ -200,7 +200,7 @@ const Validate = ({ navigation }) => {
                                         </View>
                                     </View>
                                 )}
-                                {visible === true && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(50) }} />)}
+                                {visible === true && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(30) }} />)}
                             </View>
 
 

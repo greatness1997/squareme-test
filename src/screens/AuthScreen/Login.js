@@ -115,7 +115,7 @@ const Login = ({ navigation, route }) => {
                                             <Image source={FingerPrint} style={{ width: s(40), height: vs(40), resizeMode: "contain" }}/>
                                         </TouchableWithoutFeedback>
                                         <View style={{ marginTop: s(13) }}>
-                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "300" }}>Forget Password?</Text>
+                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "300" }}>Login Options?</Text>
                                         </View>
                                     </View>
                                 </>

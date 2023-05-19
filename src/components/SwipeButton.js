@@ -6,11 +6,12 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, interpolateColor, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, runOnJS } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient)
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
-const BUTTON_WIDTH = 370
-const BUTTON_HEIGHT = 70
-const BUTTON_PADDING = 10
+const BUTTON_WIDTH = s(320)
+const BUTTON_HEIGHT = s(60)
+const BUTTON_PADDING = s(8)
 const SWIPER_DIMENSION = BUTTON_HEIGHT - 2 * BUTTON_PADDING
 
 const H_WAVE_RANGE = SWIPER_DIMENSION * 2 * BUTTON_PADDING
@@ -94,7 +95,7 @@ const SwipeButton = ({ onPress, onSwipeEnd, title, style }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginTop: s(8),
         alignItems: 'center',
         backgroundColor: "white",
         width: BUTTON_WIDTH,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     swiperText: {
         fontWeight: 'bold',
         // textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: s(14),
         color: color.primary2,
         zIndex: 2
     },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         position: "absolute",
-        left: 10,
+        left: s(8),
         zIndex: 3
     },
     colorWave: {
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
         left: 0,
         height: BUTTON_HEIGHT,
         borderRadius: BUTTON_HEIGHT,
-        width: 200
+        width: s(180)
     }
 });
 

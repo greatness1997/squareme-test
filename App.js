@@ -1,5 +1,5 @@
 import "react-native-gesture-handler"
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,6 +20,7 @@ import { color } from './src/constants/color';
 
 
 const app = () => {
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
