@@ -57,13 +57,18 @@ const Validate = ({ navigation }) => {
 
     const Schema = Yup.object().shape({
         banks: Yup.string().required('Please enter a bank name'),
+        accountNo: Yup.string().required('Account Number is Required'),
+        amount: Yup.string().required('Enter Amount is Required'),
+        narration: Yup.string().required('Account Number is Required'),
     });
 
     const { auth: { user } } = useSelector(state => state)
 
-    const validateAccount =  async(accountNo, amount, res) => {
+
+    const validateAccount = async (accountNo, amount, res) => {
         const url = `${cred.URL}/vas/transfer/validation`
-        const options = { headers: { Authorization: cred.API_KEY, Token: cred.TOKEN } }
+        const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
+
         const body = {
             "service": "transfer",
             "amount": amount,
@@ -76,11 +81,12 @@ const Validate = ({ navigation }) => {
             const data = await axios.post(url, body, options)
 
             const { message, response, transactionId, responseCode } = data.data
-            
+
+
             setBeneficiary(message)
             setTranId(transactionId)
             setTranRes(response)
-            
+
         } catch (error) {
             setAnError(error.response.data)
             console.log(error.response.data, "from catch")
@@ -91,7 +97,7 @@ const Validate = ({ navigation }) => {
     const getBanks = async (service) => {
         setIsLoading(true)
         const url = `${cred.URL}/vas/get-bank-codes`
-        const options = { headers: { Authorization: cred.API_KEY, Token: cred.TOKEN } }
+        const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = service
 
         try {
@@ -109,7 +115,7 @@ const Validate = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingViewNB>
-            <View style={{ flex: 1, marginTop: s(30), marginLeft: s(18), width: "90%" }}>
+            <View style={{ flex: 1, marginTop: s(50), marginLeft: s(18), width: "90%" }}>
 
                 <View style={{ flexDirection: "row", marginBottom: s(40) }}>
                     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -127,20 +133,20 @@ const Validate = ({ navigation }) => {
                     onSubmit={(values) => {
                         Schema.validate(values)
                             .then((res) => {
-                                navigation.navigate("TransferSummary", {data: tranId, tranRes, res})
+                                navigation.navigate("TransferSummary", { data: tranId, tranRes, res })
                             })
-                            .catch((err) => Alert.alert('Please provide proper details',));
+                            .catch((err) => Alert.alert('Please provide proper details', err.message));
                     }}>
                     {(props) => {
                         const { handleChange, values, handleSubmit } = props;
 
                         const handleAccountChange = (value) => {
                             handleChange("accountNo")(value);
-                          
+
                             if (value.length >= 10) {
-                              validateAccount(value, values.amount);
+                                validateAccount(value, values.amount);
                             }
-                          };
+                        };
 
                         return (
                             <View>
@@ -183,10 +189,10 @@ const Validate = ({ navigation }) => {
                                                 maxLength={10}
                                             />
                                         </View>
-                                       { beneficiary && (<View style={{ marginTop: s(8) }}>
+                                        {beneficiary && (<View style={{ marginTop: s(8) }}>
                                             <Text style={{ fontSize: s(8), fontWeight: "500", marginBottom: s(5) }}>Beneficiary name</Text>
                                             <Text style={{ color: "#3B81E3" }}>{beneficiary}</Text>
-                                        </View> )}
+                                        </View>)}
 
                                         <Text style={{ marginTop: s(25) }}>Narration</Text>
                                         <View style={styles.emailContainer}>
@@ -211,39 +217,78 @@ const Validate = ({ navigation }) => {
                 <Modal
                     visible={modalVisible}
                     animationType='slide'
-                    style={{ flex: 1 }}
+                    transparent={true}
                 >
-
-                    <View style={styles.modalContainer}>
-                        <View style={styles.overlay} />
-                        <SafeAreaView style={styles.modalContent}>
+                    <View style={styles.modalScreen}>
+                        <View style={styles.transparentContainer} />
+                        <SafeAreaView style={styles.contentContainer}>
                             <View style={styles.closeIconContainer}>
                                 <TouchableWithoutFeedback onPress={close}>
                                     <MaterialCommunityIcons name="close-circle" size={s(25)} />
                                 </TouchableWithoutFeedback>
                             </View>
                             <ScrollView style={styles.scrollView}>
-                                {loading === true ? <ActivityIndicator color="black"   /> : null}
+                                {loading === true ? (
+                                    <ActivityIndicator color="black" />
+                                ) : null}
                                 {bank.map((item, key) => {
                                     return (
-                                        <TouchableOpacity style={styles.bankList} onPress={() => { close(), setValue(item) }} >
-                                            <View style={{ width: s(50), height: s(50), backgroundColor: "lightgrey", borderRadius: s(50), alignItems: "center", justifyContent: "center" }}>
+                                        <TouchableOpacity
+                                            style={styles.bankList}
+                                            onPress={() => {
+                                                close();
+                                                setValue(item);
+                                            }}
+                                            key={key}
+                                        >
+                                            <View
+                                                style={{
+                                                    width: s(50),
+                                                    height: s(50),
+                                                    backgroundColor: "lightgrey",
+                                                    borderRadius: s(50),
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
                                                 <MaterialCommunityIcons name="bank" size={s(22)} />
                                             </View>
-                                            <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>{item.bankName}</Text>
+                                            <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
+                                                {item.bankName}
+                                            </Text>
                                         </TouchableOpacity>
-                                    )
+                                    );
                                 })}
                             </ScrollView>
                         </SafeAreaView>
                     </View>
                 </Modal>
+
             </View>
         </KeyboardAvoidingViewNB>
     )
 }
 
 const styles = StyleSheet.create({
+
+    modalScreen: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+      transparentContainer: {
+        flex: 1,
+        backgroundColor: 'transparent',
+      },
+      contentContainer: {
+        flex: 1,
+        backgroundColor: 'white', 
+        borderTopLeftRadius: s(20),
+        borderTopRightRadius: s(20),
+        paddingHorizontal: s(20),
+        paddingVertical: s(10),
+        height: Dimensions.get('window').height * 0.7,
+      },
+
     emailContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -257,45 +302,49 @@ const styles = StyleSheet.create({
     input: {
         flex: 1
     },
-    bankList: {
-        padding: s(6),
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: s(12)
-    },
     modalContainer: {
         flex: 1,
         backgroundColor: 'transparent',
     },
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: Dimensions.get('window').height / 2,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    },
-    modalContent: {
-        flex: 1,
-        marginTop: '50%',
-        backgroundColor: 'white',
-        borderTopLeftRadius: s(18),
-        borderTopRightRadius: s(18),
-        paddingTop: s(18),
-    },
-    closeIconContainer: {
-        flexDirection: 'row-reverse',
-        alignItems: 'center',
-        padding: s(18),
-    },
 
     loading: {
-        marginTop: s(45), 
-        width: s(25), 
+        marginTop: s(45),
+        width: s(25),
         height: s(25),
         justifyContent: "center",
         alignItems: "center"
-    }
+    },
+
+    closeIconContainer: {
+        alignItems: "flex-end",
+        marginTop: s(10),
+        marginRight: s(10),
+    },
+    scrollView: {
+        flex: 1,
+    },
+    bankList: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: s(10),
+        marginLeft: s(10)
+    },
+    modalContainer: {
+        flex: 1,
+    },
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(20),
+        borderTopRightRadius: s(20),
+        paddingHorizontal: s(20),
+        paddingVertical: s(10),
+    },
+    
 })
 
 export default Validate

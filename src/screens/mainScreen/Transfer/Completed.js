@@ -13,23 +13,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import CompletedCard from '../../../components/CompletedCard';
 import AppButton from '../../../components/AppButtonBlue';
 import { color } from '../../../constants/color';
+import {s} from 'react-native-size-matters'
 
 
 
 const Completed = ({ navigation, route }) => {
 
     const completeData = route.params
-    console.log(completeData, "fromroute")
 
-    const data = { name: "Ademola Odetayo", RN: "22222222222", No: "123456789", seq: "11223456789", time: "12:00am", date: "12, Aug 2022", amount: "₦20,000.00" }
+
 
     return (
 
-        <View style={{ flex: 1, marginTop: 20, marginLeft: 20, width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(60), marginLeft: s(15), width: "90%" }}>
 
 
 
-            <View style={{ marginBottom: 20, marginTop: 10, alignItems: "center" }}>
+            <View style={{ marginBottom: s(20), marginTop: 5, alignItems: "center" }}>
 
                 <Lottie
                     source={Complete}
@@ -38,13 +38,12 @@ const Completed = ({ navigation, route }) => {
                     style={styles.animation}
                 />
 
-                <View style={{ justifyContent: "center", alignItems: "center", marginTop: 10 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "600", color: "green" }}>Transfer Completed</Text>
-                    <Text style={{ fontSize: 18, fontWeight: "600", marginTop: 10 }}>{data.amount}</Text>
+                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
+                    <Text style={{ fontSize: s(13), fontWeight: "600", color: "green" }}>Transfer Completed</Text>
                 </View>
             </View>
 
-            <CompletedCard data={data} />
+            <CompletedCard data={completeData} />
             <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
 
         </View>
@@ -52,27 +51,11 @@ const Completed = ({ navigation, route }) => {
 }
 
 const styles = StyleSheet.create({
-    emailContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomWidth: 1,
-        paddingBottom: 2,
-        width: '100%',
-        height: 50,
-        marginTop: '2%',
-
-    },
-    input: {
-        flex: 1
-    },
-    bankList: {
-        padding: 8
-    },
+  
     botton: {
         backgroundColor: color.primary2,
         width: "100%",
-        marginTop: 20
+        marginTop: s(20)
     },
     animation: {
         position: "relative",

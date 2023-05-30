@@ -39,7 +39,7 @@ const Summary = ({ navigation, route }) => {
           narration: data.res.narration,
           transactionId: data.data,
           service: 'transfer',
-          senderName: `${user.firstName} ${user.lastName} `,
+          senderName: `${user.firstName} ${user.lastName}`,
           uniqueId: generateUniqueId(),
           paymentMethod: 'cash',
         };
@@ -47,14 +47,14 @@ const Summary = ({ navigation, route }) => {
         setTransferBody(body);
       }, []);
 
-    const next = (trasnferBody) => {
-        navigation.navigate("TransferPin", { data: trasnferBody })
+    const next = (trasnferBody, summaryData) => {
+        navigation.navigate("TransferPin", { data: trasnferBody, summaryData })
     }
 
    
 
     return (
-        <View style={{ flex: 1, marginTop: s(35), marginLeft: s(16), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(50), marginLeft: s(16), width: "90%" }}>
 
             <View style={{ flexDirection: "row", marginBottom: s(35) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}> 
@@ -68,7 +68,7 @@ const Summary = ({ navigation, route }) => {
 
             <SummaryCard data={data} />
 
-            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody)}/>
+            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody, data)}/>
           
         </View>
     )

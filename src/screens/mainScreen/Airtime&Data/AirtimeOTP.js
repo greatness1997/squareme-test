@@ -9,11 +9,12 @@ import axios from 'axios'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
-const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data }) => {
+const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTextEntry }) => {
     const [isContFocus, setIsConFocus] = useState(false)
     const inputRef = useRef(null)
     
-    const network = data.networkName.toLowerCase()
+    const network = data.data.networkName === "Airtel" || data.data.networkName === "Glo" ? data.data.networkName.toLowerCase() : data.data.networkName
+    
     
 
     const digitArray = new Array(maxLength).fill(0)
@@ -60,7 +61,7 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data })
 
     const makeTransfer = async() => {
         const url = `${cred.URL}/vas/airtime/purchase`
-        const options = { headers: { Authorization: cred.API_KEY, Token: cred.TOKEN } }
+        const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
             "amount": data.data.amount,
             "channel": "mobile",
@@ -71,14 +72,16 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data })
             "pin": code
         }
 
-        console.log(body)
-
 
         try {
             const data = await axios.post(url, body, options)
 
             const { message, response, responseCode } = data.data
             
+            if(responseCode === "00") {
+                navigation.navigate("AirtimeCompleted", {data: response})
+                console.log(response)
+            }
             
         } catch (error) {
             const { message } = error.response.data
@@ -105,6 +108,7 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data })
                 returnKeyType='done'
                 ref={inputRef}
                 onBlur={handleOnBlur}
+                secureTextEntry={true}
             />
         </View>
         </>

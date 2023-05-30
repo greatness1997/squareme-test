@@ -10,7 +10,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 const Verify = ({ navigation, route }) => {
 
-    const data = route.params
+    const { data, summaryData } = route.params
 
     const [code, setCode] = useState('')
     const [pinReady, setPinReady] = useState(false)
@@ -39,6 +39,7 @@ const Verify = ({ navigation, route }) => {
                         maxLength={maxLength}
                         navigation={navigation}
                         data={data}
+                        summaryData={summaryData}
                     />
 
 

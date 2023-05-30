@@ -8,12 +8,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const activeTintColor = "black"
 
 import HomeStack from './stacks/HomeStack';
-import History from '../mainScreen/History';
-import Settings from '../mainScreen/Settings';
-import Profile from '../mainScreen/Profile';
+import HistoryStack from './stacks/HistoryStack';
+import SettingsStack from './stacks/SettingsStack';
+import ProfileStack from './stacks/ProfileStack';
 
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+
 
 const TabNavigator = () => {
 
@@ -59,7 +60,7 @@ const TabNavigator = () => {
 
             <Tab.Screen
                 name="History"
-                component={History}
+                component={HistoryStack}
                 options={{
                     tabBarLabel: 'History',
                     tabBarIcon: ({ focused }) => (
@@ -71,7 +72,7 @@ const TabNavigator = () => {
 
             <Tab.Screen
                 name="Settings"
-                component={Settings}
+                component={SettingsStack}
                 options={{
                     tabBarLabel: 'Settings',
                     tabBarIcon: ({ focused }) => (
@@ -83,7 +84,7 @@ const TabNavigator = () => {
 
             <Tab.Screen
                 name="Profile"
-                component={Profile}
+                component={ProfileStack}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (

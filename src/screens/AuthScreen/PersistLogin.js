@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert } from 'react-native'
 import { color } from '../../constants/color'
 import { Logo, FingerPrint, image } from '../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -13,13 +13,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
-import TouchID from 'react-native-touch-id'
-import DeviceInfo from 'react-native-device-info';
 
-
-
-
-const Login = ({ navigation, route }) => {
+const PersistLogin = ({ navigation, route }) => {
 
     const [loading, setIsLoadking] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
@@ -29,22 +24,9 @@ const Login = ({ navigation, route }) => {
     const email = "skouhon@gmail.com"
 
     const Schema = Yup.object().shape({
-        login: Yup.string().email().required('Email field is required'),
+        login: Yup.string().required('Email field is required'),
         password: Yup.string().required('Password field is required'),
     });
-
-    const authenticate = async () => {
-        try {
-            const id = await TouchID.authenticate('to demo this react-native component')
-            console.log(id)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const hasFaceID = DeviceInfo.hasNotch();
-
-
 
     const Login = async (res) => {
 
@@ -84,9 +66,22 @@ const Login = ({ navigation, route }) => {
                 <View style={{ alignItems: "center", marginTop: s(50) }}>
                     <Image source={Logo} />
                 </View>
+
+                <View style={{ alignItems: "center", padding: ms(20), }}>
+                    <View style={styles.profileImage}>
+                        <Image source={image} style={{ width: s(80), height: vs(80), borderRadius: s(50), }} />
+                    </View>
+                    <View style={{ alignItems: "center", marginTop: s(20) }}>
+                        <Text style={{ color: "white", fontSize: s(14), fontWeight: "500" }}>Sanusi T. Segun</Text>
+                        <View style={{ flexDirection: "row", marginTop: s(20) }}>
+                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Not You?</Text>
+                            <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Switch Account</Text>
+                        </View>
+                    </View>
+                </View>
                 <View>
                     <Formik
-                        initialValues={{ login: "", password: "" }}
+                        initialValues={{ login: email, password: "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
@@ -99,17 +94,7 @@ const Login = ({ navigation, route }) => {
                             const { handleChange, values, handleSubmit } = props;
 
                             return (
-                                <View style={{ marginTop: s(60) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
-                                    <View style={styles.loginContainer2}>
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Enter Your Email Address'
-                                            onChangeText={handleChange('login')}
-                                            value={values}
-                                        />
-                                    </View>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                <>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -129,21 +114,18 @@ const Login = ({ navigation, route }) => {
                                     </View>
 
                                     <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                        <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                        <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Forget Password?</Text>
                                     </View>
-                                    <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
-                                    <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
-                                    </View>
-                                    {/* <View style={{ marginTop: s(20), alignItems: "center" }}>
-                                        <TouchableWithoutFeedback onPress={() => authenticate()} >
-                                            {hasFaceID ? <MaterialCommunityIcons name="face-recognition" color="white" size={s(40)} /> : <Image source={FingerPrint} />}
+                                    <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
+                                    {/* <View style={{ marginTop: s(40), alignItems: "center" }}>
+                                        <TouchableWithoutFeedback onPress={() => console.log("Finger Print")} >
+                                            <Image source={FingerPrint} style={{ width: s(40), height: vs(40), resizeMode: "contain" }}/>
                                         </TouchableWithoutFeedback>
                                         <View style={{ marginTop: s(13) }}>
-                                            <Text style={{ color: "white", fontSize: s(10), fontWeight: "500" }}>Login Options?</Text>
+                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "300" }}>Login Options?</Text>
                                         </View>
                                     </View> */}
-                                </View>
+                                </>
                             );
                         }}
                     </Formik>
@@ -182,21 +164,8 @@ const styles = StyleSheet.create({
         borderColor: "white",
         backgroundColor: color.colorOne,
         width: '100%',
-        height: s(50),
+        height: s(55),
         marginTop: '2%',
-    },
-    loginContainer2: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: s(1),
-        borderRadius: s(50),
-        padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
-        width: '100%',
-        height: s(50),
-        marginBottom: s(30),
     },
     input: {
         flex: 1,
@@ -207,10 +176,9 @@ const styles = StyleSheet.create({
     },
     btn: {
         backgroundColor: "white",
-        marginTop: s(28),
-        height: s(50)
+        marginTop: s(28)
     }
 })
 
-export default Login
+export default PersistLogin
 

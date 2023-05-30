@@ -2,17 +2,19 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from '../../AuthScreen/Login';
-import Register from '../../AuthScreen/Register';
-import Splash from '../../AuthScreen/SplashScreen';
-import PersistLogin from '../../AuthScreen/PersistLogin';
+import Settings from '../../mainScreen/Settings/Settings';
+
+
+
 
 const Stack = createNativeStackNavigator();
 
-const AuthSatck = () => {
+const SettingsStack = () => {
+
+
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            // initialRouteName="Home"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerTitle: '',
@@ -20,10 +22,7 @@ const AuthSatck = () => {
                 headerShown: false,
             })}
         >
-            <Stack.Screen name='Splash' component={Splash} />
-            <Stack.Screen name='login' component={Login} />
-            <Stack.Screen name='PersistLogin' component={PersistLogin} />
-            <Stack.Screen name='register' component={Register} />
+            <Stack.Screen name='Settings' component={Settings} />
         </Stack.Navigator>
     )
 }
@@ -32,5 +31,5 @@ const styles = StyleSheet.create({
 
 })
 
-export default AuthSatck
+export default SettingsStack
 

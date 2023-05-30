@@ -16,6 +16,9 @@ import PaymentMethod from '../../mainScreen/PaymentMethod'
 import AirtimeVerify from '../../mainScreen/Airtime&Data/AirtimeVerify';
 import DataVerify from '../../mainScreen/Airtime&Data/DataVerify';
 import LottieView from '../../../components/LottieView';
+import AirtimeSummary from '../../mainScreen/Airtime&Data/AirtimeSummary'
+import AirtimeCompleted from '../../mainScreen/Airtime&Data/AirtimeCompleted'
+
 
 
 const Stack = createNativeStackNavigator();
@@ -45,7 +48,8 @@ const HomeStack = () => {
             <Stack.Screen name='TransferPin' component={PinVerify} />
             <Stack.Screen name='AirtimeVerify' component={AirtimeVerify} />
             <Stack.Screen name='DataVerify' component={DataVerify} />
-            <Stack.Screen name='Lottie' component={LottieView} />
+            <Stack.Screen name='AirtimeSummary' component={AirtimeSummary} />
+            <Stack.Screen name='AirtimeCompleted' component={AirtimeCompleted} />
         </Stack.Navigator>
     )
 }

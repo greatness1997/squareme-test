@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { TextInput, View, Text, StyleSheet, Pressable, Alert } from 'react-native'
 import { color } from '../../../constants/color'
+import { useSelector } from 'react-redux'
 
 import cred from '../../../config'
 import axios from 'axios'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
-const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data }) => {
+const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, summaryData }) => {
     const [isContFocus, setIsConFocus] = useState(false)
     const inputRef = useRef(null)
     
@@ -43,16 +44,18 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
         
     }, [code])
 
+    const { auth: { user } } = useSelector(state => state)
+
     const makeTransfer = async() => {
         const url = `${cred.URL}/vas/transfer/payment`
-        const options = { headers: { Authorization: cred.API_KEY, Token: cred.TOKEN } }
+        const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
-            "phoneNumber": data.data.phoneNumber,
-            "narration": data.data.narration ? data.data.narration : "",
-            "transactionId": data.data.transactionId,
+            "phoneNumber": data.phoneNumber,
+            "narration": data.narration,
+            "transactionId": data.transactionId,
             "service": "transfer",
-            "senderName": data.data.senderName,
-            "uniqueId": data.data.uniqueId,
+            "senderName": data.senderName,
+            "uniqueId": data.uniqueId,
             "paymentMethod": "cash",
             "pin": code
         }
@@ -61,11 +64,14 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
 
         try {
             const data = await axios.post(url, body, options)
+            console.log(data.data)
 
             const { message, response, responseCode } = data.data
+            Alert.alert(`${message}`)
+            
             
             if(responseCode === "00"){
-                navigation.navigate("Completed", { data: response })
+                navigation.navigate("Completed", { data: response, summaryData })
             }
 
             

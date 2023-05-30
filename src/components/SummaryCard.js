@@ -11,14 +11,13 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 
 const SummaryCard = ({ data }) => {
+    // const fullName = data.tranRes.name; // "OTOKINA GREATNESS OMOKHAFE"
 
-    const fullName = data.tranRes.name; // "OTOKINA GREATNESS OMOKHAFE"
+    // const names = fullName.split(" "); // Split the full name by spaces
 
-    const names = fullName.split(" "); // Split the full name by spaces
-
-    const firstName = names[0]; // "OTOKINA"
-    const lastName = names.slice(1, -1).join(" "); // "GREATNESS"
-    const surname = names[names.length - 1];
+    // const firstName = names[0]; // "OTOKINA"
+    // const lastName = names.slice(1, -1).join(" "); // "GREATNESS"
+    // const surname = names[names.length - 1];
 
     const format = new Intl.NumberFormat("en-US", {
         minimumIntegerDigits: 2,
@@ -48,11 +47,11 @@ const SummaryCard = ({ data }) => {
                 <View style={{ marginTop: s(18) }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18) }}>
                         <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.res.amount)}`}</Text>
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.res.amount)}`}</Text>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(14) }}>
-                        <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Fee</Text>
-                        <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(10)}`}</Text>
+                        <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Bank</Text>
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.res.banks}</Text>
                     </View>
                 </View>
                 <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: s(18) }}></View>

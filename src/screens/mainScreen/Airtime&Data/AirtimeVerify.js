@@ -39,10 +39,8 @@ const AirtimeVerify = ({ navigation, route }) => {
                         maxLength={maxLength}
                         navigation={navigation}
                         data={data}
+                        secureTextEntry={true}
                     />
-
-
-
                 </View>
             {/* </Pressable> */}
         </View>
