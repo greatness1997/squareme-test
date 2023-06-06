@@ -17,7 +17,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import moment from 'moment'
 import { Print } from '../../../constants/images'
 import { color } from '../../../constants/color';
-import AirtimeVerify from './AirtimeVerify';
+import ElectricityVerify from './ElectricityVerify';
 
 
 import "intl"
@@ -25,12 +25,12 @@ import "intl/locale-data/jsonp/en";
 
 
 
-const Summary = ({ navigation, route }) => {
+const ElectricitySummary = ({ navigation, route }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
 
-    const data = route.params
-   
+    const { data, image } = route.params
+    console.log(data)
 
     const date = moment().format('DD-MM-YYYY')
 
@@ -44,24 +44,26 @@ const Summary = ({ navigation, route }) => {
     return (
         <View style={{ flex: 1, marginTop: s(60), marginLeft: s(16), width: "90%" }}>
 
-            <View style={{ flexDirection: "row", marginBottom: s(35) }}>
-                <TouchableWithoutFeedback onPress={() => navigation.goBack()}> 
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center",  }}>
+                <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
                 </TouchableWithoutFeedback>
 
-                <View style={{ justifyContent: "center", marginLeft: s(80), }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "600" }}>Airtime Summary</Text>
-                </View>
+                <Text style={{ fontSize: s(16), fontWeight: "600" }}>Electricity</Text>
+                    
+            <Text></Text>
             </View>
-            <Image source={data.networkImage} style={styles.image}/>
-           
+            <View style={{ alignItems: "center" }}> 
+            <Image source={image} style={styles.image} />
+            </View>
+            
 
             <View style={styles.container}>
-            
-                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
-                    {/* <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.data.name}</Text> */}
-                    <Text style={{ marginBottom: s(10), color: "#e66e54" }}>Beneficiary details</Text>
-                    <Text style={{ fontSize: 16, fontWeight: "600", color: "#2e2e2e" }}>{data.data.phoneNumber}</Text>
+
+                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(0) }}>
+                    <Text style={{ marginBottom: s(5), color: "#e66e54" }}>Meter account details</Text>
+                    <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.response.name}</Text>
+                    <Text style={{ fontSize: 16, fontWeight: "600", color: "#3c68fa" }}>{data.response.account}</Text>
                 </View>
                 <View style={{ marginTop: s(20) }}>
                     {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
@@ -69,28 +71,29 @@ const Summary = ({ navigation, route }) => {
                         <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorThree }}>{data.RN}</Text>
                     </View> */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.data.amount)}` }</Text>
+                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Phone Number</Text>
+                                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Reference</Text>
-                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
+                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
+                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.amount)}` }</Text> */}
+        
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Fee</Text>
+                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text> */}
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
                         <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
-                    </View>
 
                 </View>
-               
+
             </View>
 
 
-            <SwipeButton  style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)}/>
+            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} />
             <Modal
                 visible={modalVisible}
                 animationType='slide'
@@ -99,10 +102,10 @@ const Summary = ({ navigation, route }) => {
                 <View style={styles.modalScreen}>
                     <View style={styles.transparentContainer}></View>
                     <View style={styles.contentContainer}>
-                    <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
-                        <MaterialCommunityIcons name="close-circle" size={30} />
-                    </TouchableOpacity>
-                        <AirtimeVerify data={data} navigation={navigation} setModalVisible={setModalVisible}/>
+                        <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
+                            <MaterialCommunityIcons name="close-circle" size={30} />
+                        </TouchableOpacity>
+                        <ElectricityVerify data={data} navigation={navigation} setModalVisible={setModalVisible} />
                     </View>
                 </View>
 
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: s(45),
         marginTop: '2%',
-        
+
     },
     input: {
         flex: 1
@@ -137,15 +140,16 @@ const styles = StyleSheet.create({
         // alignItems: "center",
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
-        marginTop: 10,
+        marginTop: s(20),
         padding: 20
     },
     image: {
-        position: "absolute",
-        top: 50,
-        left: "60%",
-        transform: [{ translateX: -s(50) }],
-        zIndex: 1,
+        position: "relative",
+        // top: 20,
+        // transform: [{ translateX: -s(50) }],
+        // zIndex: 1,
+        width: 70,
+        height: 70
     },
     modalScreen: {
         flex: 1,
@@ -168,4 +172,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Summary
+export default ElectricitySummary

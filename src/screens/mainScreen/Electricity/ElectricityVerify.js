@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, Keyboard } from 'react-native'
 import KeyboardAvoidingViewNB from '../../../components/KeyboardAvoidingView'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import AirtimeOTP from './AirtimeOTP'
+import ElectricityPin from './ElectricityPin'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
 
-const AirtimeVerify = ({ navigation, data, setModalVisible }) => {
+const ElectricityVerify = ({ navigation, data, setModalVisible }) => {
 
     // const data = route.params
-
     const [code, setCode] = useState('')
     const [pinReady, setPinReady] = useState(false)
     const maxLength = 4
@@ -20,26 +19,28 @@ const AirtimeVerify = ({ navigation, data, setModalVisible }) => {
     return (
         <View style={styles.container}>
             {/* <Pressable onPress={Keyboard.dismiss}> */}
-          
+           
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginLeft: 20 }}>
                     
                     <View style={styles.textCont}>
-                        <Text style={styles.text2}>Enter Transcation Pin To</Text>
-                        <Text style={styles.text1}>Complete Transfer</Text>
+                        <Text style={styles.text2}>Enter To Complete</Text>
+                        <Text style={styles.text1}>Transfer</Text>
                     </View>
                 </View>
                 <View>
 
-                    <AirtimeOTP
+                    <ElectricityPin
                         code={code}
                         setCode={setCode}
                         setPinReady={setPinReady}
                         maxLength={maxLength}
                         navigation={navigation}
                         data={data}
-                        secureTextEntry={true}
                         setModalVisible={setModalVisible}
                     />
+
+
+
                 </View>
             {/* </Pressable> */}
         </View>
@@ -84,19 +85,6 @@ const styles = StyleSheet.create({
     //     marginTop: 10,
     //     fontStyle: 'italic'
     // }
-    // duration: {
-    //     justifyContent: 'center',
-    //     alignItems: 'center'
-    // },
-    // durationT1: {
-    //     fontSize: 15
-    // },
-    // durationT2: {
-    //     fontSize: 17,
-    //     fontWeight: 'bold',
-    //     marginTop: 10,
-    //     fontStyle: 'italic'
-    // }
 });
 
-export default AirtimeVerify
+export default ElectricityVerify

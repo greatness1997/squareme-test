@@ -17,7 +17,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import moment from 'moment'
 import { Print } from '../../../constants/images'
 import { color } from '../../../constants/color';
-import AirtimeVerify from './AirtimeVerify';
+import DataVerify from './DataVerify';
 
 
 import "intl"
@@ -25,11 +25,12 @@ import "intl/locale-data/jsonp/en";
 
 
 
-const Summary = ({ navigation, route }) => {
+const DataSummary = ({ navigation, route }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
 
     const data = route.params
+    console.log(data, "from summary")
    
 
     const date = moment().format('DD-MM-YYYY')
@@ -50,7 +51,7 @@ const Summary = ({ navigation, route }) => {
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(80), }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "600" }}>Airtime Summary</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "600" }}>Data Summary</Text>
                 </View>
             </View>
             <Image source={data.networkImage} style={styles.image}/>
@@ -70,7 +71,7 @@ const Summary = ({ navigation, route }) => {
                     </View> */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.data.amount)}` }</Text>
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.amount)}` }</Text>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Reference</Text>
@@ -102,7 +103,7 @@ const Summary = ({ navigation, route }) => {
                     <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
                         <MaterialCommunityIcons name="close-circle" size={30} />
                     </TouchableOpacity>
-                        <AirtimeVerify data={data} navigation={navigation} setModalVisible={setModalVisible}/>
+                        <DataVerify data={data} navigation={navigation} setModalVisible={setModalVisible} />
                     </View>
                 </View>
 
@@ -168,4 +169,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Summary
+export default DataSummary

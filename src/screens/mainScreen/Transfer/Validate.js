@@ -81,11 +81,18 @@ const Validate = ({ navigation }) => {
             const data = await axios.post(url, body, options)
 
             const { message, response, transactionId, responseCode } = data.data
+            if (responseCode === "00") {
+                setBeneficiary(message)
+                setTranId(transactionId)
+                setTranRes(response)
+                setAnError(null)
+            }else{
+                Alert.alert(`${message}`)
+                setBeneficiary(message)
+                setAnError(message)
+            }
 
 
-            setBeneficiary(message)
-            setTranId(transactionId)
-            setTranRes(response)
 
         } catch (error) {
             setAnError(error.response.data)
@@ -206,7 +213,7 @@ const Validate = ({ navigation }) => {
                                         </View>
                                     </View>
                                 )}
-                                {visible === true && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(30) }} />)}
+                                {visible === true && anError == null && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(30) }} />)}
                             </View>
 
 
@@ -274,20 +281,20 @@ const styles = StyleSheet.create({
     modalScreen: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      },
-      transparentContainer: {
+    },
+    transparentContainer: {
         flex: 1,
         backgroundColor: 'transparent',
-      },
-      contentContainer: {
+    },
+    contentContainer: {
         flex: 1,
-        backgroundColor: 'white', 
+        backgroundColor: 'white',
         borderTopLeftRadius: s(20),
         borderTopRightRadius: s(20),
         paddingHorizontal: s(20),
         paddingVertical: s(10),
         height: Dimensions.get('window').height * 0.7,
-      },
+    },
 
     emailContainer: {
         flexDirection: 'row',
@@ -344,7 +351,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: s(20),
         paddingVertical: s(10),
     },
-    
+
 })
 
 export default Validate

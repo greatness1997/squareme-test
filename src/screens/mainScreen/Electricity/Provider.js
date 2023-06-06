@@ -7,7 +7,7 @@ import {s} from 'react-native-size-matters'
 const Provider = ({ navigation }) => {
     return (
         <>
-            <View style={{ flexDirection: "row", marginTop: s(35), marginLeft: s(15) }}>
+            <View style={{ flexDirection: "row", marginTop: s(40), marginLeft: s(15) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
                 </TouchableWithoutFeedback>
@@ -18,49 +18,49 @@ const Provider = ({ navigation }) => {
             </View>
             <Text style={{ fontSize: 15, fontWeight: "500", marginTop: s(35), marginLeft: s(20) }}>Choose a provider to continue</Text>
             <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-evenly", padding: s(8), marginTop: s(10), width: "100%" }}>
-                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: ekedc, name: "ekedc"})}>
                     <ImageBackground
                         source={ekedc}
-                        style={{ height: s(100), width: s(100), alignItems: "center", justifyContent: "center" }}
+                        style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: ikedc, name: "ikedc"})}>
                     <ImageBackground
                         source={ikedc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: abdc, name: "aedc"})}>
                     <ImageBackground
                         source={abdc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: ibedc, name: "ibedc"})}>
                     <ImageBackground
                         source={ibedc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: phdc, name: "phedc"})}>
                     <ImageBackground
                         source={phdc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: eedc, name: "eedc"})}>
                     <ImageBackground
                         source={eedc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: kadc, name: "kedco"})}> 
                     <ImageBackground
                         source={kadc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
@@ -68,14 +68,15 @@ const Provider = ({ navigation }) => {
 
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: aa, name: "jedc"})}>
                     <ImageBackground
                         source={aa}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
                     >
 
                     </ImageBackground>
-                </TouchableOpacity><TouchableOpacity>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: bedc})}> 
                     <ImageBackground
                         source={bedc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}
@@ -83,7 +84,7 @@ const Provider = ({ navigation }) => {
 
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: kdc, name: "kadec"})}>
                     <ImageBackground
                         source={kdc}
                         style={{ height: 100, width: 100, alignItems: "center", justifyContent: "center" }}

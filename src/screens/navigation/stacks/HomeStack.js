@@ -18,7 +18,9 @@ import DataVerify from '../../mainScreen/Airtime&Data/DataVerify';
 import LottieView from '../../../components/LottieView';
 import AirtimeSummary from '../../mainScreen/Airtime&Data/AirtimeSummary'
 import AirtimeCompleted from '../../mainScreen/Airtime&Data/AirtimeCompleted'
-
+import DataSummary from '../../mainScreen/Airtime&Data/DataSummary';
+import DataCompleted from '../../mainScreen/Airtime&Data/DataCompleted';
+import ElectricitySummary from '../../mainScreen/Electricity/ElectricitySummary';
 
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +52,9 @@ const HomeStack = () => {
             <Stack.Screen name='DataVerify' component={DataVerify} />
             <Stack.Screen name='AirtimeSummary' component={AirtimeSummary} />
             <Stack.Screen name='AirtimeCompleted' component={AirtimeCompleted} />
+            <Stack.Screen name='DataSummary' component={DataSummary} />
+            <Stack.Screen name='ElectricitySummary' component={ElectricitySummary} />
+            <Stack.Screen name='DataCompleted' component={DataCompleted} />
         </Stack.Navigator>
     )
 }

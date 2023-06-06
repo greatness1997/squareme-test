@@ -34,6 +34,8 @@ const History = () => {
     const [endText, setEndText] = useState('')
     const [itemValue, setItemValue] = useState()
 
+    console.log(startText)
+
 
 
     const onChange = (selectedDate) => {
@@ -59,6 +61,7 @@ const History = () => {
     const formatDate = (date) => {
         if (!date) return '';
         return moment(date).format('MMM DD, YYYY');
+        
       };
 
 
@@ -182,7 +185,7 @@ const History = () => {
                                         <Text style={{ marginRight: s(4) }}>From</Text>
                                         <View style={styles.dateContainer}>
                                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" style={{ marginRight: s(10) }} />
-                                            <Text>{startText !== "" ? formatDate(startText) : "Start Date"} </Text>
+                                            <Text>{startText !== "" ? startText : "Start Date"} </Text>
                                         </View>
                                     </TouchableOpacity>
 
@@ -191,7 +194,7 @@ const History = () => {
                                         <Text style={{ marginRight: s(4) }}>To</Text>
                                         <View style={styles.dateContainer}>
                                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" style={{ marginRight: s(10) }} />
-                                            <Text>{endText !== "" ? formatDate(endText) : "End Date"}</Text>
+                                            <Text>{endText !== "" ? endText : "End Date"}</Text>
                                         </View>
                                     </TouchableOpacity>
 

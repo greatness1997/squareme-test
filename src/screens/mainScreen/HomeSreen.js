@@ -17,6 +17,10 @@ const HomeScreen = ({ navigation }) => {
     const [showBalance, setShowBalance] = useState(false)
     const [visible, setVisible] = useState(false)
     const [balance, setBalance] = useState(0.00)
+    const [userData, setUserData] = useState({
+        "firstName":"N/a",
+        "lastName":"N/a"
+    })
 
     const hiddenBal = "*****"
 
@@ -35,12 +39,26 @@ const HomeScreen = ({ navigation }) => {
         }
     }
 
+    const getProfile = async () => {
+        const url = `${cred.URL}/user/profile`
+        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+
+        try {
+            const response = await axios.get(url, options)
+            const { user, message, status } = response.data
+            setUserData(user)
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
     useEffect(() => {
         getBalance()
+        getProfile()
     }, [])
 
-    const name = `${user.firstName}`
-    const secondName = `${user.lastName}`
+    const name = `${userData.firstName}`
+    const secondName = `${userData.lastName}`
 
     const nameOne = name.replace(/^\w/, c => c.toUpperCase())
     const nameTwo = secondName.replace(/^\w/, c => c.toUpperCase())
@@ -228,6 +246,7 @@ const styles = StyleSheet.create({
     balanceText: {
         fontSize: s(22),
         fontWeight: 'bold',
+        fontFamily: "PingFangTC-Semibold",
         color: "white",
         marginTop: s(2),
         textShadowColor: 'rgba(0, 0, 0, 0.8)',
@@ -236,6 +255,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: s(15),
         fontWeight: '500',
+        fontFamily: "DamascusBold",
         color: "white",
         marginTop: s(10),
         textShadowColor: 'rgba(0, 0, 0, 0.8)',

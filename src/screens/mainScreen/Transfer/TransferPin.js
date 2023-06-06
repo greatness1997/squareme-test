@@ -8,9 +8,10 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
 
-const Verify = ({ navigation, route }) => {
 
-    const { data, summaryData } = route.params
+const Verify = ({ navigation, data, summaryData, setModalVisible }) => {
+
+    
 
     const [code, setCode] = useState('')
     const [pinReady, setPinReady] = useState(false)
@@ -20,14 +21,11 @@ const Verify = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             {/* <Pressable onPress={Keyboard.dismiss}> */}
-            <TouchableOpacity style={styles.iconCont} onPress={() => navigation.navigate('Home')}>
-                        <MaterialCommunityIcons name="close-circle" size={30} />
-                    </TouchableOpacity>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginLeft: 20 }}>
                     
                     <View style={styles.textCont}>
-                        <Text style={styles.text2}>Enter To Complete</Text>
-                        <Text style={styles.text1}>Transfer</Text>
+                        <Text style={styles.text2}>Enter Transaction Pin To</Text>
+                        <Text style={styles.text1}>Complete Transfer</Text>
                     </View>
                 </View>
                 <View>
@@ -40,6 +38,7 @@ const Verify = ({ navigation, route }) => {
                         navigation={navigation}
                         data={data}
                         summaryData={summaryData}
+                        setModalVisible={setModalVisible}
                     />
 
 
@@ -57,25 +56,23 @@ const styles = StyleSheet.create({
     },
     text2: {
         fontSize: s(16),
-        marginTop: s(8),
         fontWeight: "bold"
     },
+
     text1: {
         fontSize: s(16),
-        marginTop: s(3),
+        marginTop: s(4),
         fontWeight: "bold"
     },
+   
     iconCont: {
         marginLeft: s(8),
-        marginTop: s(8)
     }, 
     container: {
         backgroundColor: "white",
         width: "90%",
-        height: s(240),
         marginLeft: s(18),
         borderRadius: s(18),
-        marginTop: s(130)
     },
     // duration: {
     //     justifyContent: 'center',

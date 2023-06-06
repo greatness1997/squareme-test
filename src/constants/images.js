@@ -1,5 +1,6 @@
 export const backgroundImage = require('../assets/balanceCard.png');
 export const Logo = require('../assets/logo.png');
+export const Lock = require('../assets/lock.png');
 export const Add = require('../assets/add.png');
 export const Send = require('../assets/send.png');
 export const ServiceView = require('../assets/serviceView.png');

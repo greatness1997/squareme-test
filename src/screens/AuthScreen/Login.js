@@ -133,7 +133,7 @@ const Login = ({ navigation, route }) => {
                                     </View>
                                     <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
+                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
                                     </View>
                                     {/* <View style={{ marginTop: s(20), alignItems: "center" }}>
                                         <TouchableWithoutFeedback onPress={() => authenticate()} >

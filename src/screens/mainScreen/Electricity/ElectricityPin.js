@@ -1,17 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { TextInput, View, Text, StyleSheet, Pressable, Alert } from 'react-native'
 import { color } from '../../../constants/color'
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux"
 
 import cred from '../../../config'
 import axios from 'axios'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
-const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, summaryData, setModalVisible }) => {
+const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, data, setModalVisible }) => {
     const [isContFocus, setIsConFocus] = useState(false)
     const inputRef = useRef(null)
     
+    // const network = data.networkName.toLowerCase()
+    const network = data.networkName === "Airtel" || data.networkName === "Glo" || data.networkName === "Mtn" ? data.networkName.toLowerCase() : data.networkName
 
     const digitArray = new Array(maxLength).fill(0)
 
@@ -21,9 +23,9 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
         const digit = code[index] || '';
         const displayDigit = digit ? '*' : '';
 
-        return(
+        return (
             <View style={styles.box} key={index}>
-                 <Text style={styles.text}>{displayDigit}</Text>
+                <Text style={styles.text}>{displayDigit}</Text>
             </View>
         )
     }
@@ -39,7 +41,7 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
 
     useEffect(() => {
         if(code.length === maxLength){
-            makeTransfer()
+            dataPayment()
             setCode('')
         }
        
@@ -48,39 +50,45 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
 
     const { auth: { user } } = useSelector(state => state)
 
-    const makeTransfer = async() => {
-        const url = `${cred.URL}/vas/transfer/payment`
+     //generate uniqueId
+     const generateUniqueId = () => {
+        const d = new Date();
+        const n = d.getTime();
+        const p = user.firstName.substring(0, 5).toUpperCase();
+
+        return `${p}-${n}`;
+    };
+
+    const dataPayment = async() => {
+        const url = `${cred.URL}/vas/data/payment`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
-            "phoneNumber": data.phoneNumber,
-            "narration": data.narration,
-            "transactionId": data.transactionId,
-            "service": "transfer",
-            "senderName": data.senderName,
-            "uniqueId": data.uniqueId,
+            "phoneNumber": data.data.phoneNumber,
+            "transactionId": data.tranId,
+            "uniqueId": generateUniqueId(),
+            "amount": data.amount,
+            "code": data.itemCode,
+            "service": `${network}data`,
             "paymentMethod": "cash",
             "pin": code
-        }
+          }
 
-        console.log(body)
 
         try {
             const data = await axios.post(url, body, options)
-            console.log(data.data)
 
             const { message, response, responseCode, transactionStatus } = data.data
-            Alert.alert(`${message}`)
             setModalVisible(false)
-            
-            
-            if(responseCode === "00"){
-                navigation.navigate("Completed", { data: response, summaryData })
-            }else{
+
+            if (responseCode === "00") {
+                navigation.navigate("DataCompleted", { data: response })
+
+            } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
             }
-
             
         } catch (error) {
+            console.log(error.response.data)
             const { message } = error.response.data
             Alert.alert(`${message}`)
         }
@@ -126,20 +134,20 @@ const styles = StyleSheet.create({
         padding: s(10),
         borderRadius: 5,
         marginRight: s(10)
-     },
-     container: {
-         width: '70%',
-         flexDirection: 'row',
-         justifyContent: 'space-between',
-         marginLeft: s(45),
-         marginBottom: s(15)
-     },
-     text: {
-         fontSize: s(25),
-         fontWeight: 'bold',
-         textAlign: 'center',
-         color: "black"
-     }
+    },
+    container: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: s(45),
+        marginBottom: s(18)
+    },
+    text: {
+        fontSize: s(25),
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: "black"
+    }
 });
 
-export default InputFieldOTP
+export default ElectricityPin

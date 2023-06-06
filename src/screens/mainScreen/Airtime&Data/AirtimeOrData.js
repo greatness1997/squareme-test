@@ -11,6 +11,7 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 // import { useSelector } from 'react-redux'
+import KeyboardAvoidingViewNB from '../../../components/KeyboardAvoidingView'
 
 const AirtimeData = ({ navigation, route }) => {
 
@@ -53,11 +54,11 @@ const AirtimeData = ({ navigation, route }) => {
 
     useEffect(() => {
         if (phase === 2) {
-          setValue('', null);
-        }else if (phase === 1){
+            setValue('', null);
+        } else if (phase === 1) {
             setValue('', null)
         }
-      }, [phase]);
+    }, [phase]);
 
     const Schema = Yup.object().shape({
         amount: Yup.string().required('Enter amount'),
@@ -123,99 +124,100 @@ const AirtimeData = ({ navigation, route }) => {
                 </TouchableOpacity>
 
             </View>
+            <ScrollView>
+                {phase === 1 && (<View style={{ alignItems: "center", marginTop: s(35) }}>
+                    <Formik
+                        initialValues={{ phoneNumber: "", amount: "" }}
+                        enableReinitialize={true}
+                        onSubmit={(values) => {
+                            Schema.validate(values)
+                                .then((res) => {
+                                    navigation.navigate("AirtimeSummary", { data: res, networkName: networkValue.name ? networkValue.name : "mtn", networkImage: networkValue.image ? networkValue.image : mtn })
+                                })
+                                .catch((err) => Alert.alert('Please provide proper details',));
+                        }}>
+                        {(props) => {
+                            const { handleChange, values, handleSubmit } = props;
 
-            {phase === 1 && (<View style={{ alignItems: "center", marginTop: s(35) }}>
-                <Formik
-                    initialValues={{ phoneNumber: "", amount: "" }}
-                    enableReinitialize={true}
-                    onSubmit={(values) => {
-                        Schema.validate(values)
-                            .then((res) => {
-                                navigation.navigate("AirtimeSummary", { data: res, networkName: networkValue.name ? networkValue.name : "mtn", networkImage: networkValue.image ? networkValue.image : mtn })
-                            })
-                            .catch((err) => Alert.alert('Please provide proper details',));
-                    }}>
-                    {(props) => {
-                        const { handleChange, values, handleSubmit } = props;
+                            return (
+                                <>
+                                    <View>
+                                        <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
+                                        <View style={styles.loginContainer}>
+                                            <TextInput
+                                                style={styles.input}
+                                                placeholder='Phone Number'
+                                                onChangeText={handleChange('phoneNumber')}
+                                                keyboardType='numeric'
+                                                maxLength={11}
+                                                value={values}
+                                            />
+                                            <Image source={networkValue.image ? networkValue.image : mtn} style={{ width: s(35), height: s(35) }} />
+                                            <TouchableWithoutFeedback style={styles.serviceContainer} onPress={() => setModalVisible(true)} >
+                                                <MaterialCommunityIcons name='chevron-down' size={30} />
+                                            </TouchableWithoutFeedback>
+                                        </View>
+                                        <Text style={{ marginLeft: 5 }}>Enter Amount</Text>
+                                        <View style={styles.loginContainer}>
+                                            <TextInput
+                                                style={styles.input}
+                                                placeholder='Amount'
+                                                onChangeText={handleChange('amount')}
+                                                keyboardType='numeric'
+                                                value={values}
+                                            />
+                                        </View>
 
-                        return (
-                            <>
-                                <View>
-                                    <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
-                                    <View style={styles.loginContainer}>
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Phone Number'
-                                            onChangeText={handleChange('phoneNumber')}
-                                            keyboardType='numeric'
-                                            maxLength={11}
-                                            value={values}
-                                        />
-                                        <Image source={networkValue.image ? networkValue.image : mtn} style={{ width: s(35), height: s(35) }} />
-                                        <TouchableWithoutFeedback style={styles.serviceContainer} onPress={() => setModalVisible(true)} >
-                                            <MaterialCommunityIcons name='chevron-down' size={30} />
-                                        </TouchableWithoutFeedback>
-                                    </View>
-                                    <Text style={{ marginLeft: 5 }}>Enter Amount</Text>
-                                    <View style={styles.loginContainer}>
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Amount'
-                                            onChangeText={handleChange('amount')}
-                                            keyboardType='numeric'
-                                            value={values}
-                                        />
-                                    </View>
-
-                                    <Modal
-                                        visible={modalVisible}
-                                        animationType='slide'
-                                        transparent={true}
-                                    >
+                                        <Modal
+                                            visible={modalVisible}
+                                            animationType='slide'
+                                            transparent={true}
+                                        >
 
 
-                                        <View style={styles.modalScreen}>
-                                            <View style={styles.transparentContainer}></View>
-                                            <View style={styles.contentContainer}>
+                                            <View style={styles.modalScreen}>
+                                                <View style={styles.transparentContainer}></View>
+                                                <View style={styles.contentContainer}>
 
-                                            <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
-                                                <TouchableWithoutFeedback onPress={close}>
-                                                    <MaterialCommunityIcons name="close-circle" size={s(22)} />
-                                                </TouchableWithoutFeedback>
-                                            </View>
-
-                                            {network.map((item, key) => {
-                                                return (
-                                                    <View>
-                                                        <TouchableOpacity style={styles.networkContainer} onPress={() => { close(); setValue(item.name, item.image); }}>
-                                                            <Image source={item.image} style={{ width: s(35), height: s(35) }} />
-                                                            <Text style={{ marginLeft: s(25), fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Airtime`}</Text>
-                                                        </TouchableOpacity>
-                                                        <View style={{ width: "90%", height: s(1), backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
+                                                    <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
+                                                        <TouchableWithoutFeedback onPress={close}>
+                                                            <MaterialCommunityIcons name="close-circle" size={s(22)} />
+                                                        </TouchableWithoutFeedback>
                                                     </View>
-                                                )
-                                            })}
 
-                                        </View>
-                                        </View>
-                                    </Modal>
+                                                    {network.map((item, key) => {
+                                                        return (
+                                                            <View>
+                                                                <TouchableOpacity style={styles.networkContainer} onPress={() => { close(); setValue(item.name, item.image); }}>
+                                                                    <Image source={item.image} style={{ width: s(35), height: s(35) }} />
+                                                                    <Text style={{ marginLeft: s(25), fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Airtime`}</Text>
+                                                                </TouchableOpacity>
+                                                                <View style={{ width: "90%", height: s(1), backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
+                                                            </View>
+                                                        )
+                                                    })}
+
+                                                </View>
+                                            </View>
+                                        </Modal>
 
 
 
-                                </View>
-                                <AppButton title="Buy Airtime" style={{ width: "90%", marginLeft: s(8) }} onPress={handleSubmit} />
-                            </>
-                        );
+                                    </View>
+                                    <AppButton title="Buy Airtime" style={{ width: "90%", marginLeft: s(8) }} onPress={handleSubmit} />
+                                </>
+                            );
 
-                    }}
+                        }}
 
-                </Formik>
+                    </Formik>
 
 
-            </View>)}
-
+                </View>)}
+            </ScrollView>
 
             {/* phase 2  */}
+
 
             {phase === 2 && (<View style={{ alignItems: "center", marginTop: s(35) }}>
                 <Formik
@@ -224,7 +226,7 @@ const AirtimeData = ({ navigation, route }) => {
                     onSubmit={(values) => {
                         Schema1.validate(values)
                             .then((res) => {
-                                navigation.navigate("DataVerify", { data: res, networkName: networkValue.name ? networkValue.name : "mtn", itemCode: itemCode, tranId: tranId, amount: amnt })
+                                navigation.navigate("DataSummary", { data: res, networkName: networkValue.name ? networkValue.name : "mtn", itemCode: itemCode, tranId: tranId, amount: amnt, networkImage: networkValue.image ? networkValue.image : mtn })
                             })
                             .catch((err) => Alert.alert('Please provide proper details',));
                     }}>

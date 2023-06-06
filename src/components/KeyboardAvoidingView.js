@@ -1,20 +1,23 @@
-import React from 'react';
-import { StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React from "react";
+import { 
+    KeyboardAvoidingView,
+    ScrollView, 
+    TouchableWithoutFeedback, 
+    Keyboard } 
+from 'react-native'
 
-export default function KeyboardAvoidingViewNB(props) {
-  const { children } = props;
 
-  return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-      <ScrollView>{children}</ScrollView>
-    </KeyboardAvoidingView>
-  );
+
+const KeyboardAvoidView = ({ children }) => {
+    return (
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <ScrollView>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    {children}
+                </TouchableWithoutFeedback>
+            </ScrollView>
+        </KeyboardAvoidingView>
+    )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-    backgroundColor: 'white',
-  },
-});
+export default KeyboardAvoidView

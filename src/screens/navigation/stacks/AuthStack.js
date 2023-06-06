@@ -6,6 +6,8 @@ import Login from '../../AuthScreen/Login';
 import Register from '../../AuthScreen/Register';
 import Splash from '../../AuthScreen/SplashScreen';
 import PersistLogin from '../../AuthScreen/PersistLogin';
+import AuthOTP from '../../AuthScreen/AuthOTP';
+import TransactionPin from '../../AuthScreen/TransactionPin';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ const AuthSatck = () => {
             <Stack.Screen name='login' component={Login} />
             <Stack.Screen name='PersistLogin' component={PersistLogin} />
             <Stack.Screen name='register' component={Register} />
+            <Stack.Screen name='authOTP' component={AuthOTP} />
+            <Stack.Screen name='createPin' component={TransactionPin} />
         </Stack.Navigator>
     )
 }
