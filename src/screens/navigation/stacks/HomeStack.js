@@ -21,6 +21,7 @@ import AirtimeCompleted from '../../mainScreen/Airtime&Data/AirtimeCompleted'
 import DataSummary from '../../mainScreen/Airtime&Data/DataSummary';
 import DataCompleted from '../../mainScreen/Airtime&Data/DataCompleted';
 import ElectricitySummary from '../../mainScreen/Electricity/ElectricitySummary';
+import ElectricityCompleted from '../../mainScreen/Electricity/ElectricityCompleted';
 
 
 const Stack = createNativeStackNavigator();
@@ -55,6 +56,7 @@ const HomeStack = () => {
             <Stack.Screen name='DataSummary' component={DataSummary} />
             <Stack.Screen name='ElectricitySummary' component={ElectricitySummary} />
             <Stack.Screen name='DataCompleted' component={DataCompleted} />
+            <Stack.Screen name='ElectricityComplete' component={ElectricityCompleted} />
         </Stack.Navigator>
     )
 }

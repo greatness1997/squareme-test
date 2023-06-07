@@ -59,7 +59,7 @@ const Validate = ({ navigation }) => {
         banks: Yup.string().required('Please enter a bank name'),
         accountNo: Yup.string().required('Account Number is Required'),
         amount: Yup.string().required('Enter Amount is Required'),
-        narration: Yup.string().required('Account Number is Required'),
+        narration: Yup.string().required('Narration is Required'),
     });
 
     const { auth: { user } } = useSelector(state => state)
@@ -79,10 +79,11 @@ const Validate = ({ navigation }) => {
 
         try {
             const data = await axios.post(url, body, options)
+            console.log(data.data)
 
             const { message, response, transactionId, responseCode } = data.data
             if (responseCode === "00") {
-                setBeneficiary(message)
+                setBeneficiary(response.name )
                 setTranId(transactionId)
                 setTranRes(response)
                 setAnError(null)
@@ -292,8 +293,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: s(20),
         borderTopRightRadius: s(20),
         paddingHorizontal: s(20),
-        paddingVertical: s(10),
-        height: Dimensions.get('window').height * 0.7,
+        paddingVertical: s(20),
+      
     },
 
     emailContainer: {
@@ -329,6 +330,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         flex: 1,
+       
     },
     bankList: {
         flexDirection: "row",

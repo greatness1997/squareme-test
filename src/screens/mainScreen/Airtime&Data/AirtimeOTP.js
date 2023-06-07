@@ -7,10 +7,12 @@ import cred from '../../../config'
 import axios from 'axios'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import LoadingScreen from '../../../components/Loading'
 
 
 const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTextEntry, setModalVisible }) => {
     const [isContFocus, setIsConFocus] = useState(false)
+    const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
 
     const network = data.networkName === "Airtel" || data.networkName === "Glo" ? data.networkName.toLowerCase() : data.networkName
@@ -62,6 +64,7 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
     };
 
     const makeTransfer = async () => {
+        setIsLoading(true)
         const url = `${cred.URL}/vas/airtime/purchase`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
@@ -82,13 +85,19 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
             setModalVisible(false)
 
             if (responseCode === "00") {
+                setModalVisible(false)
+                setIsLoading(false)
                 navigation.navigate("AirtimeCompleted", { data: response })
 
             } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
+                setModalVisible(false)
+                setIsLoading(false)
             }
 
         } catch (error) {
+            setModalVisible(false)
+            setIsLoading(false)
             const { message } = error.response.data
             Alert.alert(`${message}`)
         }
@@ -116,6 +125,7 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
                     secureTextEntry={true}
                 />
             </View>
+            { loading && <LoadingScreen /> }
         </>
     )
 }

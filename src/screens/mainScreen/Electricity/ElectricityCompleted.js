@@ -10,16 +10,20 @@ import Lottie from "lottie-react-native"
 
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CompletedCard from '../../../components/CompletedCard';
+import ElectricityCard from '../../../components/ElectricityCard';
 import AppButton from '../../../components/AppButtonBlue';
 import { color } from '../../../constants/color';
 import {s} from 'react-native-size-matters'
 
 
 
-const Completed = ({ navigation, route }) => {
+
+const ElectricityCompleted = ({ navigation, route }) => {
 
     const completeData = route.params
+    console.log(completeData, "from completed")
+
+
 
     return (
 
@@ -37,11 +41,11 @@ const Completed = ({ navigation, route }) => {
                 />
 
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
-                    <Text style={{ fontSize: s(13), fontWeight: "600", color: "green" }}>Transfer Completed</Text>
+                    <Text style={{ fontSize: s(13), fontWeight: "600", color: "green" }}>Payment Completed</Text>
                 </View>
             </View>
 
-            <CompletedCard data={completeData} />
+            <ElectricityCard data={completeData} />
             <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
 
         </View>
@@ -63,4 +67,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Completed
+export default ElectricityCompleted

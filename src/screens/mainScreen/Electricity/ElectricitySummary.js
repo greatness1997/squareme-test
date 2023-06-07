@@ -29,8 +29,7 @@ const ElectricitySummary = ({ navigation, route }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
 
-    const { data, image } = route.params
-    console.log(data)
+    const { data, image, value } = route.params
 
     const date = moment().format('DD-MM-YYYY')
 
@@ -42,21 +41,21 @@ const ElectricitySummary = ({ navigation, route }) => {
     })
 
     return (
-        <View style={{ flex: 1, marginTop: s(60), marginLeft: s(16), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(30), marginLeft: s(16), width: "90%" }}>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center",  }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
                 </TouchableWithoutFeedback>
 
                 <Text style={{ fontSize: s(16), fontWeight: "600" }}>Electricity</Text>
-                    
-            <Text></Text>
+
+                <View style={{ alignItems: "center" }}>
+                    <Image source={image} style={styles.image} />
+                </View>
             </View>
-            <View style={{ alignItems: "center" }}> 
-            <Image source={image} style={styles.image} />
-            </View>
-            
+
+
 
             <View style={styles.container}>
 
@@ -72,12 +71,12 @@ const ElectricitySummary = ({ navigation, route }) => {
                     </View> */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Phone Number</Text>
-                                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{value.phoneNumber}</Text>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.amount)}` }</Text> */}
-        
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(value.amount)}` }</Text>
+
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Fee</Text>
@@ -105,7 +104,7 @@ const ElectricitySummary = ({ navigation, route }) => {
                         <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
                             <MaterialCommunityIcons name="close-circle" size={30} />
                         </TouchableOpacity>
-                        <ElectricityVerify data={data} navigation={navigation} setModalVisible={setModalVisible} />
+                        <ElectricityVerify data={data} value={value} navigation={navigation} setModalVisible={setModalVisible} />
                     </View>
                 </View>
 

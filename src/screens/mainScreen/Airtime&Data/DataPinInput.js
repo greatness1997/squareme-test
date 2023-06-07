@@ -6,12 +6,14 @@ import { useSelector } from "react-redux"
 import cred from '../../../config'
 import axios from 'axios'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import LoadingScreen from '../../../components/Loading'
 
 
 const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data, setModalVisible }) => {
     const [isContFocus, setIsConFocus] = useState(false)
+    const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
-    
+
     // const network = data.networkName.toLowerCase()
     const network = data.networkName === "Airtel" || data.networkName === "Glo" || data.networkName === "Mtn" ? data.networkName.toLowerCase() : data.networkName
 
@@ -40,18 +42,18 @@ const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data,
     }
 
     useEffect(() => {
-        if(code.length === maxLength){
+        if (code.length === maxLength) {
             dataPayment()
             setCode('')
         }
-       
-        
+
+
     }, [code])
 
     const { auth: { user } } = useSelector(state => state)
 
-     //generate uniqueId
-     const generateUniqueId = () => {
+    //generate uniqueId
+    const generateUniqueId = () => {
         const d = new Date();
         const n = d.getTime();
         const p = user.firstName.substring(0, 5).toUpperCase();
@@ -59,7 +61,8 @@ const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data,
         return `${p}-${n}`;
     };
 
-    const dataPayment = async() => {
+    const dataPayment = async () => {
+        setIsLoading(true)
         const url = `${cred.URL}/vas/data/payment`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
@@ -71,7 +74,7 @@ const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data,
             "service": `${network}data`,
             "paymentMethod": "cash",
             "pin": code
-          }
+        }
 
 
         try {
@@ -82,13 +85,18 @@ const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data,
 
             if (responseCode === "00") {
                 navigation.navigate("DataCompleted", { data: response })
+                setModalVisible(false)
+                setIsLoading(false)
 
             } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
+                setModalVisible(false)
+                setIsLoading(false)
             }
-            
+
         } catch (error) {
-            console.log(error.response.data)
+            setModalVisible(false)
+            setIsLoading(false)
             const { message } = error.response.data
             Alert.alert(`${message}`)
         }
@@ -96,25 +104,26 @@ const DataPinInput = ({ code, setCode, setPinReady, maxLength, navigation, data,
 
     return (
         <>
-        <Pressable style={styles.container} onPress={handlePress}>
-            {/* <View style={styles.box}> */}
+            <Pressable style={styles.container} onPress={handlePress}>
+                {/* <View style={styles.box}> */}
                 {/* <Text style={styles.text}></Text> */}
                 {digitArray.map(digitInput)}
-            {/* </View> */}
-        </Pressable>
-        
-        <View style={styles.inputBox}>
-            <TextInput 
-                keyboardType='numeric'
-                value={code}
-                onChangeText={setCode}
-                maxLength={maxLength}
-                textContentType='oneTimeCode'
-                returnKeyType='done'
-                ref={inputRef}
-                onBlur={handleOnBlur}
-            />
-        </View>
+                {/* </View> */}
+            </Pressable>
+
+            <View style={styles.inputBox}>
+                <TextInput
+                    keyboardType='numeric'
+                    value={code}
+                    onChangeText={setCode}
+                    maxLength={maxLength}
+                    textContentType='oneTimeCode'
+                    returnKeyType='done'
+                    ref={inputRef}
+                    onBlur={handleOnBlur}
+                />
+            </View>
+            {loading && <LoadingScreen />}
         </>
     )
 }
@@ -125,8 +134,8 @@ const styles = StyleSheet.create({
         width: 1,
         height: 1,
         opacity: 0
-     },
-     box: {
+    },
+    box: {
         borderWidth: 2,
         borderColor: "grey",
         width: s(45),
