@@ -81,8 +81,9 @@ const Validate = ({ navigation }) => {
             const data = await axios.post(url, body, options)
 
             const { message, response, transactionId, responseCode } = data.data
+           
             if (responseCode === "00") {
-                setBeneficiary(message)
+                setBeneficiary(response.name)
                 setTranId(transactionId)
                 setTranRes(response)
                 setAnError(null)
