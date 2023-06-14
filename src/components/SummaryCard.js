@@ -32,11 +32,11 @@ const SummaryCard = ({ data }) => {
 
     return (
         <>
-            <View style={{ alignItems: "center", marginBottom: s(8)}}>
+            {/* <View style={{ alignItems: "center", marginBottom: s(8)}}>
                 <View style={{ width: s(60), height: s(60), backgroundColor: "lightgrey", borderRadius: s(45), alignItems: "center", justifyContent: "center" }}>
                     <MaterialCommunityIcons name="bank" size={s(30)} color="#110449" />
                 </View>
-            </View>
+            </View> */}
 
             <View style={styles.container}>
 

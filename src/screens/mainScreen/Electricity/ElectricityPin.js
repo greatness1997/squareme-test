@@ -6,14 +6,17 @@ import { useSelector } from "react-redux"
 import cred from '../../../config'
 import axios from 'axios'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import LoadingScreen from '../../../components/Loading'
 
 
-const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, data, setModalVisible }) => {
+
+const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, data, value, setModalVisible }) => {
     const [isContFocus, setIsConFocus] = useState(false)
+    const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
+
+    console.log(data)
     
-    // const network = data.networkName.toLowerCase()
-    const network = data.networkName === "Airtel" || data.networkName === "Glo" || data.networkName === "Mtn" ? data.networkName.toLowerCase() : data.networkName
 
     const digitArray = new Array(maxLength).fill(0)
 
@@ -41,7 +44,7 @@ const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, dat
 
     useEffect(() => {
         if(code.length === maxLength){
-            dataPayment()
+            electricityPayment()
             setCode('')
         }
        
@@ -59,16 +62,14 @@ const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, dat
         return `${p}-${n}`;
     };
 
-    const dataPayment = async() => {
-        const url = `${cred.URL}/vas/data/payment`
+    const electricityPayment = async () => {
+        setIsLoading(true)
+        const url = `${cred.URL}/vas/electricity/payment`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
-            "phoneNumber": data.data.phoneNumber,
-            "transactionId": data.tranId,
+            "phoneNumber": value.phoneNumber,
+            "transactionId": data.transactionId,
             "uniqueId": generateUniqueId(),
-            "amount": data.amount,
-            "code": data.itemCode,
-            "service": `${network}data`,
             "paymentMethod": "cash",
             "pin": code
           }
@@ -81,14 +82,19 @@ const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, dat
             setModalVisible(false)
 
             if (responseCode === "00") {
-                navigation.navigate("DataCompleted", { data: response })
+                navigation.navigate("ElectricityComplete", { data: response })
+                setModalVisible(false)
+                setIsLoading(false)
 
             } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
+                setModalVisible(false)
+                setIsLoading(false)
             }
-            
+
         } catch (error) {
-            console.log(error.response.data)
+            setModalVisible(false)
+            setIsLoading(false)
             const { message } = error.response.data
             Alert.alert(`${message}`)
         }
@@ -115,6 +121,7 @@ const ElectricityPin = ({ code, setCode, setPinReady, maxLength, navigation, dat
                 onBlur={handleOnBlur}
             />
         </View>
+        {loading && <LoadingScreen />}
         </>
     )
 }

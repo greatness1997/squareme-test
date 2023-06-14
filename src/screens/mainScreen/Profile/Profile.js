@@ -18,7 +18,8 @@ const Profile = ({ navigation }) => {
         "firstName":"N/a",
         "lastName":"N/a",
         "email":"N/a",
-        "walletId":"N/a"
+        "walletId":"N/a",
+        "agentType":"N/a"
     })
 
     const { auth: { user } } = useSelector(state => state)

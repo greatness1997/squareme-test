@@ -24,8 +24,7 @@ const AirtimeVerify = ({ navigation, data, setModalVisible }) => {
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginLeft: 20 }}>
                     
                     <View style={styles.textCont}>
-                        <Text style={styles.text2}>Enter Transcation Pin To</Text>
-                        <Text style={styles.text1}>Complete Transfer</Text>
+                        <Text style={styles.text2}>Enter Transcation Pin</Text>
                     </View>
                 </View>
                 <View>
@@ -48,12 +47,12 @@ const AirtimeVerify = ({ navigation, data, setModalVisible }) => {
 
 const styles = StyleSheet.create({
     textCont: {
-        marginBottom: s(35),
+        marginBottom: s(20),
         alignItems: "center"
     },
     text2: {
-        fontSize: s(16),
-        fontWeight: "bold"
+        fontSize: s(14),
+        fontWeight: "500"
     },
 
     text1: {

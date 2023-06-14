@@ -8,7 +8,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 
 
-const ElectricityVerify = ({ navigation, data, setModalVisible }) => {
+const ElectricityVerify = ({ navigation, data, value, setModalVisible }) => {
 
     // const data = route.params
     const [code, setCode] = useState('')
@@ -23,8 +23,7 @@ const ElectricityVerify = ({ navigation, data, setModalVisible }) => {
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginLeft: 20 }}>
                     
                     <View style={styles.textCont}>
-                        <Text style={styles.text2}>Enter To Complete</Text>
-                        <Text style={styles.text1}>Transfer</Text>
+                        <Text style={styles.text2}>Enter Transaction Pin</Text>
                     </View>
                 </View>
                 <View>
@@ -36,6 +35,7 @@ const ElectricityVerify = ({ navigation, data, setModalVisible }) => {
                         maxLength={maxLength}
                         navigation={navigation}
                         data={data}
+                        value={value}
                         setModalVisible={setModalVisible}
                     />
 
@@ -49,12 +49,12 @@ const ElectricityVerify = ({ navigation, data, setModalVisible }) => {
 
 const styles = StyleSheet.create({
     textCont: {
-        marginBottom: s(35),
+        marginBottom: s(20),
         alignItems: "center"
     },
     text2: {
-        fontSize: s(16),
-        fontWeight: "bold"
+        fontSize: s(14),
+        fontWeight: "500"
     },
 
     text1: {

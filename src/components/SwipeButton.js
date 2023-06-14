@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { color } from '../constants/color';
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -21,19 +21,35 @@ const H_SWIPE_RANGE = BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPER_DIMENSION
 
 const SwipeButton = ({ onPress, onSwipeEnd, title, style }) => {
 
+    const [toggled, setToggled] = useState(false)
     const x = useSharedValue(0)
 
     const animatedGestureHandler = useAnimatedGestureHandler({
-        onActive: (e) => {
-            x.value = e.translationX;
+        onStart: (_, ctx) => {
+            ctx.completed = toggled
+        },
+        onActive: (e, ctx) => {
+            let newValue;
+
+            if (ctx.completed) {
+                newValue = H_SWIPE_RANGE + e.translationX;
+            } else {
+                newValue = e.translationX;
+            }
+
+            if (newValue >= 0 && newValue <= H_SWIPE_RANGE) {
+                x.value = e.translationX;
+            }
         },
 
         onEnd: () => {
             if (x.value < BUTTON_WIDTH / 2 - SWIPER_DIMENSION / 2) {
                 x.value = withSpring(0)
+                runOnJS(setToggled)(false)
             } else {
                 x.value = withSpring(H_SWIPE_RANGE)
                 runOnJS(onSwipeEnd)();
+                runOnJS(setToggled)(false)
             }
         }
     })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Modal, Image, SafeAreaView, View, StyleSheet, Text, Alert, TextInput, TouchableOpacity } from 'react-native'
 
 import { Formik } from 'formik';
@@ -13,10 +13,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import CompletedCard from '../../../components/CompletedCard';
 import AppButton from '../../../components/AppButtonBlue';
 import { color } from '../../../constants/color';
-import {s} from 'react-native-size-matters'
+import { s } from 'react-native-size-matters'
 
 import moment from 'moment'
 import { Print } from '../../../constants/images'
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
+import ViewShot from 'react-native-view-shot';
+import Share from "react-native-share"
 
 import "intl"
 import "intl/locale-data/jsonp/en";
@@ -24,6 +27,9 @@ import "intl/locale-data/jsonp/en";
 
 
 const Completed = ({ navigation, route }) => {
+
+    const [showShareButton, setShowShareButton] = useState(true);
+    const ref = useRef();
 
     const data = route.params
 
@@ -35,6 +41,26 @@ const Completed = ({ navigation, route }) => {
         minimumIntegerDigits: 2,
         maximumFractionDigits: 2
     })
+
+    const captureImage = async () => {
+        try {
+            const uri = await ref.current.capture();
+            await CameraRoll.save(uri, { type: 'photo', album: 'MyAppAlbum' })
+            Alert.alert('Saved to Library');
+        } catch (error) {
+            console.log(error)
+            Alert.alert('Failed to Library')
+        }
+    };
+
+    const shareImage = async () => {
+        try {
+            const uri = await ref.current.capture();
+            await Share.open({ url: uri })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
 
@@ -57,44 +83,49 @@ const Completed = ({ navigation, route }) => {
             </View>
 
             {/* summary container */}
-
-            <View style={styles.container}>
-                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(20) }}>
-                    {/* <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.data.name}</Text> */}
-                    <Text style={{ fontSize: 16, fontWeight: "400", color: color.colorFive }}>{data.data.account}</Text>
-                </View>
-                <View style={{ marginTop: s(20) }}>
-                    {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
+            <ViewShot ref={ref} >
+                <View style={styles.container}>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(20) }}>
+                        {/* <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.data.name}</Text> */}
+                        <Text style={{ fontSize: 16, fontWeight: "400", color: color.colorFive }}>{data.data.account}</Text>
+                    </View>
+                    <View style={{ marginTop: s(20) }}>
+                        {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
                         <Text style={{ fontSize: 15, fontWeight: "400", color: color.colorFour }}>RRN</Text>
                         <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorThree }}>{data.RN}</Text>
                     </View> */}
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(data.data.amount)}` }</Text>
-                    </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Reference</Text>
-                        {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
-                    </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text>
-                    </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
-                    </View>
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <TouchableOpacity style={styles.print}>
-                            <Image source={Print} />
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.data.amount)}`}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Reference</Text>
+                            {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
+                        </View>
+                        <View style={{ justifyContent: "center", alignItems: "center" }}>
+                            {showShareButton && (
+                                <>
+                                    <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
+                                        <Image source={Print} />
+                                    </TouchableOpacity>
+                                    <Text style={{ color: color.colorSeven, fontSize: s(13), fontWeight: "500" }}>Print Receipt</Text>
+                                </>
+                            )}
+                            
+                        </View>
 
-                        </TouchableOpacity>
-                    <Text style={{ color: color.colorSeven, fontSize: s(13), fontWeight: "500" }}>Print Reciept</Text>
                     </View>
 
                 </View>
-               
-            </View>
+            </ViewShot>
 
             <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
 
@@ -103,7 +134,7 @@ const Completed = ({ navigation, route }) => {
 }
 
 const styles = StyleSheet.create({
-  
+
     botton: {
         backgroundColor: color.primary2,
         width: "100%",
