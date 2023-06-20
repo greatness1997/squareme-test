@@ -28,7 +28,12 @@ const TabNavigator = () => {
         'ElectricityValidation', 
         'Airtime&Data',
         'AirtimeOrData',
-        'paymentmethod'
+        'paymentmethod',
+        'GuarantorDetails',
+        'PersonalDetails',
+        'ProfileEdit',
+        'Help',
+        'ChangePassword',
     ];
 
     return (
@@ -73,25 +78,39 @@ const TabNavigator = () => {
             <Tab.Screen
                 name="Settings"
                 component={SettingsStack}
-                options={{
-                    tabBarLabel: 'Settings',
+                options={({ route }) => ({
+                    tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons focused={focused} name="cog" color="#120549" size={s(25)} />
                     ),
-                    headerShown: false
-                }}
+                    headerShown: false,
+                    tabBarStyle: ((route) => {
+                      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+                      if (hiddenTabRoutes.includes(routeName)) {
+                        return { display: "none" }
+                      }
+                      return
+                    })(route),
+                  })}
             />
 
             <Tab.Screen
                 name="Profile"
                 component={ProfileStack}
-                options={{
+                options={({ route }) => ({
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons focused={focused} name="account-circle" color="#120549" size={s(25)} />
                     ),
-                    headerShown: false
-                }}
+                    headerShown: false,
+                    tabBarStyle: ((route) => {
+                      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+                      if (hiddenTabRoutes.includes(routeName)) {
+                        return { display: "none" }
+                      }
+                      return
+                    })(route),
+                  })}
             />
 
         </Tab.Navigator>

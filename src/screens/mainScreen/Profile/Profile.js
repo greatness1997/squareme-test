@@ -40,6 +40,7 @@ const Profile = ({ navigation }) => {
         try {
             const response = await axios.get(url, options)
             const { user } = response.data
+            console.log(user)
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)
@@ -77,7 +78,7 @@ const Profile = ({ navigation }) => {
                         <Text style={{ color: "#464646", fontSize: s(17), fontWeight: "600" }}>{userData.firstName} {userData.lastName}</Text>
                         <Text style={{ color: "#6c6c6c", fontSize: s(12), fontWeight: "400", marginTop: s(3) }}>{userData.email}</Text>
                     </View>
-                    <TouchableOpacity style={{ marginTop: s(10), backgroundColor: "#c66e5443", padding: s(8), borderRadius: s(5) }}>
+                    <TouchableOpacity style={{ marginTop: s(10), backgroundColor: "#c66e5443", padding: s(8), borderRadius: s(5) }} onPress={() => navigation.navigate("PersonalDetails")}>
                         <Text style={{ color: "#e66e54", fontWeight: "500", fontSize: s(12) }}>Upgrade Now!</Text>
                     </TouchableOpacity>
                 </View>
@@ -109,18 +110,18 @@ const Profile = ({ navigation }) => {
                     </View>
 
                     <View style={styles.box2}>
-                        <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ProfileEdit")} style={{ backgroundColor: "#ededed", marginTop: s(20), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
                             <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
                                 <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Personal Details</Text>
+                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Edit Profile</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Settings")} style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
                             <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
                                 <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Bank Verification Number</Text>
+                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Settings</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
@@ -130,12 +131,12 @@ const Profile = ({ navigation }) => {
                             <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Documents</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10), marginBottom: s(10) }}>
+                        {/* <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10), marginBottom: s(10) }}>
                             <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
                                 <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
                             </View>
                             <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Contact Details</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
 
                 </View>

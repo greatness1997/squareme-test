@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Settings from '../../mainScreen/Settings/Settings';
+import HelpCenter from '../../mainScreen/Settings/HelpCenter';
+import ChangePassword from '../../mainScreen/Settings/ChangePassword';
 
 
 
@@ -23,6 +25,8 @@ const SettingsStack = () => {
             })}
         >
             <Stack.Screen name='Settings' component={Settings} />
+            <Stack.Screen name='Help' component={HelpCenter} />
+            <Stack.Screen name='ChangePassword' component={ChangePassword} />
         </Stack.Navigator>
     )
 }
