@@ -51,7 +51,6 @@ const ResetPassword = ({ navigation, route }) => {
             setIsLoadking(true)
             const response = await axios.post(url, body)
             const { status, message, } = response.data
-            console.log(response.data)
 
             if (status === "success") {
                 Alert.alert(`${status}`, `${message}`)

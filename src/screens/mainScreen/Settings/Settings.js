@@ -50,7 +50,7 @@ const Settings = ({ navigation }) => {
 
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")} style={styles.serviceContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate("ResetCode2", {data: "from settings"})} style={styles.serviceContainer}>
                     <MaterialCommunityIcon name="lock-reset" size={30} color="#808080" />
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20 }}>Change Password</Text>

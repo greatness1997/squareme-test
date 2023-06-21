@@ -1,27 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { View, SafeAreaView, StatusBar, StyleSheet, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
 import { backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux'
 import cred from '../../config'
 import axios from 'axios'
 import "intl"
 import "intl/locale-data/jsonp/en";
+import Clipboard from '@react-native-clipboard/clipboard'
+import Share from "react-native-share"
+import ViewShot from 'react-native-view-shot';
 
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import Options from './AddMoney/Options';
+import AppButton from '../../components/AppButtonBlue';
+
 
 
 
 const HomeScreen = ({ navigation }) => {
 
+
+    const vfdAcctDetails = {
+        "accountName": "N/A",
+        "accountNo": "N/A",
+        "bank": "N/A"
+    }
+
     const [showBalance, setShowBalance] = useState(false)
     const [visible, setVisible] = useState(false)
+    const [visible1, setVisible1] = useState(false)
     const [balance, setBalance] = useState(0.00)
+    const [accountDetails, setAccountDetails] = useState(vfdAcctDetails)
     const [userData, setUserData] = useState({
         "firstName": "N/a",
         "lastName": "N/a"
     })
+
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible1, setModalVisible1] = useState(false)
+
+    const ref = useRef();
+
+    const close = () => {
+        setModalVisible(false)
+    }
+
+    const close1 = () => {
+        setModalVisible1(false)
+    }
 
     const hiddenBal = "*****"
 
@@ -47,6 +76,7 @@ const HomeScreen = ({ navigation }) => {
         try {
             const response = await axios.get(url, options)
             const { user, message, status } = response.data
+            setAccountDetails(user.vfdAcctDetails || vfdAcctDetails)
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)
@@ -75,6 +105,26 @@ const HomeScreen = ({ navigation }) => {
         minimumIntegerDigits: 2,
         maximumFractionDigits: 2
     })
+
+    const handleCopy = async (text) => {
+        try {
+            await Clipboard.setString(text)
+            Alert.alert("Copied!")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const shareText = async () => {
+        try {
+            const text = {
+                message: `Bank: ${accountDetails.bank}\nAccount Number: ${accountDetails.accountNo}\nAccount Name: ${accountDetails.accountName}`,
+            }
+            await Share.open(text)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
@@ -118,7 +168,7 @@ const HomeScreen = ({ navigation }) => {
                             </View>
 
                             <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30) }}>
-                                <TouchableOpacity style={styles.AddIcon} onPress={() => navigation.navigate("electricitycard")}>
+                                <TouchableOpacity style={styles.AddIcon} onPress={() => setModalVisible(true)}>
                                     <Image source={Add} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
                                     <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Add Money</Text>
                                 </TouchableOpacity>
@@ -213,13 +263,142 @@ const HomeScreen = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <TouchableOpacity style={{ width: s(300) }}>
-                    <ImageBackground
-                        source={Ads}
-                        style={styles.bgA} imageStyle={styles.bgAds}
+                    <Modal
+                        visible={modalVisible}
+                        animationType='slide'
+                        transparent={true}
                     >
-                    </ImageBackground>
-                </TouchableOpacity> */}
+                        <View style={styles.modalScreen}>
+                            <View style={styles.transparentContainer} />
+                            <View style={styles.contentContainer}>
+                                <View style={styles.closeIconContainer}>
+                                    <TouchableWithoutFeedback onPress={close}>
+                                        <MaterialCommunityIcons name="close-circle" size={s(25)} />
+
+                                    </TouchableWithoutFeedback>
+                                    <Text style={{ fontSize: s(17), fontWeight: "600" }}>Add Money With</Text>
+                                    <Text></Text>
+                                </View>
+                                <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
+
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <TouchableOpacity style={styles.serviceContainer} onPress={() => setModalVisible1(true)}>
+                                            <View style={{ flexDirection: "row" }}>
+                                                <MaterialCommunityIcons name="bank-transfer" size={30} color="#186f00" />
+                                                <View>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20 }}>Fund With Bank Transfer</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Tap To View Details</Text>
+                                                </View>
+                                            </View>
+
+                                            <MaterialCommunityIcons name="chevron-right" size={30} color="#808080" />
+
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <TouchableOpacity style={styles.serviceContainer}>
+                                            <View style={{ flexDirection: "row" }}>
+                                                <MaterialCommunityIcons name="help-circle" size={30} color="#1b2d56" />
+                                                <View>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20 }}>Other Payment Options</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Tap To View Details</Text>
+                                                </View>
+                                            </View>
+
+                                            <MaterialCommunityIcons name="chevron-right" size={30} color="#808080" />
+
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+
+                        <Modal
+                            visible={modalVisible1}
+                            animationType='slide'
+                            transparent={true}
+                        >
+                            <View style={styles.modalScreen}>
+                                <View style={styles.transparentContainer1} />
+                                <View style={styles.contentContainer1}>
+                                    <ScrollView>
+                                        <View style={styles.closeIconContainer1}>
+                                            <TouchableWithoutFeedback onPress={close1}>
+                                                <MaterialCommunityIcons name="close-circle" size={s(25)} />
+
+                                            </TouchableWithoutFeedback>
+                                            <Text style={{ fontSize: s(17), fontWeight: "600" }}>Add Money</Text>
+                                            <Text></Text>
+                                        </View>
+                                        <View style={{ alignItems: "center", marginBottom: s(15), marginTop: s(10) }}>
+                                            <View style={{ backgroundColor: "#ebf0fa", width: "100%", height: s(60), borderRadius: s(10), borderWidth: 1, borderColor: "#3483f5", alignItems: "center", justifyContent: "center" }}>
+                                                <View style={{ alignItems: "center" }}>
+                                                    <Text style={{ fontWeight: "bold", fontSize: s(20), marginTop: 5, marginBottom: 5 }}>{`₦${format.format(balance)}`}</Text>
+                                                    <Text style={{ fontWeight: "500", fontSize: 12 }}>Current Balance</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <Text style={{ alignSelf: "center", marginBottom: s(15), color: "#9a9a9a", fontWeight: "500" }}>Fund Using The Account Bellow</Text>
+                                        
+                                            <View style={{ padding: 0, marginTop: 0, width: "100%", backgroundColor: "#f5f5f5", borderWidth: 1, borderColor: "#3483f5", borderRadius: s(10) }}>
+
+                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                                    <View style={styles.serviceContainer}>
+                                                        <View >
+
+                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
+                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
+
+                                                        </View>
+                                                        {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
+                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        </TouchableOpacity>}
+
+                                                    </View>
+                                                </View>
+                                                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                                    <View style={styles.serviceContainer}>
+                                                        <View >
+
+                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
+                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
+
+                                                        </View>
+                                                        {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
+                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        </TouchableOpacity>}
+                                                    </View>
+                                                </View>
+                                                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                                    <View style={styles.serviceContainer}>
+                                                        <View >
+                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
+                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
+                                                        </View>
+                                                        {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
+                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        </TouchableOpacity>}
+
+                                                    </View>
+                                                </View>
+
+                                            </View>
+                                        
+                                        {accountDetails.accountNo !== "N/A" && <AppButton title="Share Account Details" onPress={() => shareText()} />}
+                                    </ScrollView>
+                                </View>
+                            </View>
+                        </Modal>
+                    </Modal>
+
                 </ScrollView>
             </SafeAreaView>
         </>
@@ -260,6 +439,20 @@ const styles = StyleSheet.create({
         textShadowColor: 'rgba(0, 0, 0, 0.8)',
         textShadowRadius: s(5)
     },
+    closeIconContainer: {
+        paddingLeft: s(20),
+        paddingRight: s(20),
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: s(20)
+    },
+    closeIconContainer1: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: s(20)
+    },
     name: {
         fontSize: s(15),
         fontWeight: '500',
@@ -299,7 +492,48 @@ const styles = StyleSheet.create({
         padding: s(5),
         marginLeft: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.2)'
-    }
+    },
+    modalScreen: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    transparentContainer: {
+        flex: 1,
+        backgroundColor: 'transparent',
+    },
+    contentContainer: {
+        flex: 0.5,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(10),
+        borderTopRightRadius: s(10),
+        paddingHorizontal: s(5),
+        paddingVertical: s(35),
+    },
+    serviceContainer: {
+        width: "95%",
+        height: 65,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+
+    modalScreen1: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    transparentContainer1: {
+        flex: 1,
+        backgroundColor: 'transparent',
+    },
+    contentContainer1: {
+        flex: 3,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(10),
+        borderTopRightRadius: s(10),
+        paddingHorizontal: s(10),
+        paddingVertical: s(30),
+    },
+
 })
 
 export default HomeScreen

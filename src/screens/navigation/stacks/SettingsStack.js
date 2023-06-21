@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Settings from '../../mainScreen/Settings/Settings';
 import HelpCenter from '../../mainScreen/Settings/HelpCenter';
 import ChangePassword from '../../mainScreen/Settings/ChangePassword';
+import SendResetCode from '../../mainScreen/Settings/SendResetCode2';
 
 
 
@@ -27,6 +28,7 @@ const SettingsStack = () => {
             <Stack.Screen name='Settings' component={Settings} />
             <Stack.Screen name='Help' component={HelpCenter} />
             <Stack.Screen name='ChangePassword' component={ChangePassword} />
+            <Stack.Screen name='ResetCode2' component={SendResetCode} />
         </Stack.Navigator>
     )
 }

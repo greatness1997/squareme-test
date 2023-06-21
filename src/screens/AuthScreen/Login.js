@@ -55,8 +55,6 @@ const Login = ({ navigation, route }) => {
             const response = await axios.post(url, res)
             const { status, message, userData, token } = response.data
 
-            console.log(response.data, 'from response')
-
             if (status !== "success") {
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
@@ -127,7 +125,7 @@ const Login = ({ navigation, route }) => {
 
                                     </View>
 
-                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode")}  >
+                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", {data: "from login"})}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
                                             <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>

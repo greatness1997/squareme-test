@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform } from 'react-native'
-import { color } from '../../constants/color'
-import { Logo, FingerPrint, image } from '../../constants/images'
+import { color } from '../../../constants/color'
+import { LogoBlue, FingerPrint, image } from '../../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppButton from '../../components/AppButtonWhite'
-import cred from '../../config'
+import AppButton from '../../../components/AppButtonBlue'
+import cred from '../../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import TouchID from 'react-native-touch-id'
@@ -25,12 +26,15 @@ const SendResetCode = ({ navigation, route }) => {
 
     const [loading, setIsLoadking] = useState(false)
     const [error, setError] = useState(null)
+    const [userData, setUserData] = useState({})
     const dispatch = useDispatch()
 
     const Schema = Yup.object().shape({
         email: Yup.string().email('invalid email').required('Email field is required'),
     });
 
+
+    const { auth: { user } } = useSelector(state => state)
 
 
     const sendCode = async (res) => {
@@ -46,7 +50,7 @@ const SendResetCode = ({ navigation, route }) => {
             if (status === "success") {
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
-                navigation.navigate("ResetPassword", { data: res })
+                navigation.navigate("ChangePassword", {data: res})
             } else {
                 setError(message)
                 setIsLoadking(false)
@@ -62,6 +66,25 @@ const SendResetCode = ({ navigation, route }) => {
         }
     }
 
+  
+
+    const getProfile = async () => {
+        const url = `${cred.URL}/user/profile`
+        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+
+        try {
+            const response = await axios.get(url, options)
+            const { user } = response.data
+            setUserData(user)
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    useEffect(() => {
+        getProfile()
+    }, [])
+
     return (
         <>
 
@@ -69,18 +92,18 @@ const SendResetCode = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(50) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="white" />
+                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="#06225f" />
                     </TouchableOpacity>
-                    <Image source={Logo} />
+                    <Image source={LogoBlue} />
                     <Text></Text>
                 </View>
                 <View style={{ marginTop: s(35) }}>
-                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#b7b7b7" }}>Forgot Password?</Text>
-                    <Text style={{ fontSize: s(10), fontWeight: "300", color: "#b7b7b7", marginTop: s(5) }}>Reset it with your registered email</Text>
+                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#1b2d55" }}>Change Password</Text>
+                    <Text style={{ fontSize: s(10), fontWeight: "300", color: "#1b2d55", marginTop: s(5) }}>A reset code will be send to your mail</Text>
                 </View>
                 <View>
                     <Formik
-                        initialValues={{ email: "" }}
+                        initialValues={{ email: userData.email || "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
@@ -106,7 +129,7 @@ const SendResetCode = ({ navigation, route }) => {
 
                                     <AppButton title="Send Reset Code" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     <View style={{ marginTop: s(30), marginRight: s(5), alignItems: "flex-start" }}>
-                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>Didn't get the email? <TouchableWithoutFeedback onPress={() => console.log("press")}><Text style={{ color: "#3483f5" }}>Send another email please</Text></TouchableWithoutFeedback></Text>
+                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>Didn't get the email? <TouchableWithoutFeedback onPress={() => sendCode()}><Text style={{ color: "#3483f5" }}>Send another email please</Text></TouchableWithoutFeedback></Text>
                                     </View>
 
                                 </View>
@@ -124,7 +147,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "#f5f5f5",
         padding: s(8)
 
     },
@@ -158,8 +181,8 @@ const styles = StyleSheet.create({
         borderWidth: s(1),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#327fec",
+        backgroundColor: "white",
         width: '100%',
         height: s(50),
         marginBottom: s(30),
@@ -172,7 +195,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "white",
+        // backgroundColor: "white",
         marginTop: s(28),
         height: s(50)
     }
