@@ -34,7 +34,8 @@ const TabNavigator = () => {
         'ProfileEdit',
         'Help',
         'ChangePassword',
-        'ResetCode2'
+        'ResetCode2',
+        "UploadDoc"
     ];
 
     return (

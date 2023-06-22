@@ -124,7 +124,7 @@ const Profile = ({ navigation }) => {
                             <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Settings</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("UploadDoc")} style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
                             <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
                                 <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
                             </View>

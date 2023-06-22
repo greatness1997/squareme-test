@@ -27,6 +27,21 @@ const Validate = ({ navigation }) => {
     const [tranRes, setTranRes] = useState({})
     const [anError, setAnError] = useState(null)
 
+    const [filteredBanks, setFilteredBanks] = useState([]);
+
+    const filterBanks = (text) => {
+        if (text === '') {
+            setFilteredBanks([]);
+        } else {
+            const filtered = bank.filter((item) => {
+                const bankName = item.bankName.toLowerCase();
+                const searchText = text.toLowerCase();
+                return bankName.startsWith(searchText);
+            });
+            setFilteredBanks(filtered);
+        }
+    };
+
     //set banklist in alphabetical order
     const data = banks;
     const bank = [...data].sort((a, b) => {
@@ -83,11 +98,11 @@ const Validate = ({ navigation }) => {
 
             const { message, response, transactionId, responseCode } = data.data
             if (responseCode === "00") {
-                setBeneficiary(response.name )
+                setBeneficiary(response.name)
                 setTranId(transactionId)
                 setTranRes(response)
                 setAnError(null)
-            }else{
+            } else {
                 Alert.alert(`${message}`)
                 setBeneficiary(message)
                 setAnError(message)
@@ -236,37 +251,102 @@ const Validate = ({ navigation }) => {
                                 </TouchableWithoutFeedback>
                             </View>
                             <ScrollView style={styles.scrollView}>
+                                <Formik
+                                    initialValues={{ banks: bankName.bankName ? `${bankName.bankName}` : "", accountNo: "", amount: "", narration: "" }}
+                                    enableReinitialize={true}
+                                    onSubmit={(values) => {
+                                        Schema.validate(values)
+                                            .then((res) => {
+
+                                            })
+                                            .catch((err) => Alert.alert('Please provide proper details', err.message));
+                                    }}>
+                                    {(props) => {
+                                        const { handleChange, values, handleSubmit } = props;
+
+                                        return (
+                                            <View>
+                                                <View style={styles.searchContainer}>
+                                                    <MaterialCommunityIcons name="magnify" size={s(22)} style={{ marginRight: s(10) }} />
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        placeholder='Search for a Bank'
+                                                        onChangeText={(text) => {
+                                                            handleChange('banks')(text);
+                                                            filterBanks(text);
+                                                        }}
+                                                    // value={values.banks}
+                                                    />
+                                                </View>
+                                            </View>
+                                        );
+                                    }}
+                                </Formik>
+
                                 {loading === true ? (
                                     <ActivityIndicator color="black" />
                                 ) : null}
-                                {bank.map((item, key) => {
-                                    return (
-                                        <TouchableOpacity
-                                            style={styles.bankList}
-                                            onPress={() => {
-                                                close();
-                                                setValue(item);
-                                            }}
-                                            key={key}
-                                        >
-                                            <View
-                                                style={{
-                                                    width: s(50),
-                                                    height: s(50),
-                                                    backgroundColor: "lightgrey",
-                                                    borderRadius: s(50),
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
+
+                                {filteredBanks.length > 0 ? (
+                                    filteredBanks.map((item, key) => {
+                                        return (
+                                            <TouchableOpacity
+                                                style={styles.bankList}
+                                                onPress={() => {
+                                                    close();
+                                                    setValue(item);
                                                 }}
+                                                key={key}
                                             >
-                                                <MaterialCommunityIcons name="bank" size={s(22)} />
-                                            </View>
-                                            <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
-                                                {item.bankName}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    );
-                                })}
+                                                <View
+                                                    style={{
+                                                        width: s(50),
+                                                        height: s(50),
+                                                        backgroundColor: "lightgrey",
+                                                        borderRadius: s(50),
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                    }}
+                                                >
+                                                    <MaterialCommunityIcons name="bank" size={s(22)} />
+                                                </View>
+                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
+                                                    {item.bankName}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        );
+                                    })
+                                ) : (
+                                    bank.map((item, key) => {
+                                        return (
+                                            <TouchableOpacity
+                                                style={styles.bankList}
+                                                onPress={() => {
+                                                    close();
+                                                    setValue(item);
+                                                }}
+                                                key={key}
+                                            >
+                                                <View
+                                                    style={{
+                                                        width: s(50),
+                                                        height: s(50),
+                                                        backgroundColor: "lightgrey",
+                                                        borderRadius: s(50),
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                    }}
+                                                >
+                                                    <MaterialCommunityIcons name="bank" size={s(22)} />
+                                                </View>
+                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
+                                                    {item.bankName}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        );
+                                    })
+                                )}
+
                             </ScrollView>
                         </SafeAreaView>
                     </View>
@@ -288,13 +368,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     contentContainer: {
-        flex: 1,
+        flex: 2,
         backgroundColor: 'white',
         borderTopLeftRadius: s(20),
         borderTopRightRadius: s(20),
         paddingHorizontal: s(20),
         paddingVertical: s(20),
-      
+
     },
 
     emailContainer: {
@@ -306,6 +386,18 @@ const styles = StyleSheet.create({
         width: '100%',
         height: s(45),
         marginTop: '2%',
+    },
+    searchContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: s(1),
+        borderColor: "#c9c9c9",
+        paddingBottom: s(1),
+        width: '90%',
+        marginLeft: s(15),
+        margin: s(20),
+        height: s(45),
+        paddingLeft: s(10)
     },
     input: {
         flex: 1
@@ -330,7 +422,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         flex: 1,
-       
+
     },
     bankList: {
         flexDirection: "row",

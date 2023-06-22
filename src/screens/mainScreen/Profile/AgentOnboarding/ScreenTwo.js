@@ -7,21 +7,80 @@ import { LogoBlue } from '../../../../constants/images';
 import KeyboardAvoidView from '../../../../components/KeyboardAvoidingView';
 import AppButton from '../../../../components/AppButtonBlue';
 
+import { useSelector } from 'react-redux';
+import cred from '../../../../config'
+import axios from 'axios';
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 
-const ScreenTwo = () => {
+
+const ScreenTwo = ({ navigation, route }) => {
 
     const [ error, setError ] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const { data } = route.params
+    console.log(data)
 
     const Schema = Yup.object().shape({
         guarantorsFullName: Yup.string().required('Guarantors full name is required'),
         guarantorsProfession: Yup.string().required('Guarantors profession is required'),
-        guarantorsEmail: Yup.string().email('Invalid Email').required('Guarantors email is required'),
+        guarantorsEmail: Yup.string().email('"invalid email at guarantors email"').required('Guarantors email is required'),
         guarantorsResidence: Yup.string().required('Guarantors residence is required'),
         guarantorsOffice: Yup.string().required('Guarantors office is required'),
         guarantorsPhone: Yup.string().required('Guarantors phone number is required'),
         guarantorsRelationship: Yup.string().required('Guarantors relationship is required'),
     });
+
+    const { auth: { user } } = useSelector(state => state)
+
+    const updateDetails = async (res) => {
+        const url = `${cred.URL}/auth/update-user-details`
+        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+        const body = {
+            "bvn": data.bvn,
+            "dateOfBirth": data.dateOfBirth,
+            "address": data.address,
+             "businessName": data.businessName,
+             "officeAddress": data.officeAddress,
+             "officeState": data.officeState,
+             "officeLga": data.officeLga,
+             "gender": data.gender,
+             "nokFullName": data.nokFullName,
+             "nokEmail": data.nokEmail,
+             "nokPhone": data.nokPhone,
+             "guarantorsFullName": res.guarantorsFullName,
+             "guarantorsProfession": res.guarantorsProfession,
+             "guarantorsEmail": res.guarantorsEmail,
+             "guarantorsResidence": res.guarantorsResidence,
+             "guarantorsOffice": res.guarantorsOffice,
+             "guarantorsPhone": res.guarantorsPhone,
+             "guarantorsRelationship": res.guarantorsRelationship
+         }
+
+         console.log(body)
+      
+        try {
+            setLoading(true)
+            const response = await axios.post(url, body, options)
+            const { status, message, } = response.data
+
+            
+            if (status !== "success") {
+                setError(message)
+                setLoading(false)
+            } else {
+                setLoading(false)
+                Alert.alert(`${message}`)
+                navigation.navigate('UploadDoc')
+            }
+
+        } catch (error) {
+            console.log(error.response.data, 'from catch')
+            const errors = error.response.data.errors
+            setError(errors)
+            setLoading(false)
+        }
+    }
 
     const styles = StyleSheet.create({
     container: {
@@ -85,8 +144,10 @@ const ScreenTwo = () => {
         <SafeAreaView>
             <View style={styles.container}>
 
-                <View style={{ alignItems: "center", marginTop: s(10) }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(10) }}>
+                    <MaterialCommunityIcon name="arrow-left" size={s(25)} onPress={() => navigation.goBack()} />
                     <Image source={LogoBlue} />
+                    <Text></Text>
                 </View>
 
                 
@@ -110,7 +171,7 @@ const ScreenTwo = () => {
                             onSubmit={(values) => {
                                 Schema.validate(values)
                                     .then((res) => {
-                                        console.log(res)
+                                        updateDetails(res)
                                     })
                                     .catch((err) => {
                                         setError(`${err}`)
@@ -214,7 +275,7 @@ const ScreenTwo = () => {
                                             />
                                         </View>
                                         {error && <Text style={{ marginTop: s(8), color: "#DD1515", }}>{error}</Text>}
-                                        <AppButton title="Continue To Upload Document"onPress={handleSubmit} style={{ backgroundColor: "#060C27", height: s(60), marginTop: s(30) }} />
+                                        <AppButton title="Continue To Upload Document" isSubmitting={loading} onPress={handleSubmit} style={{ backgroundColor: "#060C27", height: s(60), marginTop: s(30) }} />
                                     </View>
                                 );
                             }}

@@ -76,5 +76,7 @@
 	<false/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>App requesting face id usage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App requesting access to library for image upload</string>
 </dict>
 </plist>
