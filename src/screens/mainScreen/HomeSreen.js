@@ -236,7 +236,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")}> 
                             <ImageBackground
                                 source={ServiceView}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
