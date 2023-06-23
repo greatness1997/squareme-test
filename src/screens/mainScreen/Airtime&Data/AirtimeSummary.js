@@ -22,6 +22,7 @@ import AirtimeVerify from './AirtimeVerify';
 
 import "intl"
 import "intl/locale-data/jsonp/en";
+import AppButton from '../../../components/AppButtonBlue';
 
 
 
@@ -90,7 +91,9 @@ const Summary = ({ navigation, route }) => {
             </View>
 
 
-            <SwipeButton  style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)}/>
+            { Platform.OS === "iOS" ? <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} /> :
+            <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} />}
+            
             <Modal
                 visible={modalVisible}
                 animationType='slide'

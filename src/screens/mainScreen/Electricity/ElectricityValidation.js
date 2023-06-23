@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        height: 20,
+        height: 35,
         color: "black"
     },
 

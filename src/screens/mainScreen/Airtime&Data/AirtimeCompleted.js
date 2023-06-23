@@ -18,7 +18,7 @@ import { s } from 'react-native-size-matters'
 import moment from 'moment'
 import { Print } from '../../../constants/images'
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
-import ViewShot from 'react-native-view-shot';
+import ViewShot from 'react-native-view-shot'
 import Share from "react-native-share"
 
 import "intl"

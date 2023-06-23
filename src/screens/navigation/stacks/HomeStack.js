@@ -22,6 +22,11 @@ import DataSummary from '../../mainScreen/Airtime&Data/DataSummary';
 import DataCompleted from '../../mainScreen/Airtime&Data/DataCompleted';
 import ElectricitySummary from '../../mainScreen/Electricity/ElectricitySummary';
 import ElectricityCompleted from '../../mainScreen/Electricity/ElectricityCompleted';
+import Withdrawal from '../../mainScreen/Withdrawal/WithdrawHome';
+import Notification from '../../mainScreen/Notification';
+import Internet from '../../mainScreen/internet/internet';
+import Insurance from '../../mainScreen/Insurance/Insurance';
+import CableTv from '../../mainScreen/CableTv/CableTv';
 
 
 const Stack = createNativeStackNavigator();
@@ -57,6 +62,11 @@ const HomeStack = () => {
             <Stack.Screen name='ElectricitySummary' component={ElectricitySummary} />
             <Stack.Screen name='DataCompleted' component={DataCompleted} />
             <Stack.Screen name='ElectricityComplete' component={ElectricityCompleted} />
+            <Stack.Screen name='Withdrawal' component={Withdrawal} />
+            <Stack.Screen name='Notification' component={Notification} />
+            <Stack.Screen name='Internet' component={Internet} />
+            <Stack.Screen name='Insurance' component={Insurance} />
+            <Stack.Screen name='CableTv' component={CableTv} />
         </Stack.Navigator>
     )
 }

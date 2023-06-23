@@ -88,7 +88,10 @@ const HomeScreen = ({ navigation }) => {
                             <Image source={LogoBlue} style={{ flex: 1, resizeMode: 'contain', width: s(55), height: vs(50) }} />
                             <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A" }}>Welcome Back,</Text>
                         </View>
-                        <MaterialCommunityIcons name="bell" size={s(25)} color="#69788B" />
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate("Notification")}>
+                            <MaterialCommunityIcons name="bell" size={s(25)} color="#69788B" />
+                        </TouchableWithoutFeedback>
+
                     </View>
                     <ImageBackground
                         source={backgroundImage}
@@ -118,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
                             </View>
 
                             <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30) }}>
-                                <TouchableOpacity style={styles.AddIcon} onPress={() => navigation.navigate("electricitycard")}>
+                                <TouchableOpacity style={styles.AddIcon} onPress={() => navigation.navigate("Withdrawal")}>
                                     <Image source={Add} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
                                     <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Add Money</Text>
                                 </TouchableOpacity>
@@ -165,7 +168,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("Internet")}>
                             <ImageBackground
                                 source={Data}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
@@ -176,7 +179,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("Insurance")}>
                             <ImageBackground
                                 source={Insurance}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
@@ -186,7 +189,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity  onPress={() => navigation.navigate("CableTv")}>
                             <ImageBackground
                                 source={ServiceView}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}

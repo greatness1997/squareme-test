@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Image, SafeAreaView, View, StyleSheet, Text, Alert, TextInput, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { Modal, Image, SafeAreaView, View, StyleSheet, Text, Alert, TextInput, TouchableWithoutFeedback, TouchableOpacity, Platform } from 'react-native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -22,6 +22,7 @@ import ElectricityVerify from './ElectricityVerify';
 
 import "intl"
 import "intl/locale-data/jsonp/en";
+import AppButton from '../../../components/AppButtonBlue';
 
 
 
@@ -92,7 +93,9 @@ const ElectricitySummary = ({ navigation, route }) => {
             </View>
 
 
-            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} />
+            { Platform.OS === "iOS" ? <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} /> :
+            <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} />}
+
             <Modal
                 visible={modalVisible}
                 animationType='slide'

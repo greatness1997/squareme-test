@@ -84,11 +84,7 @@ const Validate = ({ navigation }) => {
             const { message, response, transactionId, responseCode } = data.data
            
             if (responseCode === "00") {
-<<<<<<< HEAD
-                setBeneficiary(response.name)
-=======
                 setBeneficiary(response.name )
->>>>>>> 03000d730eb65996ed95d7172224fed380065e33
                 setTranId(transactionId)
                 setTranRes(response)
                 setAnError(null)

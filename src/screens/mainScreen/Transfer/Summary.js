@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import SwipeButton from '../../../components/SwipeButton';
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import TransferPin from './TransferPin'
+import AppButton from '../../../components/AppButtonBlue';
 
 
 
@@ -71,7 +72,8 @@ const Summary = ({ navigation, route }) => {
 
             <SummaryCard data={data} />
 
-            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody, data)} />
+            { Platform.OS === "iOS" ? <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} /> :
+            <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} />}
             <Modal
                 visible={modalVisible}
                 animationType='slide'

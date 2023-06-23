@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        height: s(18),
+        height: s(35),
         color: "black"
     },
 
