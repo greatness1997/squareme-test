@@ -19,48 +19,45 @@ import DeviceInfo from 'react-native-device-info';
 
 
 
-const Login = ({ navigation, route }) => {
+const ResetPassword = ({ navigation, route }) => {
 
+    const {data} = route.params
+   
     const [loading, setIsLoadking] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [visible, setVisible] = useState(true)
+    const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
-    const email = "skouhon@gmail.com"
-
     const Schema = Yup.object().shape({
-        login: Yup.string().email().required('Email field is required'),
-        password: Yup.string().required('Password field is required'),
+        password: Yup.string().required('Password is required'),
+        password_confirmation: Yup.string().required('Confirm Password'),
+        pin: Yup.string().required('Pin is required'),
     });
 
-    const authenticate = async () => {
-        try {
-            const id = await TouchID.authenticate('to demo this react-native component')
-            console.log(id)
-        } catch (error) {
-            console.log(error)
+
+
+    const sendCode = async (res) => {
+
+        const url = `${cred.URL}/auth/change-password`
+        const body = {
+            email: data.email,
+            password: res.password,
+            password_confirmation: res.password_confirmation,
+            pin: res.pin
         }
-    }
-
-    const hasFaceID = DeviceInfo.hasNotch();
-
-
-
-    const Login = async (res) => {
-
-        const url = `${cred.URL}/auth/get-token`
 
         try {
             setIsLoadking(true)
-            const response = await axios.post(url, res)
-            const { status, message, userData, token } = response.data
+            const response = await axios.post(url, body)
+            const { status, message, } = response.data
 
-            if (status !== "success") {
+            if (status === "success") {
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
+                navigation.navigate("login")
             } else {
-                dispatch({ type: "LOGIN", user: { ...userData, token: `${token}` } })
-                navigation.navigate("Home", { ...userData })
+                setError(message)
                 setIsLoadking(false)
             }
 
@@ -68,8 +65,8 @@ const Login = ({ navigation, route }) => {
 
         } catch (error) {
             console.log(error.response.data, 'from catch')
-            const { message } = error.response.data
-            Alert.alert(`${message}`);
+            const { status, message } = error.response.data
+            Alert.alert(`${status}`, message ? message : "Please check you input and try again");
             setIsLoadking(false)
         }
     }
@@ -82,67 +79,89 @@ const Login = ({ navigation, route }) => {
                 <View style={{ alignItems: "center", marginTop: s(50) }}>
                     <Image source={Logo} />
                 </View>
+                <View style={{ marginTop: s(35) }}>
+                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#b7b7b7" }}>Reset Password?</Text>
+
+                </View>
                 <View>
                     <Formik
-                        initialValues={{ login: "", password: "" }}
+                        initialValues={{ password: "", password_confirmation: "", pin: "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
                                 .then((res) => {
-                                    Login(res)
+                                    sendCode(res)
                                 })
-                                .catch((err) => Alert.alert('Please provide proper details',));
+                                .catch((err) => Alert.alert(`${err}`));
                         }}>
                         {(props) => {
                             const { handleChange, values, handleSubmit } = props;
 
                             return (
-                                <View style={{ marginTop: s(60) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
-                                    <View style={styles.loginContainer2}>
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Enter Your Email Address'
-                                            onChangeText={handleChange('login')}
-                                            value={values}
-                                        />
-                                    </View>
+                                <View style={{ marginTop: s(40) }}>
                                     <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
-                                            placeholder='Enter Password'
+                                            placeholder='Enter New Password'
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
-                                            value={values}
+                                            value={values.password}
                                         />
                                         <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
+
                                             />
                                         </TouchableWithoutFeedback>
+                                        
 
                                     </View>
+                                    <Text style={{ marginLeft: 5, marginTop: 10, color: "#c66e54", fontSize: 12}}>Min. of 6 characters </Text>
 
-                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", {data: "from login"})}  >
-                                        <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                            <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    <Text style={{ color: "white", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Confirm Password</Text>
+                                    <View style={styles.loginContainer}>
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder='Confirm New password'
+                                            onChangeText={handleChange('password_confirmation')}
+                                            secureTextEntry={visible}
+                                            value={values.password_confirmation}
+                                        />
+                                        <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
+                                            <MaterialCommunityIcons
+                                                name={showPassword === true ? "eye-outline" : "eye-off-outline"}
+                                                size={s(25)}
 
-                                    <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
-                                    <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
-                                    </View>
-                                    {/* <View style={{ marginTop: s(20), alignItems: "center" }}>
-                                        <TouchableWithoutFeedback onPress={() => authenticate()} >
-                                            {hasFaceID ? <MaterialCommunityIcons name="face-recognition" color="white" size={s(40)} /> : <Image source={FingerPrint} />}
+                                            />
                                         </TouchableWithoutFeedback>
-                                        <View style={{ marginTop: s(13) }}>
-                                            <Text style={{ color: "white", fontSize: s(10), fontWeight: "500" }}>Login Options?</Text>
-                                        </View>
-                                    </View> */}
+                                        
+
+                                    </View>
+
+                                    <Text style={{ color: "white", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Pin</Text>
+                                    <View style={styles.loginContainer}>
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder='Enter Reset Pin'
+                                            onChangeText={handleChange('pin')}
+                                            secureTextEntry={visible}
+                                            value={values.pin}
+                                        />
+                                        <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
+                                            <MaterialCommunityIcons
+                                                name={showPassword === true ? "eye-outline" : "eye-off-outline"}
+                                                size={s(25)}
+
+                                            />
+                                        </TouchableWithoutFeedback>
+                                        
+
+                                    </View>
+
+                                    <AppButton title="Reset Password" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
+
                                 </View>
                             );
                         }}
@@ -200,7 +219,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        height: s(40),
+        height: s(20),
         color: "black",
         paddingLeft: s(10),
         fontSize: s(15)
@@ -212,5 +231,5 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login
+export default ResetPassword
 

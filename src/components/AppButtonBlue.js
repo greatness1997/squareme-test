@@ -9,7 +9,7 @@ const AppButton = ({ onPress, isSubmitting, title, style }) => {
 
     return (
         <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-            <Text style={styles.text}>{title}</Text>
+            {isSubmitting ? <ActivityIndicator color="white" /> : <Text style={styles.text}>{title}</Text>}
         </TouchableOpacity>
     );
 }

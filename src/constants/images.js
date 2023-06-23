@@ -29,3 +29,6 @@ export const mtn =  require('../assets/networks/mtn.png')
 export const nineMobile =  require('../assets/networks/9mobile.png')
 export const image = require('../assets/networks/man.webp')
 export const LogoBlue = require('../assets/logoBlue.png')
+export const gotv = require('../assets/gotv.jpeg')
+export const dstv = require('../assets/DStv-logo.jpg')
+
