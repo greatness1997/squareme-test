@@ -90,7 +90,7 @@ const Summary = ({ navigation, route }) => {
             </View>
 
 
-            <SwipeButton  style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)}/>
+            <SwipeButton title="Swipe to Send" style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)}/>
             <Modal
                 visible={modalVisible}
                 animationType='slide'

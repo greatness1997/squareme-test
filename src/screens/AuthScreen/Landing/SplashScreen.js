@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image, View, Animated } from "react-native";
-import { Logo } from "../../constants/images";
+import { Logo } from "../../../constants/images";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Splash = ({ navigation }) => {
 
@@ -9,9 +11,25 @@ const Splash = ({ navigation }) => {
     useEffect(( ) => {
         setTimeout(() => {
             startAnimation()
-            navigation.navigate("login")
+            checkIfAppInstalledBefore();  
         }, 3000)
     }, [])
+
+        const checkIfAppInstalledBefore = async () => {
+          try {
+            const hasAppInstalledBefore = await AsyncStorage.getItem('hasAppInstalledBefore');
+            if (!hasAppInstalledBefore) {
+              navigation.navigate("LandingOne")
+            }else(
+                navigation.navigate("login")
+            )
+            await AsyncStorage.setItem('hasAppInstalledBefore', 'true');
+          } catch (error) {
+            console.error('Error checking app installation:', error);
+          }
+        };
+      
+      
 
     const startAnimation = () => {
         Animated.timing(animation, {

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from '../../AuthScreen/Login';
 import Register from '../../AuthScreen/Register';
-import Splash from '../../AuthScreen/SplashScreen';
+import Splash from '../../AuthScreen/Landing/SplashScreen';
 import PersistLogin from '../../AuthScreen/PersistLogin';
 import AuthOTP from '../../AuthScreen/AuthOTP';
 import TransactionPin from '../../AuthScreen/TransactionPin';
@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 const AuthSatck = () => {
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="login"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerTitle: '',

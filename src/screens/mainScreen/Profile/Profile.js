@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -11,16 +11,19 @@ import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handl
 import cred from '../../../config'
 import axios from 'axios'
 
+import { launchImageLibrary } from 'react-native-image-picker'
+
 
 const Profile = ({ navigation }) => {
 
     const [userData, setUserData] = useState({
-        "firstName":"N/a",
-        "lastName":"N/a",
-        "email":"N/a",
-        "walletId":"N/a",
-        "agentType":"N/a"
+        "firstName": "N/a",
+        "lastName": "N/a",
+        "email": "N/a",
+        "walletId": "N/a",
+        "agentType": "N/a"
     })
+    const [error, setError] = useState(null)
 
     const { auth: { user } } = useSelector(state => state)
 
@@ -40,10 +43,58 @@ const Profile = ({ navigation }) => {
         try {
             const response = await axios.get(url, options)
             const { user } = response.data
-            console.log(user)
+           
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)
+        }
+    }
+
+    const uploadImage = async () => {
+        const options = {
+            title: 'Select Image',
+            mediaType: 'photo',
+            quality: 1
+        };
+
+        try {
+            const result = await launchImageLibrary(options)
+            if (result) {
+                changeImage(result.assets[0].uri)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const changeImage = async (result) => {
+
+        const url = `${cred.URL}/auth/profile-picture`
+        const options = { headers: { Authorization: `Bearer ${user.token}`, "content-type": "multipart/form-data" } }
+
+        const formData = new FormData();
+        formData.append('picture', { uri: result, name: 'picture.jpg', type: 'image/jpeg' })
+
+        try {
+            const response = await axios.post(url, formData, options)
+            const { status, message, } = response.data
+
+            if (status !== "success") {
+                setError(message)
+            } else {
+                Alert.alert(`${message}`)
+                getProfile()
+            }
+
+        } catch (error) {
+            console.log(error, "got tot catch")
+
+            if (error.response && error.response.data) {
+                const { message } = error.response.data
+                setError(message)
+            } else {
+                setError('An error occur while uploading documents')
+            }
         }
     }
 
@@ -68,11 +119,12 @@ const Profile = ({ navigation }) => {
                     <View style={{ flexDirection: "row" }}>
 
                         <View style={styles.profileImage}>
-                            <Image source={image} style={{ width: s(50), height: vs(50), borderRadius: s(50), }} />
+                            {/* <Image source={image} style={{ width: s(50), height: vs(50), borderRadius: s(50), }} /> */}
+                            {userData.picture ? <Image source={{ uri: userData.picture }} style={{ width: 80, height: 80, borderRadius: 50 }} /> : <Image source={image} style={{ width: 80, height: 80, borderRadius: 50, }} />}
                         </View>
-                        <View style={styles.edit}>
+                        <TouchableOpacity onPress={() => uploadImage()} style={styles.edit}>
                             <MaterialCommunityIcons name="camera-outline" color="#ffffff" size={s(15)} />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ alignItems: "center", marginTop: s(10) }}>
                         <Text style={{ color: "#464646", fontSize: s(17), fontWeight: "600" }}>{userData.firstName} {userData.lastName}</Text>
@@ -149,8 +201,8 @@ const Profile = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     profileImage: {
-        width: s(70),
-        height: s(70),
+        width: s(80),
+        height: s(80),
         borderWidth: s(4),
         borderRadius: s(100),
         borderColor: "#1b2d56",
@@ -178,7 +230,7 @@ const styles = StyleSheet.create({
         height: s(25),
         borderRadius: s(20),
         position: "absolute",
-        marginLeft: s(60),
+        marginLeft: s(70),
         justifyContent: "center",
         alignItems: "center"
     }

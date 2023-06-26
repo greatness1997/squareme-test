@@ -23,7 +23,7 @@ const Completed = ({ navigation, route }) => {
 
     return (
 
-        <View style={{ flex: 1, marginTop: s(60), marginLeft: s(15), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(40), marginLeft: s(15), width: "90%" }}>
 
 
 

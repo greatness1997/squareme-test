@@ -71,7 +71,7 @@ const Summary = ({ navigation, route }) => {
 
             <SummaryCard data={data} />
 
-            <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody, data)} />
+            <SwipeButton title="Swipe to Send" style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody, data)} />
             <Modal
                 visible={modalVisible}
                 animationType='slide'

@@ -23,6 +23,7 @@ const ElectricityValidation = ({ navigation, route }) => {
     const [phase, setPhase] = useState(1)
     const [accountName, setAccountName] = useState("")
     const [responseData, setResponseData] = useState({})
+    const [error, setError] = useState("")
     const [value, setValues] = useState({})
 
     const handleOptionPress = (option) => {
@@ -54,18 +55,19 @@ const ElectricityValidation = ({ navigation, route }) => {
             const data = await axios.post(url, body, options)
 
             const { message, response, responseCode, transactionStatus } = data.data
+            console.log(data.data)
             if (responseCode === "00") {
                 setAccountName(response.name)
                 setResponseData(data.data)
             } else {
-                Alert.alert(`${message}`)
+                setError("Meter Number unknown")
                 console.log(response)
             }
 
         } catch (error) {
             console.log(error.response.data)
             const { message } = error.response.data
-            Alert.alert(`${message}`)
+            setError(`${message}`)
         }
     }
 
@@ -160,7 +162,7 @@ const ElectricityValidation = ({ navigation, route }) => {
                                     </View>
                                     <Text style={{ marginLeft: 5 }}>Customer's Name</Text>
                                     <View style={styles.accountName}>
-                                        {accountName ? <Text style={{ color: "#3c68f8", fontWeight: "500" }}>{accountName}</Text> : <Text style={{ color: "#d4d4d4", fontWeight: "500" }}>Account Name</Text>}
+                                        {accountName ? <Text style={{ color: "#3c68f8", fontWeight: "500" }}>{accountName}</Text> : error ? <Text style={{ color: "#d0312d", fontWeight: "500" }}>{error}</Text> : <Text style={{ color: "#d4d4d4", fontWeight: "500" }}>Account Name</Text>}
                                     </View>
 
                                     <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>

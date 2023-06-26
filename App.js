@@ -13,6 +13,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/screens/navigation/AppNavigator'
 import { color } from './src/constants/color';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
