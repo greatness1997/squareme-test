@@ -8,33 +8,49 @@ const Splash = ({ navigation }) => {
 
     const animation = useRef(new Animated.Value(0)).current;
 
-    useEffect(( ) => {
+    useEffect(() => {
         setTimeout(() => {
             startAnimation()
-            checkIfAppInstalledBefore();  
-        }, 3000)
+            checkIfAppInstalledBefore();
+            getData()
+        }, 1000)
     }, [])
 
-        const checkIfAppInstalledBefore = async () => {
-          try {
+    const [data, setData] = useState({})
+
+    const getData = async () => {
+        try {
+            const userData = await AsyncStorage.getItem('userData');
+            const data = JSON.parse(userData)
+            if(userData){
+                navigation.navigate("PersistLogin")
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+
+    const checkIfAppInstalledBefore = async () => {
+        try {
             const hasAppInstalledBefore = await AsyncStorage.getItem('hasAppInstalledBefore');
             if (!hasAppInstalledBefore) {
-              navigation.navigate("LandingOne")
-            }else(
+                navigation.navigate("LandingOne")
+            } else (
                 navigation.navigate("login")
             )
             await AsyncStorage.setItem('hasAppInstalledBefore', 'true');
-          } catch (error) {
+        } catch (error) {
             console.error('Error checking app installation:', error);
-          }
-        };
-      
-      
+        }
+    };
+
+
 
     const startAnimation = () => {
         Animated.timing(animation, {
             toValue: 1,
-            duration:500,
+            duration: 500,
             useNativeDriver: true
         }).start();
     }
@@ -46,12 +62,16 @@ const Splash = ({ navigation }) => {
             justifyContent: "center",
             alignItems: "center"
         }}>
-            <Animated.View style={[{ width: 100, height: 100 }, { transform: [
-                { scale: animation.interpolate({
-                    inputRange: [0,1],
-                    outputRange:[1,20]
-                }) }
-            ] }]}>
+            <Animated.View style={[{ width: 100, height: 100 }, {
+                transform: [
+                    {
+                        scale: animation.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [1, 20]
+                        })
+                    }
+                ]
+            }]}>
                 <Image source={Logo} />
             </Animated.View>
         </View>
