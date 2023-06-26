@@ -103,7 +103,7 @@ const SwipeButton = ({ onPress, onSwipeEnd, title, style }) => {
                 </Animated.View>
 
             </PanGestureHandler>
-            <Animated.Text style={[styles.swiperText, animatedStyle.swiperText]}>Swipe to Send</Animated.Text>
+            <Animated.Text style={[styles.swiperText, animatedStyle.swiperText]}>{title}</Animated.Text>
             {/* <Text style={styles.text}>{title}</Text> */}
         </View>
     );

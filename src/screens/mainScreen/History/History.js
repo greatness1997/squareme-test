@@ -34,7 +34,6 @@ const History = () => {
     const [endText, setEndText] = useState('')
     const [itemValue, setItemValue] = useState()
 
-    console.log(startText)
 
 
 
@@ -104,6 +103,8 @@ const History = () => {
 
     const transactionHistory = async () => {
 
+       
+
         const url = `${credentials.URL2}/user/transaction-history`
         const options = { headers: { Authorization: `Bearer ${user.token}` } }
         const body = {
@@ -124,7 +125,6 @@ const History = () => {
             const { transactions } = response.data
 
             setTransaction(transactions.docs)
-            console.log(transactions.docs.length)
             setLoading(false)
 
         } catch (error) {

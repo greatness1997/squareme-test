@@ -160,17 +160,14 @@ const UploadDoc = ({ navigation }) => {
             }
 
         } catch (error) {
-            console.log(error, "got to error"); // Log the error to check its structure
+            console.log(error, "got tot catch")
 
-            // Handle the error appropriately
             if (error.response && error.response.data) {
-              const { message } = error.response.data;
-              setError(message);
+                const { message } = error.response.data
+                setError(message)
             } else {
-              setError('An error occurred while uploading documents');
+                setError('An error occur while uploading documents')
             }
-          
-            setLoading(false);
         }
     }
 
@@ -290,8 +287,8 @@ const UploadDoc = ({ navigation }) => {
                         </TouchableOpacity>}
                     </TouchableOpacity>
 
-                    {error && <Text style={{ marginBottom: s(5), color: "#DD1515", }}>{error}</Text>}
-                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(150) }} />
+                    {error && <Text style={{ marginTop: s(8), color: "#DD1515", }}>{error}</Text>}
+                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(100) }} />
 
                 </ScrollView>
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native'
 import { color } from '../../constants/color'
 import { Logo, FingerPrint, image } from '../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -11,6 +11,7 @@ import AppButton from '../../components/AppButtonWhite'
 import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
@@ -19,9 +20,10 @@ const PersistLogin = ({ navigation, route }) => {
     const [loading, setIsLoadking] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [visible, setVisible] = useState(true)
+    const [email, setEmail] = useState("")
+    const [asyncData, setAsyncData] = useState({})
     const dispatch = useDispatch()
 
-    const email = "skouhon@gmail.com"
 
     const Schema = Yup.object().shape({
         login: Yup.string().required('Email field is required'),
@@ -37,19 +39,15 @@ const PersistLogin = ({ navigation, route }) => {
             const response = await axios.post(url, res)
             const { status, message, userData, token } = response.data
 
-            console.log(response.data, 'from response')
-
             if (status !== "success") {
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
             } else {
                 dispatch({ type: "LOGIN", user: { ...userData, token: `${token}` } })
                 navigation.navigate("Home", { ...userData })
+                storeData(userData)
                 setIsLoadking(false)
             }
-
-
-
         } catch (error) {
             console.log(error.response.data, 'from catch')
             const { message } = error.response.data
@@ -57,6 +55,28 @@ const PersistLogin = ({ navigation, route }) => {
             setIsLoadking(false)
         }
     }
+
+    const getData = async () => {
+        try {
+            const userData = await AsyncStorage.getItem('userData');
+            const data = JSON.parse(userData)
+
+            setAsyncData(data || {"firstName": "N/A", "lastName": "N/A"})
+            setEmail(data.email)
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    useEffect(() => {
+        getData()
+    },[])
+
+    const name = `${asyncData.firstName}`
+    const secondName = `${asyncData.lastName}`
+
+    const nameOne = name.replace(/^\w/, c => c.toUpperCase())
+    const nameTwo = secondName.replace(/^\w/, c => c.toUpperCase())
 
     return (
         <>
@@ -69,13 +89,16 @@ const PersistLogin = ({ navigation, route }) => {
 
                 <View style={{ alignItems: "center", padding: ms(20), }}>
                     <View style={styles.profileImage}>
-                        <Image source={image} style={{ width: s(80), height: vs(80), borderRadius: s(50), }} />
+                        {asyncData.picture !== null ? <Image source={{ uri: asyncData.picture }} style={{ width: s(85), height: s(85), borderRadius: 50 }} /> : <Image source={image} style={{ width: s(95), height: s(95), borderRadius: s(50), }} />}
                     </View>
                     <View style={{ alignItems: "center", marginTop: s(20) }}>
-                        <Text style={{ color: "white", fontSize: s(14), fontWeight: "500" }}>Sanusi T. Segun</Text>
+                        <Text style={{ color: "white", fontSize: s(14), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
                         <View style={{ flexDirection: "row", marginTop: s(20) }}>
                             <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Not You?</Text>
-                            <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Switch Account</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                                <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Switch Account</Text>
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
@@ -101,7 +124,7 @@ const PersistLogin = ({ navigation, route }) => {
                                             placeholder='Enter Password'
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
-                                            value={values}
+                                            value={values.password}
                                         />
                                         <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
                                             <MaterialCommunityIcons
@@ -113,9 +136,11 @@ const PersistLogin = ({ navigation, route }) => {
 
                                     </View>
 
-                                    <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                        <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Forget Password?</Text>
-                                    </View>
+                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode")}  >
+                                        <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
+                                            <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                        </View>
+                                    </TouchableWithoutFeedback>
                                     <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     {/* <View style={{ marginTop: s(40), alignItems: "center" }}>
                                         <TouchableWithoutFeedback onPress={() => console.log("Finger Print")} >

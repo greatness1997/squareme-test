@@ -135,7 +135,10 @@ const Validate = ({ navigation }) => {
             console.log(error.response.data)
             setIsLoading(false)
         }
+        
     }
+
+    
 
     return (
         <KeyboardAvoidingViewNB>
@@ -225,6 +228,7 @@ const Validate = ({ navigation }) => {
                                                 placeholder='What is it for?'
                                                 onChangeText={handleChange('narration')}
                                                 value={values.narration}
+                                                maxLength={15}
                                             />
 
                                         </View>

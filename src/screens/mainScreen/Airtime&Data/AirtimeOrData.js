@@ -81,8 +81,6 @@ const AirtimeData = ({ navigation, route }) => {
             "service": `${item}data`,
         }
 
-
-
         try {
             const data = await axios.post(url, body, options)
             const { response, transactionId } = data.data

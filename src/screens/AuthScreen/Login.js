@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import TouchID from 'react-native-touch-id'
 import DeviceInfo from 'react-native-device-info';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 
@@ -26,7 +27,6 @@ const Login = ({ navigation, route }) => {
     const [visible, setVisible] = useState(true)
     const dispatch = useDispatch()
 
-    const email = "skouhon@gmail.com"
 
     const Schema = Yup.object().shape({
         login: Yup.string().email().required('Email field is required'),
@@ -44,7 +44,14 @@ const Login = ({ navigation, route }) => {
 
     const hasFaceID = DeviceInfo.hasNotch();
 
-
+    const storeData = async (data) => {
+        try {
+            const jsonValue = JSON.stringify(data);
+            await AsyncStorage.setItem('userData', jsonValue);
+        } catch (e) {
+            console.log(e)
+        }
+    };
 
     const Login = async (res) => {
 
@@ -61,6 +68,7 @@ const Login = ({ navigation, route }) => {
             } else {
                 dispatch({ type: "LOGIN", user: { ...userData, token: `${token}` } })
                 navigation.navigate("Home", { ...userData })
+                storeData(userData)
                 setIsLoadking(false)
             }
 
@@ -125,7 +133,7 @@ const Login = ({ navigation, route }) => {
 
                                     </View>
 
-                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", {data: "from login"})}  >
+                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", { data: "from login" })}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
                                             <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>

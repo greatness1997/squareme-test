@@ -5,6 +5,8 @@ import AppButton from '../../../components/AppButtonBlue'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { s } from 'react-native-size-matters'
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const Settings = ({ navigation }) => {
 
@@ -14,6 +16,15 @@ const Settings = ({ navigation }) => {
         setActiveBox(boxIndex)
     }
 
+   const removeValue = async () => {
+        try {
+          await AsyncStorage.removeItem('userData')
+          navigation.navigate('login')
+        } catch(e) {
+          console.log(e)
+        }
+      
+      }
 
 
     return (
@@ -68,7 +79,7 @@ const Settings = ({ navigation }) => {
 
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                <TouchableOpacity style={styles.serviceContainer} onPress={() => navigation.navigate("login")}>
+                <TouchableOpacity style={styles.serviceContainer} onPress={() => removeValue()}>
                     <MaterialCommunityIcon name="logout" size={30} color="#808080" />
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20 }}>Logout</Text>

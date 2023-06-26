@@ -24,6 +24,8 @@ import Share from "react-native-share"
 import "intl"
 import "intl/locale-data/jsonp/en";
 
+import { LogoBlue } from '../../../constants/images';
+
 
 
 const DataCompleted = ({ navigation, route, setModalVisible }) => {
@@ -64,11 +66,11 @@ const DataCompleted = ({ navigation, route, setModalVisible }) => {
 
     return (
 
-        <View style={{ flex: 1, marginTop: s(60), marginLeft: s(15), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(45), marginLeft: s(15), width: "90%" }}>
 
 
 
-            <View style={{ marginBottom: s(20), marginTop: 5, alignItems: "center" }}>
+            <View style={{ marginBottom: s(20), marginTop: 0, alignItems: "center" }}>
 
                 <Lottie
                     source={Complete}
@@ -110,22 +112,16 @@ const DataCompleted = ({ navigation, route, setModalVisible }) => {
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
                         </View>
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            {showShareButton && (
-                                <>
-                                    <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
-                                        <Image source={Print} />
-                                    </TouchableOpacity>
-                                    <Text style={{ color: color.colorSeven, fontSize: s(13), fontWeight: "500" }}>Print Receipt</Text>
-                                </>
-                            )}
-                        </View>
-
                     </View>
-
+                    <Image source={LogoBlue} style={{ marginTop: 15, alignSelf: "center" }} />
                 </View>
             </ViewShot>
-
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
+                    <Image source={Print} style={{ width: s(15), height: s(15) }} />
+                </TouchableOpacity>
+                <Text style={{ color: color.colorSeven, fontSize: s(11), fontWeight: "500" }}>Print Receipt</Text>
+            </View>
             <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
 
         </View>
@@ -147,12 +143,12 @@ const styles = StyleSheet.create({
     },
     container: {
         width: "100%",
-        height: s(320),
+        height: s(270),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
-        marginTop: 10,
+        marginTop: 0,
         padding: 20
     },
     print: {

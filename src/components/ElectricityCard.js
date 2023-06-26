@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import { color } from "../constants/color"
-import { Print } from '../constants/images'
+import { Print, LogoBlue } from '../constants/images'
 import AppButton from './AppButtonBlue'
 import { s } from 'react-native-size-matters'
 import moment from 'moment'
@@ -10,6 +10,8 @@ import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import ViewShot from 'react-native-view-shot';
 import Share from "react-native-share"
 
+import "intl"
+import "intl/locale-data/jsonp/en";
 
 
 const ElectricityCard = ({ data }) => {
@@ -41,6 +43,12 @@ const ElectricityCard = ({ data }) => {
         }
     }
 
+    const format = new Intl.NumberFormat("en-US", {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 2
+    })
+
+
     return (
         <>
             <ViewShot ref={ref} >
@@ -60,7 +68,7 @@ const ElectricityCard = ({ data }) => {
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.amount}</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.data.amount)}`}</Text>
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
@@ -70,22 +78,16 @@ const ElectricityCard = ({ data }) => {
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
                         </View>
-
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            {showShareButton && (
-                                <>
-                                    <TouchableOpacity style={styles.print} onPress={() => {setShowShareButton(false), shareImage()}}>
-                                        <Image source={Print} />
-                                    </TouchableOpacity>
-                                    <Text style={{ color: color.colorSeven, fontSize: s(13), fontWeight: "500" }}>Print Receipt</Text>
-                                </>
-                            )}
-                        </View>
-
                     </View>
-
+                    <Image source={LogoBlue} style={{ marginTop: 15, alignSelf: "center" }} />
                 </View>
             </ViewShot>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
+                    <Image source={Print} style={{ width: s(15), height: s(15) }} />
+                </TouchableOpacity>
+                <Text style={{ color: color.colorSeven, fontSize: s(11), fontWeight: "500" }}>Print Receipt</Text>
+            </View>
         </>
     )
 }
@@ -93,7 +95,7 @@ const ElectricityCard = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(330),
+        height: s(290),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,
@@ -101,14 +103,14 @@ const styles = StyleSheet.create({
         padding: 20
     },
     print: {
-        width: s(40),
-        height: s(40),
+        width: s(35),
+        height: s(35),
         borderWidth: 2,
         borderColor: color.colorSeven,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: s(40),
-        marginTop: s(20),
+        marginTop: s(10),
         marginBottom: 10
     },
 

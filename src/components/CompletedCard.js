@@ -2,7 +2,7 @@
 import React, {useState, useRef} from 'react'
 import { StyleSheet, Text, View, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import { color } from "../constants/color"
-import { Print } from '../constants/images'
+import { Print, LogoBlue } from '../constants/images'
 import AppButton from './AppButtonBlue'
 import { s } from 'react-native-size-matters'
 import moment from 'moment'
@@ -11,10 +11,13 @@ import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import ViewShot from 'react-native-view-shot';
 import Share from "react-native-share"
 
+import "intl"
+import "intl/locale-data/jsonp/en";
+
 
 
 const CompletedCard = ({ data }) => {
-    console.log(data)
+    console.log(data, "completed")
     const [showShareButton, setShowShareButton] = useState(true);
     const ref = useRef();
 
@@ -42,11 +45,16 @@ const CompletedCard = ({ data }) => {
         }
     }
 
+    const format = new Intl.NumberFormat("en-US", {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 2
+    })
+
     return (
         <>
             <ViewShot ref={ref} >
                 <View style={styles.container}>
-                    <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(20) }}>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
                         <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.data.name || data.data.beneficiaryAccountName}</Text>
                         <Text style={{ fontSize: 16, fontWeight: "400", color: color.colorFive }}>{data.data.account || data.data.beneficiaryAccountNumber}</Text>
                     </View>
@@ -59,9 +67,13 @@ const CompletedCard = ({ data }) => {
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Bank</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.summaryData.res.banks}</Text>
                         </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Bank</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.summaryData.res.narration}</Text>
+                        </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.summaryData.res.amount}</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.summaryData.res.amount)}`}</Text>
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
@@ -71,21 +83,17 @@ const CompletedCard = ({ data }) => {
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Time</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{time}</Text>
                         </View>
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            {showShareButton && (
-                                <>
-                                    <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
-                                        <Image source={Print} />
-                                    </TouchableOpacity>
-                                    <Text style={{ color: color.colorSeven, fontSize: s(13), fontWeight: "500" }}>Print Receipt</Text>
-                                </>
-                            )}
-                        </View>
-
                     </View>
-
+                    <Image source={LogoBlue} style={{ marginTop: 15, alignSelf: "center" }} />
                 </View>
             </ViewShot>
+
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
+                    <Image source={Print} style={{ width: s(15), height: s(15) }} />
+                </TouchableOpacity>
+                <Text style={{ color: color.colorSeven, fontSize: s(11), fontWeight: "500" }}>Print Receipt</Text>
+            </View>
         </>
     )
 }
@@ -93,12 +101,12 @@ const CompletedCard = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(320),
+        height: s(300),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
-        marginTop: 10,
+        marginTop: 0,
         padding: 20
     },
     print: {

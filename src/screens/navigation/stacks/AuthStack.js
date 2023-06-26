@@ -4,8 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from '../../AuthScreen/Login';
 import Register from '../../AuthScreen/Register';
-import Splash from '../../AuthScreen/SplashScreen';
-import PersistLogin from '../../AuthScreen/PersistLogin';
+import Splash from '../../AuthScreen/Landing/SplashScreen';
+// import PersistLogin from '../../AuthScreen/PersistLogin';
 import AuthOTP from '../../AuthScreen/AuthOTP';
 import TransactionPin from '../../AuthScreen/TransactionPin';
 import SendResetCode from '../../AuthScreen/SendResetCode';
@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 const AuthSatck = () => {
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="login"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerTitle: '',
@@ -26,7 +26,7 @@ const AuthSatck = () => {
         >
             <Stack.Screen name='Splash' component={Splash} />
             <Stack.Screen name='login' component={Login} />
-            <Stack.Screen name='PersistLogin' component={PersistLogin} />
+            {/* <Stack.Screen name='PersistLogin' component={PersistLogin} /> */}
             <Stack.Screen name='register' component={Register} />
             <Stack.Screen name='authOTP' component={AuthOTP} />
             <Stack.Screen name='createPin' component={TransactionPin} />

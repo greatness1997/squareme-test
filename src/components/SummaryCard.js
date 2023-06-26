@@ -26,7 +26,7 @@ const SummaryCard = ({ data }) => {
 
     const amount = parseFloat(data.res.amount); // Assuming `data.res.amount` is a number
 
-    const updatedAmount = amount + 10; // Adding 10 to the amount
+    const updatedAmount = amount + 20; // Adding 10 to the amount
 
     const formattedAmount = format.format(updatedAmount);
 
@@ -40,7 +40,7 @@ const SummaryCard = ({ data }) => {
 
             <View style={styles.container}>
 
-                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(18) }}>
+                <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
                     <Text style={{ fontSize: s(14), fontWeight: "600", paddingBottom: s(3), color: color.colorSix }}>{data.tranRes.name}</Text>
                     <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFive }}>{data.tranRes.account}</Text>
                 </View>
@@ -52,6 +52,10 @@ const SummaryCard = ({ data }) => {
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(14) }}>
                         <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Bank</Text>
                         <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.res.banks}</Text>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(14) }}>
+                        <Text style={{ fontSize: s(12), fontWeight: "400", color: color.colorFour }}>Charge</Text>
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(20)}`}</Text>
                     </View>
                 </View>
                 <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: s(18) }}></View>
@@ -79,7 +83,7 @@ const SummaryCard = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(250),
+        height: s(270),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: s(8),
