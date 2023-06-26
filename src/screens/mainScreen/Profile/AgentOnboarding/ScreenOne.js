@@ -49,7 +49,8 @@ const ScreenOne = ({ navigation }) => {
         },
         input: {
             color: "#6a6a6a",
-            fontWeight: "600", fontSize: s(13)
+            fontWeight: "600", fontSize: s(13),
+            height: s(40),
         },
         formContainer: {
             borderWidth: 1,
@@ -344,7 +345,7 @@ const ScreenOne = ({ navigation }) => {
                                 <Text></Text>
                             </View>
                             <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
-                                <View style={{ padding: s(20), marginBottom: s(0) }}>
+                                <View style={{ padding: s(10), marginBottom: s(0), }}>
                                     {gender.map((item, key) => (
                                         <TouchableOpacity key={key} onPress={() => { setGender(item.name), setModalVisible(false) }}>
                                             <Text style={{ fontSize: s(18), marginBottom: s(15) }}>{item.label}</Text>

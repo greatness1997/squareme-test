@@ -40,7 +40,8 @@ const ChangePassword = ({ navigation, route }) => {
         input: {
             color: "#6a6a6a",
             fontWeight: "600",
-            fontSize: s(13)
+            fontSize: s(13),
+            height: s(40),
         },
 
         formContainer2: {

@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import {View, Text} from 'react-native'
-
-
-const Settings = () => {
-    return (
-        <View style={{ alignItems: "center", marginTop: 40 }}>
-            <Text style={{ fontWeight: "600", fontSize: 16, }}>Nothing Here Yet</Text>
-        </View>
-    )
-}
-
-export default Settings
-=======
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableWithoutFeedback, Image, TouchableOpacity, SafeAreaView } from 'react-native'
 import { airtel, mtn, glo } from '../../../constants/images'
@@ -113,4 +98,3 @@ const styles = StyleSheet.create({
 
 export default Settings
 
->>>>>>> b7d724d29f71e90043fd87e4aea1eccda4c59cd8

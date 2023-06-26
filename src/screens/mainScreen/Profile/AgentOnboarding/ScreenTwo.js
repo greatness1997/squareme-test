@@ -90,7 +90,8 @@ const ScreenTwo = ({ navigation, route }) => {
     },
     input: {
         color: "#6a6a6a",
-        fontWeight: "600",fontSize: s(13)
+        fontWeight: "600",fontSize: s(13),
+        height: s(40),
     },
     formContainer: {
         borderWidth: 1,

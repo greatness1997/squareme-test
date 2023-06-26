@@ -133,7 +133,7 @@ const UploadDoc = ({ navigation }) => {
 
     const uploadDocs = async () => {
         const url = `${cred.URL}/auth/upload-kyc-documents`
-        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+        const options = { headers: { Authorization: `Bearer ${user.token}`, "content-type": "multipart/form-data", } }
 
         const formData = new FormData();
         formData.append('idCard', { uri: idCardUrl, name: 'idCard.jpg', type: 'image/jpeg' });
@@ -147,8 +147,8 @@ const UploadDoc = ({ navigation }) => {
         try {
             setLoading(true)
             const response = await axios.post(url, formData, options)
+            console.log(response, "here here")
             const { status, message, } = response.data
-
 
             if (status !== "success") {
                 setError(message)
@@ -160,10 +160,17 @@ const UploadDoc = ({ navigation }) => {
             }
 
         } catch (error) {
-            console.log(error.response.data, 'from catch')
-            const { message } = error.response.data
-            setError(message)
-            setLoading(false)
+            console.log(error, "got to error"); // Log the error to check its structure
+
+            // Handle the error appropriately
+            if (error.response && error.response.data) {
+              const { message } = error.response.data;
+              setError(message);
+            } else {
+              setError('An error occurred while uploading documents');
+            }
+          
+            setLoading(false);
         }
     }
 
@@ -283,7 +290,8 @@ const UploadDoc = ({ navigation }) => {
                         </TouchableOpacity>}
                     </TouchableOpacity>
 
-                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(100) }} />
+                    {error && <Text style={{ marginBottom: s(5), color: "#DD1515", }}>{error}</Text>}
+                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(150) }} />
 
                 </ScrollView>
 
