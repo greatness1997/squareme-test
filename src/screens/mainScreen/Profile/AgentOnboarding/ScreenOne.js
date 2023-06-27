@@ -7,6 +7,10 @@ import { LogoBlue } from '../../../../constants/images';
 import KeyboardAvoidView from '../../../../components/KeyboardAvoidingView';
 import AppButton from '../../../../components/AppButtonBlue';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Ionicons from "react-native-vector-icons/Ionicons"
+
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import moment from 'moment'
 
 
 
@@ -16,6 +20,34 @@ const ScreenOne = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [genderText, setGenderText] = useState('male')
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('');
+    const [date, setDate] = useState(new Date());
+    const [startText, setStartText] = useState('')
+
+
+    const onChange = (selectedDate) => {
+        setShow(false);
+        if (!selectedDate) return; // Handle case when no date is selected
+      
+        setDate(selectedDate);
+      
+        if (mode === 'date') {
+          setStartText(formatDate(selectedDate));
+        } 
+        setMode('');
+      };
+
+    const formatDate = (date) => {
+        if (!date) return '';
+        return moment(date).format('MMM DD, YYYY');
+        
+      };
+
+      const showMode = (currentMode) => {
+        setMode(currentMode);
+        setShow(true);
+    };
 
     const gender = [{ label: "Male", name: "male" }, { label: "Female", name: "female" }, { label: "Others", name: "others" }]
 
@@ -145,7 +177,7 @@ const ScreenOne = ({ navigation }) => {
                     <Formik
                         initialValues={{
                             bvn: "",
-                            dateOfBirth: "",
+                            dateOfBirth: startText|| "",
                             address: "",
                             businessName: "",
                             officeAddress: "",
@@ -301,18 +333,14 @@ const ScreenOne = ({ navigation }) => {
                                     </View>
 
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 5 }}>
-                                        <View style={styles.formContainer3}>
-                                            <Text style={{ color: "#A0A0A0", marginBottom: s(10), fontSize: s(10), marginBottom: s(7) }}>Date Of Birth</Text>
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder='MM-DD-YYYY'
-                                                onChangeText={(text) => {
-                                                    handleChange('dateOfBirth')(text)
-                                                    setError(null)
-                                                }}
-                                                value={values.dateOfBirth}
-                                            />
+                                        <View style={styles.formContainer4}>
+                                            <TouchableOpacity onPress={() => showMode("date")} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Text style={{ color: "#A0A0A0", fontSize: s(10), marginBottom: s(7) }}>Select Gender</Text>
+                                                <Ionicons name="calendar" size={s(20)} />
+                                            </TouchableOpacity>
+                                            <Text style={{ color: "#6a6a6a", fontWeight: "500" }}>{startText}</Text>
                                         </View>
+
                                         <View style={styles.formContainer4}>
                                             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                                 <Text style={{ color: "#A0A0A0", fontSize: s(10), marginBottom: s(7) }}>Select Gender</Text>
@@ -329,6 +357,16 @@ const ScreenOne = ({ navigation }) => {
                     </Formik>
                 </KeyboardAvoidView>
 
+                {show && (
+                    <DateTimePickerModal
+                        isVisible={show}
+                        mode="date"
+                        date={date}
+                        onConfirm={onChange}
+                        onCancel={() => setShow(false)}
+                    />
+                )}
+
                 <Modal
                     visible={modalVisible}
                     animationType='slide'
@@ -339,7 +377,7 @@ const ScreenOne = ({ navigation }) => {
                         <SafeAreaView style={styles.contentContainer}>
                             <View style={styles.closeIconContainer}>
                                 <TouchableWithoutFeedback onPress={close}>
-                                    <MaterialCommunityIcon name="close-circle" size={s(25)} />   
+                                    <MaterialCommunityIcon name="close-circle" size={s(25)} />
                                 </TouchableWithoutFeedback>
                                 <Text style={{ fontSize: s(15), fontWeight: "600" }}>Gender Options</Text>
                                 <Text></Text>

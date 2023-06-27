@@ -16,7 +16,6 @@ const Splash = ({ navigation }) => {
         }, 1000)
     }, [])
 
-    const [data, setData] = useState({})
 
     const getData = async () => {
         try {
