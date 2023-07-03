@@ -72,7 +72,7 @@ const Summary = ({ navigation, route }) => {
 
             <SummaryCard data={data} />
 
-            <SwipeButton title="Swipe to Send" style={{ marginTop: s(35) }} onSwipeEnd={() => next(trasnferBody, data)} />
+            { Platform.OS === "android" ? <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} /> : <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} />}
             <Modal
                 visible={modalVisible}
                 animationType='slide'

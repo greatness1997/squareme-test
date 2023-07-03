@@ -92,8 +92,7 @@ const DataSummary = ({ navigation, route }) => {
             </View>
 
 
-            { Platform.OS === "iOS" ? <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} /> :
-            <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} />}
+            { Platform.OS === "android" ? <AppButton title="Proceed" style={{ marginTop: s(35) }} onPress={() => setModalVisible(true)} /> : <SwipeButton style={{ marginTop: s(35) }} onSwipeEnd={() => setModalVisible(true)} />}
             
             <Modal
                 visible={modalVisible}
