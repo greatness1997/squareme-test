@@ -36,7 +36,8 @@ const TabNavigator = () => {
         'ChangePassword',
         'ResetCode2',
         "UploadDoc",
-        'ProviderTv'
+        'ProviderTv',
+        'VirtualAccount'
     ];
 
     return (
