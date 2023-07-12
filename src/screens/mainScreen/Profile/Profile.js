@@ -43,7 +43,6 @@ const Profile = ({ navigation }) => {
         try {
             const response = await axios.get(url, options)
             const { user } = response.data
-console.log(user)
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)

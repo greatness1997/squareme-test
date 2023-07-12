@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Image, View, Animated, SafeAreaView, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from "react-native";
+import { Image, View, Animated, SafeAreaView, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Platform } from "react-native";
 import { Logo, ads1 } from "../../../constants/images";
 import SwipeButton from "../../../components/SwipeButton";
 
@@ -53,7 +53,7 @@ const LandingThree = ({ navigation }) => {
                         </TouchableOpacity>
                         
                     </View>
-                    <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />
+                    {Platform.OS === "android" ? null : <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />}
                 </View>
                 </ScrollView>
             </SafeAreaView>
