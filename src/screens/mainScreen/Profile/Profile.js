@@ -43,7 +43,6 @@ const Profile = ({ navigation }) => {
         try {
             const response = await axios.get(url, options)
             const { user } = response.data
-           
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)
@@ -177,18 +176,24 @@ const Profile = ({ navigation }) => {
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => navigation.navigate("UploadDoc")} style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
+                            <View style={{ width: s(30), height: s(30), backgroundColor: userData.isKycDocument === true ? "#6C6C6C" : "#c66e5443", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                {userData.isKycDocument === true ? <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" /> : <MaterialCommunityIcons name="thumb-down" size={s(18)} color="#e66e54" />}
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Documents</Text>
+                            <View>
+                                <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Documents</Text>
+                                {userData.isKycDocument !== true && <Text style={{ color: "#6c6c6c", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(4) }}>Tap to Upload Documents</Text>}
+                            </View>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10), marginBottom: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
+                        <TouchableOpacity onPress={() => navigation.navigate("VirtualAccount")} style={{ backgroundColor:  "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10), marginBottom: s(10) }}>
+                            <View style={{ width: s(30), height: s(30), backgroundColor: userData.vfdAcctDetails ? "#6C6C6C" : "#c66e5443", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                {userData.vfdAcctDetails ? <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" /> : <MaterialCommunityIcons name="thumb-down" size={s(18)} color="#e66e54" />}
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Contact Details</Text>
-                        </TouchableOpacity> */}
+                            <View>
+                                <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Account Validation</Text>
+                                {!userData.vfdAcctDetails && <Text style={{ color: "#6c6c6c", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(4) }}>Tap to Create Virtual Account</Text>}
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                 </View>
