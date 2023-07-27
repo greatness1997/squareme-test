@@ -1,12 +1,18 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
-const Notification = () => {
+const Notification = ({ navigation }) => {
     return (
-        <View style={{ alignItems: "center", marginTop: 40 }}>
-            <Text style={{ fontWeight: "600", fontSize: 16, }}>Nothing Here Yet</Text>
-        </View>
+        <>
+        <TouchableOpacity style={{ marginTop: 50, padding: 20 }} onPress={() => navigation.goBack()}>
+            <MaterialCommunityIcon name="arrow-left-thick" size={25} />
+        </TouchableOpacity>
+            <View style={{ alignItems: "center", justifyContent: "center", marginTop: 150 }}>
+                <Text style={{ fontWeight: "600", fontSize: 16, }}>Nothing Here Yet</Text>
+            </View>
+        </>
     )
 }
 

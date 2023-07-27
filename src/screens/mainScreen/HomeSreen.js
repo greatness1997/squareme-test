@@ -218,28 +218,35 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("Internet")}>
+                        <View>
                             <ImageBackground
                                 source={Data}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
                             >
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(35), fontSize: s(10) }}>Internet</Text>
-                                    <Text style={{ fontSize: s(10) }}>Service</Text>
+                                    <Text style={{ marginTop: s(45), fontSize: s(10) }}>Internet</Text>
+                                    <Text style={{ fontSize: s(10), marginBottom: 5 }}>Service</Text>
+                                </View>
+                                <View style={styles.tag}>
+                                    <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
                                 </View>
                             </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("Insurance")}>
+
+                        </View>
+                        <View>
                             <ImageBackground
                                 source={Insurance}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
                             >
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(35), fontSize: s(10) }}>Insurance</Text>
+                                    <Text style={{ marginTop: s(47), fontSize: s(10), marginBottom: 0 }}>Insurance</Text>
+                                </View>
+                                <View style={styles.tag2}>
+                                    <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
                                 </View>
                             </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")}> 
+                        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")}>
                             <ImageBackground
                                 source={ServiceView}
                                 style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
@@ -345,56 +352,56 @@ const HomeScreen = ({ navigation }) => {
                                             </View>
                                         </View>
                                         <Text style={{ alignSelf: "center", marginBottom: s(15), color: "#9a9a9a", fontWeight: "500" }}>Fund Using The Account Bellow</Text>
-                                        
-                                            <View style={{ padding: 0, marginTop: 0, width: "100%", backgroundColor: "#f5f5f5", borderWidth: 1, borderColor: "#3483f5", borderRadius: s(10) }}>
 
-                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+                                        <View style={{ padding: 0, marginTop: 0, width: "100%", backgroundColor: "#f5f5f5", borderWidth: 1, borderColor: "#3483f5", borderRadius: s(10) }}>
 
-                                                    <View style={styles.serviceContainer}>
-                                                        <View >
+                                            <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
 
-                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
-                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
+                                                <View style={styles.serviceContainer}>
+                                                    <View >
 
-                                                        </View>
-                                                        {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
-                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
-                                                        </TouchableOpacity>}
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
 
                                                     </View>
+                                                    {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                    </TouchableOpacity>}
+
                                                 </View>
-                                                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
-
-                                                    <View style={styles.serviceContainer}>
-                                                        <View >
-
-                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
-                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
-
-                                                        </View>
-                                                        {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
-                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
-                                                        </TouchableOpacity>}
-                                                    </View>
-                                                </View>
-                                                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                                                <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
-
-                                                    <View style={styles.serviceContainer}>
-                                                        <View >
-                                                            <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
-                                                            <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
-                                                        </View>
-                                                        {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
-                                                            <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
-                                                        </TouchableOpacity>}
-
-                                                    </View>
-                                                </View>
-
                                             </View>
-                                        
+                                            <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                            <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                                <View style={styles.serviceContainer}>
+                                                    <View >
+
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
+
+                                                    </View>
+                                                    {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                    </TouchableOpacity>}
+                                                </View>
+                                            </View>
+                                            <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                            <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                                <View style={styles.serviceContainer}>
+                                                    <View >
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
+                                                    </View>
+                                                    {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                    </TouchableOpacity>}
+
+                                                </View>
+                                            </View>
+
+                                        </View>
+
                                         {accountDetails.accountNo !== "N/A" && <AppButton title="Share Account Details" onPress={() => shareText()} />}
                                     </ScrollView>
                                 </View>
@@ -536,6 +543,26 @@ const styles = StyleSheet.create({
         paddingHorizontal: s(10),
         paddingVertical: s(30),
     },
+    tag: {
+        backgroundColor: '#d10000',
+        padding: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5,
+        width: 80,
+        position: "relative",
+        marginTop: 0
+    },
+    tag2: {
+        backgroundColor: '#d10000',
+        padding: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5,
+        width: 80,
+        position: "relative",
+        marginTop: 8
+    }
 
 })
 

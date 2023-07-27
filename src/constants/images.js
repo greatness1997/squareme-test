@@ -31,6 +31,7 @@ export const image = require('../assets/user.png')
 export const LogoBlue = require('../assets/logoBlue.png')
 export const gotv = require('../assets/gotv.jpeg')
 export const dstv = require('../assets/DStv-logo.jpg')
+export const startimes = require('../assets/StarTimes.jpg')
 export const ads1 = require('../assets/ads1.png')
 export const adds2 = require('../assets/ads2.png')
 

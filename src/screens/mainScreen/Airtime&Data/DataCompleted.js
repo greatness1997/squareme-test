@@ -97,13 +97,17 @@ const DataCompleted = ({ navigation, route, setModalVisible }) => {
                         <Text style={{ fontSize: 18, fontWeight: "600", color: color.colorThree }}>{data.RN}</Text>
                     </View> */}
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Status</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.messsage}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(data.data.amount)}`}</Text>
                         </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                        {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Reference</Text>
-                            {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text> */}
-                        </View>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.data.reference}</Text>
+                        </View> */}
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
                             <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text>

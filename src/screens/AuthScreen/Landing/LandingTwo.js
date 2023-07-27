@@ -40,10 +40,10 @@ const LandingTwo = ({ navigation }) => {
 
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", padding: 20, marginTop: 20, fontSize: 15, fontWeight: "600" }}>Skip</Text>
+                            <Text style={{ color: "white", paddingLeft: 20, marginTop: 0, fontSize: 15, fontWeight: "600" }}>Skip</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate("LandingThree")}>
-                            <Text style={{ color: "white", padding: 20, marginTop: 20, fontSize: 15, fontWeight: "600"}}>Next</Text>
+                            <Text style={{ color: "white", paddingRight: 20, marginTop: 0, fontSize: 15, fontWeight: "600"}}>Next</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: 100,
+        height: 100,
         resizeMode: "contain"
     },
     logo2: {
-        width: 300,
-        height: 300,
+        width: 260,
+        height: 260,
         resizeMode: "contain"
     },
     text: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 13,
         fontWeight: "400",
-        marginBottom: 10,
+        marginBottom: 0,
         padding: 20
     },
 })

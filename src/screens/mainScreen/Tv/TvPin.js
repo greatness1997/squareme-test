@@ -5,19 +5,16 @@ import { useSelector } from "react-redux"
 
 import cred from '../../../config'
 import axios from 'axios'
-
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import LoadingScreen from '../../../components/Loading'
 
 
-const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTextEntry, setModalVisible }) => {
+
+const TvPin = ({ code, setCode, setPinReady, maxLength, navigation, data, value, price, cod, month,  setModalVisible }) => {
     const [isContFocus, setIsConFocus] = useState(false)
     const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
-
-    const network = data.networkName === "Airtel" || data.networkName === "Glo" ? data.networkName.toLowerCase() : data.networkName
-
-
+    
 
     const digitArray = new Array(maxLength).fill(0)
 
@@ -44,18 +41,18 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
     }
 
     useEffect(() => {
-        if (code.length === maxLength) {
-            makeTransfer()
+        if(code.length === maxLength){
+            tvPayment()
             setCode('')
         }
-
-
+       
+        
     }, [code])
 
     const { auth: { user } } = useSelector(state => state)
 
-    //generate uniqueId
-    const generateUniqueId = () => {
+     //generate uniqueId
+     const generateUniqueId = () => {
         const d = new Date();
         const n = d.getTime();
         const p = user.firstName.substring(0, 5).toUpperCase();
@@ -63,20 +60,24 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
         return `${p}-${n}`;
     };
 
-    const makeTransfer = async () => {
+    const tvPayment = async () => {
         setIsLoading(true)
-        const url = `${cred.URL}/vas/airtime/purchase`
+        const url = `${cred.URL}/vas/multichoice/payment`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
-            "amount": data.data.amount,
-            "channel": "mobile",
-            "phoneNumber": data.data.phoneNumber,
-            "service": `${network}vtu`,
+            "transactionId": data.transactionId,
+            "phoneNumber": value.phoneNumber,
+            "bouquetCode": cod,
+            "amount": price,
+            "months": `${month}`,
+            "type": "subscription",
             "uniqueId": generateUniqueId(),
-            "paymentMethod": "cash",
-            "pin": code
+             "addonMonths": "",
+            "addonPrice": "",
+            "addonCode": "",
+            "pin": code,
+            "paymentMethod": "cash"
         }
-
 
         try {
             const data = await axios.post(url, body, options)
@@ -85,9 +86,9 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
             setModalVisible(false)
 
             if (responseCode === "00") {
+                navigation.navigate("TvCompleted", { data: response })
                 setModalVisible(false)
                 setIsLoading(false)
-                navigation.navigate("AirtimeCompleted", { data: response, message: message })
 
             } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
@@ -105,27 +106,26 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
 
     return (
         <>
-            <Pressable style={styles.container} onPress={handlePress}>
-                {/* <View style={styles.box}> */}
+        <Pressable style={styles.container} onPress={handlePress}>
+            {/* <View style={styles.box}> */}
                 {/* <Text style={styles.text}></Text> */}
                 {digitArray.map(digitInput)}
-                {/* </View> */}
-            </Pressable>
-
-            <View style={styles.inputBox}>
-                <TextInput
-                    keyboardType='numeric'
-                    value={code}
-                    onChangeText={setCode}
-                    maxLength={maxLength}
-                    textContentType='oneTimeCode'
-                    returnKeyType='done'
-                    ref={inputRef}
-                    onBlur={handleOnBlur}
-                    secureTextEntry={true}
-                />
-            </View>
-            { loading && <LoadingScreen /> }
+            {/* </View> */}
+        </Pressable>
+        
+        <View style={styles.inputBox}>
+            <TextInput 
+                keyboardType='numeric'
+                value={code}
+                onChangeText={setCode}
+                maxLength={maxLength}
+                textContentType='oneTimeCode'
+                returnKeyType='done'
+                ref={inputRef}
+                onBlur={handleOnBlur}
+            />
+        </View>
+        {loading && <LoadingScreen />}
         </>
     )
 }
@@ -136,8 +136,8 @@ const styles = StyleSheet.create({
         width: 1,
         height: 1,
         opacity: 0
-    },
-    box: {
+     },
+     box: {
         borderWidth: 2,
         borderColor: "grey",
         width: s(45),
@@ -161,4 +161,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AirtimeOTP
+export default TvPin

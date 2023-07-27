@@ -17,7 +17,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import moment from 'moment'
 import { Print } from '../../../constants/images'
 import { color } from '../../../constants/color';
-import ElectricityVerify from './ElectricityVerify';
+import StartimesVerify from './StartimesVerify';
 
 
 import "intl"
@@ -26,11 +26,12 @@ import AppButton from '../../../components/AppButtonBlue';
 
 
 
-const ElectricitySummary = ({ navigation, route }) => {
+
+const StartimesSum = ({ navigation, route }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
 
-    const { data, image, value } = route.params
+    const { data, image, value, price, month, code, name } = route.params
 
     const date = moment().format('DD-MM-YYYY')
 
@@ -42,14 +43,14 @@ const ElectricitySummary = ({ navigation, route }) => {
     })
 
     return (
-        <View style={{ flex: 1, marginTop: s(30), marginLeft: s(16), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(35), marginLeft: s(16), width: "90%" }}>
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
                 </TouchableWithoutFeedback>
 
-                <Text style={{ fontSize: s(16), fontWeight: "600" }}>Electricity</Text>
+                <Text style={{ fontSize: s(16), fontWeight: "600" }}>Startimes</Text>
 
                 <View style={{ alignItems: "center" }}>
                     <Image source={image} style={styles.image} />
@@ -61,9 +62,9 @@ const ElectricitySummary = ({ navigation, route }) => {
             <View style={styles.container}>
 
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(0) }}>
-                    <Text style={{ marginBottom: s(5), color: "#e66e54" }}>Meter account details</Text>
+                    <Text style={{ marginBottom: s(5), color: "#e66e54" }}>Decoder Account details</Text>
                     <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.response.name}</Text>
-                    <Text style={{ fontSize: 16, fontWeight: "600", color: "#3c68fa" }}>{data.response.account}</Text>
+                    <Text style={{ fontSize: 16, fontWeight: "600", color: "#3c68fa" }}>{data.response.smartCardCode}</Text>
                 </View>
                 <View style={{ marginTop: s(20) }}>
                     {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
@@ -76,7 +77,7 @@ const ElectricitySummary = ({ navigation, route }) => {
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
-                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(value.amount)}` }</Text>
+                        <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{ `₦${format.format(price)}` }</Text>
 
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
@@ -106,7 +107,7 @@ const ElectricitySummary = ({ navigation, route }) => {
                         <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
                             <MaterialCommunityIcons name="close-circle" size={30} />
                         </TouchableOpacity>
-                        <ElectricityVerify data={data} value={value} navigation={navigation} setModalVisible={setModalVisible} />
+                        <StartimesVerify data={data} value={value} price={price} month={month} cod={code} navigation={navigation} name={name} setModalVisible={setModalVisible} />
                     </View>
                 </View>
 
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
     },
     image: {
         position: "relative",
+        resizeMode: "contain",
         // top: 20,
         // transform: [{ translateX: -s(50) }],
         // zIndex: 1,
@@ -173,4 +175,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ElectricitySummary
+export default StartimesSum

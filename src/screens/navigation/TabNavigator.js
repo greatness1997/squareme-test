@@ -37,7 +37,12 @@ const TabNavigator = () => {
         'ResetCode2',
         "UploadDoc",
         'ProviderTv',
-        'VirtualAccount'
+        'VirtualAccount',
+        'TvValidation',
+        'StartimesValidation',
+        'TvSummary',
+        'Notification',
+        'StartimesSum'
     ];
 
     return (

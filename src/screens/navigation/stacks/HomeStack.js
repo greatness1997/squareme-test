@@ -23,6 +23,13 @@ import DataCompleted from '../../mainScreen/Airtime&Data/DataCompleted';
 import ElectricitySummary from '../../mainScreen/Electricity/ElectricitySummary';
 import ElectricityCompleted from '../../mainScreen/Electricity/ElectricityCompleted';
 import ProviderTV from '../../mainScreen/Tv/Provider';
+import TvValidation from '../../mainScreen/Tv/TvValidation';
+import StartimesValidation from '../../mainScreen/Tv/Startimes';
+import TvSummary from '../../mainScreen/Tv/TvSummary';
+import TvCompleted from '../../mainScreen/Tv/TvCompleted';
+import Notification from '../../mainScreen/Notification';
+import StartimesSum from '../../mainScreen/Tv/StartimesSum';
+import StartimesCompleted from '../../mainScreen/Tv/StartimesCompleted';
 
 
 const Stack = createNativeStackNavigator();
@@ -59,6 +66,13 @@ const HomeStack = () => {
             <Stack.Screen name='DataCompleted' component={DataCompleted} />
             <Stack.Screen name='ElectricityComplete' component={ElectricityCompleted} />
             <Stack.Screen name='ProviderTv' component={ProviderTV} />
+            <Stack.Screen name='TvValidation' component={TvValidation} />
+            <Stack.Screen name='TvSummary' component={TvSummary} />
+            <Stack.Screen name='TvCompleted' component={TvCompleted} />
+            <Stack.Screen name='StartimesValidation' component={StartimesValidation} />
+            <Stack.Screen name='Notification' component={Notification} />
+            <Stack.Screen name='StartimesSum' component={StartimesSum} />
+            <Stack.Screen name='StartimesCompleted' component={StartimesCompleted} />
         </Stack.Navigator>
     )
 }

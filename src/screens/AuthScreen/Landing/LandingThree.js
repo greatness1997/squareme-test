@@ -1,9 +1,5 @@
 import React, { useEffect, useRef } from "react";
-<<<<<<< HEAD
-import { Image, View, Animated, SafeAreaView, Platform, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from "react-native";
-=======
 import { Image, View, Animated, SafeAreaView, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Platform } from "react-native";
->>>>>>> a2501bc157daa657b53ead6757d9b91db16b5b3b
 import { Logo, ads1 } from "../../../constants/images";
 import SwipeButton from "../../../components/SwipeButton";
 
@@ -50,18 +46,14 @@ const LandingThree = ({ navigation }) => {
 
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", paddingLeft: 20, marginTop: 10, fontSize: 15, fontWeight: "600" }}>Skip</Text>
+                            <Text style={{ color: "white", paddingLeft: 20, marginTop: 0, fontSize: 15, fontWeight: "600" }}>Skip</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", paddingRight: 20, marginTop: 10, fontSize: 15, fontWeight: "600"}}>Next</Text>
+                            <Text style={{ color: "white", paddingRight: 20, marginTop: 0, fontSize: 15, fontWeight: "600"}}>Next</Text>
                         </TouchableOpacity>
                         
                     </View>
-<<<<<<< HEAD
-                    { Platform.OS === "android" ? null : <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />}
-=======
-                    {Platform.OS === "android" ? null : <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />}
->>>>>>> a2501bc157daa657b53ead6757d9b91db16b5b3b
+                    {/* {Platform.OS === "android" ? null : <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />} */}
                 </View>
                 </ScrollView>
             </SafeAreaView>
@@ -86,13 +78,13 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: 100,
+        height: 100,
         resizeMode: "contain"
     },
     logo2: {
-        width: 300,
-        height: 300,
+        width: 260,
+        height: 260,
         resizeMode: "contain"
     },
     text: {
