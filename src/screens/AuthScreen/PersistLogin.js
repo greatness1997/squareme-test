@@ -122,6 +122,7 @@ const PersistLogin = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Password'
+                                            placeholderTextColor="#414a5e"
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
                                             value={values.password}
@@ -130,7 +131,7 @@ const PersistLogin = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-
+                                                color="#414a5e"
                                             />
                                         </TouchableWithoutFeedback>
 
@@ -183,11 +184,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(1),
+        borderWidth: s(2.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#414a5e",
+        backgroundColor: "#000c27",
         width: '100%',
         height: s(55),
         marginTop: '2%',
@@ -195,12 +196,12 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: s(40),
-        color: "black",
+        color: "white",
         paddingLeft: s(10),
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "white",
+        backgroundColor: "#a9c2f8",
         marginTop: s(28)
     }
 })

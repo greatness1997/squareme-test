@@ -16,11 +16,12 @@ import TouchID from 'react-native-touch-id'
 import DeviceInfo from 'react-native-device-info';
 import KeyboardAvoidView from '../../components/KeyboardAvoidingView'
 import ToastNotification from '../../components/Toast'
+import { useSelector } from "react-redux"
 
 
 
 
-const Register = ({ navigation, route }) => {
+const UserDetail = ({ navigation, route }) => {
 
     const [loading, setIsLoadking] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
@@ -31,27 +32,28 @@ const Register = ({ navigation, route }) => {
 
 
     const Schema = Yup.object().shape({
-        email: Yup.string().email('Invalid Email').required('Email field is required'),
-        password: Yup.string().required('Password field is required'),
+        // fistName: Yup.string().required(''),
+        // lastName: Yup.string().required('Password field is required'),
+
     });
 
+    const { auth: { user } } = useSelector(state => state)
 
+    const Details = async (res) => {
 
-    const Register = async (res) => {
-
-        const url = `${cred.URL}/mobile/create-user`
+        const url = `${cred.URL}/mobile/user-details`
+        const options = { headers: { Authorization: `Bearer ${user.token}` } }
 
         try {
             setIsLoadking(true)
-            const response = await axios.post(url, res)
-            const { status, message, userData, token } = response.data
+            const response = await axios.post(url, res, options)
+            const { status, message } = response.data
 
             if (status !== "success") {
                 showToast(message)
                 setIsLoadking(false)
             } else {
-                Alert.alert(`${message}`)
-                navigation.navigate("authOTP", { data: res.email })
+                navigation.navigate("CompleteDetails")
                 setIsLoadking(false)
             }
 
@@ -79,18 +81,25 @@ const Register = ({ navigation, route }) => {
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={message} />}
                 {!isToastVisible && <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: s(40) }}>
-                    <MaterialCommunityIcons name="arrow-left" size={s(25)} color="white" />
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        <MaterialCommunityIcons name="arrow-left" size={s(25)} color="white" />
+                        <Text style={{ marginLeft: s(5), fontWeight: "bold", fontSize: s(14), color: "white" }}>Tell Us About Yourself</Text>
+                    </View>
                 </TouchableOpacity>}
-                <Text style={{ color: "white", fontSize: s(24), fontWeight: "bold", marginLeft: s(5), marginTop: s(45) }}>Create Your</Text>
-                <Text style={{ color: "white", fontSize: s(24), fontWeight: "bold", marginLeft: s(5), marginTop: s(5) }}>Account</Text>
+
+                {!isToastVisible && <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(18), padding: s(8) }}>
+                    <Text style={{ color: "white", fontSize: s(13) }}>Profile Information</Text>
+                    <Text style={{ color: "white", fontSize: s(10) }}>step 2 of 4</Text>
+                </View>}
+
                 <KeyboardAvoidView>
                     <Formik
-                        initialValues={{ email: "", password: "", }}
+                        initialValues={{ firstName: "", lastName: "", address: "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
                                 .then((res) => {
-                                    Register(res)
+                                    Details(res)
                                 }).catch((error) => {
 
                                     setError("All fields are required")
@@ -102,49 +111,54 @@ const Register = ({ navigation, route }) => {
                             const { handleChange, values, handleSubmit } = props;
 
                             return (
-                                <View style={{ marginTop: s(30) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                <View style={{ marginTop: s(25) }}>
+                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
                                             style={styles.input}
-                                            placeholder='example@gmail.com'
+                                            placeholder='Enter First Name'
                                             placeholderTextColor="#414a5e"
                                             onChangeText={(text) => {
-                                                handleChange("email")(text);
+                                                handleChange("firstName")(text);
                                                 setError(null);
                                             }}
-                                            value={values.email}
+                                            value={values.firstName}
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
-                                            placeholder='Enter Password'
+                                            placeholder='Enter Last Name'
                                             placeholderTextColor="#414a5e"
                                             onChangeText={(text) => {
-                                                handleChange("password")(text);
+                                                handleChange("lastName")(text);
                                                 setError(null);
                                             }}
-                                            secureTextEntry={visible}
-                                            value={values.password}
+                                            value={values.lastName}
                                         />
-                                        <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
-                                            <MaterialCommunityIcons
-                                                name={showPassword === true ? "eye-outline" : "eye-off-outline"}
-                                                size={s(25)}
-                                                color="#414a5e"
-                                            />
-                                        </TouchableWithoutFeedback>
+                                    </View>
+
+                                    <Text style={{ color: "white", marginBottom: s(10), marginTop: s(5), fontSize: s(12), marginLeft: s(5) }}>Address</Text>
+                                    <View style={styles.loginContainer}>
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder='Enter Your Address'
+                                            placeholderTextColor="#414a5e"
+                                            onChangeText={(text) => {
+                                                handleChange("address")(text);
+                                                setError(null);
+                                            }}
+                                            value={values.address}
+                                        />
 
                                     </View>
-                                    <Text style={{ marginLeft: 5, marginTop: 10, color: "#c66e54", fontSize: 12 }}>Min. of 6 characters </Text>
 
                                     {error && <Text style={{ fontSize: s(12), marginTop: s(10), color: "red", marginLeft: s(8) }}>{error}</Text>}
                                     {/* <AppButton title="Sign Up" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} /> */}
-                                    <AppButton title="Sign Up" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
+                                    <AppButton title="Continue To Next Step" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
 
 
                                 </View>
@@ -188,6 +202,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: s(55),
         marginTop: '2%',
+        marginBottom: '2%',
     },
     loginContainer2: {
         flexDirection: 'row',
@@ -200,7 +215,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#000c27",
         width: '100%',
         height: s(55),
-        marginBottom: s(20),
+        marginBottom: s(15),
     },
     input: {
         flex: 1,
@@ -217,7 +232,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Register
+export default UserDetail
 
 
 

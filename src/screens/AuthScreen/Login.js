@@ -16,6 +16,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import TouchID from 'react-native-touch-id'
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ToastNotification from '../../components/Toast'
 
 
 
@@ -25,6 +26,8 @@ const Login = ({ navigation, route }) => {
     const [loading, setIsLoadking] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [visible, setVisible] = useState(true)
+    const [messageOne, setMessageOne] = useState('')
+    const [isToastVisible, setIsToastVisible] = useState(false)
     const dispatch = useDispatch()
 
 
@@ -43,6 +46,16 @@ const Login = ({ navigation, route }) => {
     }
 
     const hasFaceID = DeviceInfo.hasNotch();
+
+    const showToast = (message) => {
+        setMessageOne(message);
+        setIsToastVisible(true);
+
+        // Set a timeout to hide the toast after 5 seconds
+        setTimeout(() => {
+            setIsToastVisible(false);
+        }, 3000);
+    };
 
     const storeData = async (data) => {
         try {
@@ -63,7 +76,7 @@ const Login = ({ navigation, route }) => {
             const { status, message, userData, token } = response.data
 
             if (status !== "success") {
-                Alert.alert(`${status}`, `${message}`)
+                showToast(message);
                 setIsLoadking(false)
             } else {
                 dispatch({ type: "LOGIN", user: { ...userData, token: `${token}` } })
@@ -77,7 +90,7 @@ const Login = ({ navigation, route }) => {
         } catch (error) {
             console.log(error.response.data, 'from catch')
             const { message } = error.response.data
-            Alert.alert(`${message}`);
+            showToast(message);
             setIsLoadking(false)
         }
     }
@@ -86,10 +99,10 @@ const Login = ({ navigation, route }) => {
         <>
 
             <View style={styles.container}>
-
-                <View style={{ alignItems: "center", marginTop: s(50) }}>
+                {isToastVisible && <ToastNotification message={messageOne} />}
+                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(50) }}>
                     <Image source={Logo} />
-                </View>
+                </View>}
                 <View>
                     <Formik
                         initialValues={{ login: "", password: "" }}
@@ -106,11 +119,12 @@ const Login = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(60) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "white", marginBottom: s(15), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
-                                            placeholder='Enter Your Email Address'
+                                            placeholder='example@gmail.com'
+                                            placeholderTextColor="#414a5e"
                                             onChangeText={handleChange('login')}
                                             value={values}
                                         />
@@ -120,6 +134,7 @@ const Login = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Password'
+                                            placeholderTextColor="#414a5e"
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
                                             value={values}
@@ -128,6 +143,7 @@ const Login = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
+                                                color="#414a5e"
                                             />
                                         </TouchableWithoutFeedback>
 
@@ -184,39 +200,42 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(1),
+        borderWidth: s(2.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#414a5e",
+        backgroundColor: "#000c27",
         width: '100%',
-        height: s(50),
+        height: s(55),
         marginTop: '2%',
     },
     loginContainer2: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(1),
+        borderWidth: s(2.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#414a5e",
+        backgroundColor: "#000c27",
         width: '100%',
-        height: s(50),
+        height: s(55),
         marginBottom: s(30),
     },
     input: {
         flex: 1,
         height: s(40),
-        color: "black",
+        color: "white",
         paddingLeft: s(10),
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "white",
+        backgroundColor: "#a9c2f8",
         marginTop: s(28),
         height: s(50)
+    },
+    message: {
+        position: "absolute"
     }
 })
 

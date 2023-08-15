@@ -83,12 +83,25 @@ const TvSummary = ({ navigation, route }) => {
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Fee</Text>
                         {/* <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text> */}
                     </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                    {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                         <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Date</Text>
                         <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{date}</Text>
-                    </View>
+                    </View> */}
 
                 </View>
+
+                <View style={{ width: "100%", backgroundColor: "#d8d8d8", height: s(1), marginTop: s(20) }}></View>
+
+                    <View style={{ marginTop: s(15), flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                        <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Total</Text>
+                        <View style={{ borderRadius: s(5), backgroundColor: "#eceff7", paddingLeft: s(20), paddingRight: s(20), paddingTop: s(10), paddingBottom: s(10), justifyContent: "center", alignItems: "center" }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Text style={{ fontSize: s(14), fontWeight: "600", color: "#1b2d56" }}>{`₦${format.format(price)}`}</Text>
+                                <View style={{ width: s(1), backgroundColor: "#707070", height: s(20), marginLeft: s(7) }}></View>
+                            </View>
+
+                        </View>
+                    </View>
 
             </View>
 
@@ -136,7 +149,7 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         width: "100%",
-        height: s(250),
+        height: s(275),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,

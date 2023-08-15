@@ -270,7 +270,7 @@ const ProfileEdit = ({ navigation, route }) => {
 
                                     </View>
 
-                                    <Text style={{ color: "#717171", marginBottom: s(10), fontSize: s(12), marginLeft: s(5), marginTop: s(20) }}>Company Name</Text>
+                                    <Text style={{ color: "#717171", marginBottom: s(10), fontSize: s(12), marginLeft: s(5), marginTop: s(20) }}>Company Name / Full Name</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -279,7 +279,6 @@ const ProfileEdit = ({ navigation, route }) => {
                                                 handleChange("companyName")(text);
                                                 setError(null);
                                             }}
-
                                             value={values.companyName}
                                         />
                                         {/* <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>

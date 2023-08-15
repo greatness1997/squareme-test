@@ -58,24 +58,37 @@ const SummaryCard = ({ data }) => {
                         <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{`₦${format.format(20)}`}</Text>
                     </View>
                 </View>
-                <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: s(18) }}></View>
+                {/* <View style={{ width: "100%", height: 0.5, backgroundColor: color.colorFour, marginTop: s(18) }}></View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 15 }}>
                     <Text style={{ fontSize: s(16), fontWeight: "400", color: color.colorFour }}>Total</Text>
                     <View style={{ width: s(120), height: s(40), backgroundColor: "#00000029", justifyContent: "center", alignItems: "center", borderRadius: 5 }}>
                         <Text style={{ fontSize: s(16), fontWeight: "600", color: color.colorSeven }}>{`₦${formattedAmount}`}</Text>
                     </View>
 
+                </View> */}
+
+                <View style={{ width: "100%", backgroundColor: "#d8d8d8", height: s(1), marginTop: s(20) }}></View>
+
+                <View style={{ marginTop: s(15), flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Total</Text>
+                    <View style={{ borderRadius: s(5), backgroundColor: "#eceff7", paddingLeft: s(20), paddingRight: s(20), paddingTop: s(10), paddingBottom: s(10), justifyContent: "center", alignItems: "center" }}>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: "#1b2d56" }}>{`₦${formattedAmount}`}</Text>
+                            <View style={{ width: s(1), backgroundColor: "#707070", height: s(20), marginLeft: s(7) }}></View>
+                        </View>
+
+                    </View>
                 </View>
 
 
             </View>
 
-            <View style={{ marginTop: s(18), }}>
+            {/* <View style={{ marginTop: s(18), }}>
                 <Text style={{ color: color.colorSeven, fontSize: s(14), fontWeight: "600" }}>Save Beneficiary?</Text>
                 <Switch
                     style={{ marginTop: s(8) }}
                 />
-            </View>
+            </View> */}
         </>
     )
 }

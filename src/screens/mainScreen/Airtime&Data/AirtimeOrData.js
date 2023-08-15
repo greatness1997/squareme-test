@@ -224,7 +224,7 @@ const AirtimeData = ({ navigation, route }) => {
                     onSubmit={(values) => {
                         Schema1.validate(values)
                             .then((res) => {
-                                navigation.navigate("DataSummary", { data: res, networkName: networkValue.name ? networkValue.name : "mtn", itemCode: itemCode, tranId: tranId, amount: amnt, networkImage: networkValue.image ? networkValue.image : mtn })
+                                navigation.navigate("DataSummary", { plan: plan.allowance, data: res, networkName: networkValue.name ? networkValue.name : "mtn", itemCode: itemCode, tranId: tranId, amount: amnt, networkImage: networkValue.image ? networkValue.image : mtn })
                             })
                             .catch((err) => Alert.alert('Please provide proper details',));
                     }}>

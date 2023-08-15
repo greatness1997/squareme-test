@@ -42,7 +42,14 @@ const TabNavigator = () => {
         'StartimesValidation',
         'TvSummary',
         'Notification',
-        'StartimesSum'
+        'StartimesSum',
+        'ResetCode2',
+        'ResetCode3',
+        'ChangePassword',
+        'ChangePin',
+        'AirtimeSummary',
+        'DataSummary',
+        'ElectricitySummary'
     ];
 
     return (
@@ -88,7 +95,7 @@ const TabNavigator = () => {
                 name="Settings"
                 component={SettingsStack}
                 options={({ route }) => ({
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: 'Settings',
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons focused={focused} name="cog" color="#120549" size={s(25)} />
                     ),

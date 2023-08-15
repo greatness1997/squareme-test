@@ -12,4 +12,4 @@ const testCredentials = {
 
 
 
-export default liveCredentials
+export default testCredentials

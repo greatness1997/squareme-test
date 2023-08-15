@@ -15,9 +15,7 @@ const AirtimeOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, s
     const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
 
-    const network = data.networkName === "Airtel" || data.networkName === "Glo" ? data.networkName.toLowerCase() : data.networkName
-
-
+    const network = data.networkName === "Airtel" || data.networkName === "Glo" || data.networkName === "Mtn" ? data.networkName.toLowerCase() : data.networkName
 
     const digitArray = new Array(maxLength).fill(0)
 

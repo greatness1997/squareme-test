@@ -126,6 +126,12 @@ const HomeScreen = ({ navigation }) => {
         }
     }
 
+    const createAccount = () => {
+        setModalVisible(false)
+        setModalVisible1(false)
+        navigation.navigate("VirtualAccount")
+    }
+
 
     return (
         <>
@@ -402,7 +408,7 @@ const HomeScreen = ({ navigation }) => {
 
                                         </View>
 
-                                        {accountDetails.accountNo !== "N/A" && <AppButton title="Share Account Details" onPress={() => shareText()} />}
+                                        {accountDetails.accountNo !== "N/A" ? <AppButton title="Share Account Details" onPress={() => shareText()} /> : <AppButton title="Create Virtual Account" onPress={() => createAccount()} />}
                                     </ScrollView>
                                 </View>
                             </View>

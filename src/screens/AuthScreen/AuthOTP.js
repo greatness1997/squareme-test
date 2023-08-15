@@ -12,6 +12,7 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 const AuthOTP = ({ navigation, route }) => {
 
     const data = route.params
+    console.log(data)
 
 
     const [code, setCode] = useState('')
@@ -32,7 +33,7 @@ const AuthOTP = ({ navigation, route }) => {
                     <Text style={styles.text4}>Enter OTP Below</Text>
                         <Text style={styles.text2}>We sent an OTP code your email</Text>
                         <Text style={styles.text1}>address just now</Text>
-                        <Text style={styles.text3}>example@gmail.com</Text>
+                        <Text style={styles.text3}>{data.data.toLowerCase()}</Text>
                     </View>
                 </View>
                 <View>

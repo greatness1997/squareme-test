@@ -8,7 +8,7 @@ import ScreenTwo from '../../mainScreen/Profile/AgentOnboarding/ScreenTwo';
 import ProfileEdit from '../../mainScreen/Profile/ProfileEdit';
 import ChangePassword from '../../mainScreen/Settings/ChangePassword';
 import UploadDoc from '../../mainScreen/Profile/AgentOnboarding/UploadDoc';
-import VirtualAccount from '../../mainScreen/Profile/AgentOnboarding/VirtualAccount';
+// import VirtualAccount from '../../mainScreen/Profile/AgentOnboarding/VirtualAccount';
 
 
 
@@ -34,7 +34,7 @@ const ProfileStack = () => {
             <Stack.Screen name='ProfileEdit' component={ProfileEdit} />
             <Stack.Screen name='ChangePassword' component={ChangePassword} />
             <Stack.Screen name='UploadDoc' component={UploadDoc} />
-            <Stack.Screen name='VirtualAccount' component={VirtualAccount} />
+            {/* <Stack.Screen name='VirtualAccount' component={VirtualAccount} /> */}
         </Stack.Navigator>
     )
 }

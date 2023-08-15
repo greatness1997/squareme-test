@@ -19,7 +19,6 @@ const Settings = ({ navigation }) => {
    const removeValue = async () => {
         try {
           await AsyncStorage.removeItem('userData')
-          navigation.navigate('login')
         } catch(e) {
           console.log(e)
         }
@@ -70,7 +69,7 @@ const Settings = ({ navigation }) => {
 
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                <TouchableOpacity style={styles.serviceContainer} onPress={() => handleBoxPress(3)}>
+                <TouchableOpacity style={styles.serviceContainer} onPress={() => navigation.navigate("ResetCode3")}>
                     <MaterialCommunityIcon name="key-change" size={30} color="#808080" />
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20 }}>Change Pin</Text>
@@ -79,7 +78,7 @@ const Settings = ({ navigation }) => {
 
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                <TouchableOpacity style={styles.serviceContainer} onPress={() => removeValue()}>
+                <TouchableOpacity style={styles.serviceContainer} onPress={() => {navigation.navigate("login"), removeValue()}}>
                     <MaterialCommunityIcon name="logout" size={30} color="#808080" />
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20 }}>Logout</Text>
