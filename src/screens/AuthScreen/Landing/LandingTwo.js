@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { Image, View, Animated, SafeAreaView, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
-import { Logo, adds2 } from "../../../constants/images";
+import { Image, Dimensions, View, Animated, SafeAreaView, Text, StyleSheet } from "react-native";
+import { LogoBlue, splash1 } from "../../../constants/images";
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import AppButton from "../../../components/AppButtonBlue";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 const LandingTwo = ({ navigation }) => {
 
@@ -9,7 +15,7 @@ const LandingTwo = ({ navigation }) => {
     // useEffect(( ) => {
     //     setTimeout(() => {
     //         startAnimation()
-    //         // navigation.navigate("login")
+    //         navigation.navigate("LandingTwo")
     //     }, 3000)
     // }, [])
 
@@ -23,32 +29,15 @@ const LandingTwo = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView>
-                <View style={styles.logoContainer}>
-                    <View style={styles.logoWrapper}>
-                        <Image source={Logo} style={styles.logo} />
-                    </View>
-                    <View style={styles.logoWrapper2}>
-                        <Image source={adds2} style={styles.logo2} />
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.text}>Payment Simplified</Text>
-                    <Text style={styles.text2}>
-                    Simplify payments on-the-go with our powerful fintech app. Say goodbye to complex transactions and hello to effortless payments, making your life easier one tap at a time. 
-                    </Text>
-
-                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", paddingLeft: 20, marginTop: 0, fontSize: 15, fontWeight: "600" }}>Skip</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("LandingThree")}>
-                            <Text style={{ color: "white", paddingRight: 20, marginTop: 0, fontSize: 15, fontWeight: "600"}}>Next</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </View>
-            </SafeAreaView>
+            <Image source={splash1} style={styles.image} />
+            <View style={{ width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
+                <Image source={LogoBlue} />
+                <Text style={styles.text}>Pay Your Bills Conveniently</Text>
+                <Text style={styles.text2}>
+                    Paying Bills Made Easy: Experience convenience in bill payment. Streamline your financial tasks with seamless, hassle-free online bill payment solutions.
+                </Text>
+                <AppButton title="Next" onPress={() => navigation.navigate("LandingThree")} style={{ backgroundColor: "#1b2d56", marginTop: s(25) }} />
+            </View>
         </View>
     )
 }
@@ -56,42 +45,37 @@ const LandingTwo = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#060C27",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        // backgroundColor: "#060C27",
     },
     logoContainer: {
         alignItems: "center",
         justifyContent: "center",
+        // width: "100%"
     },
-    logoWrapper: {
-        alignItems: "center",
-    },
-    logoWrapper2: {
-        alignItems: "center",
-        marginTop: 20
-    },
-    logo: {
-        width: 100,
-        height: 100,
-        resizeMode: "contain"
-    },
-    logo2: {
-        width: 260,
-        height: 260,
-        resizeMode: "contain"
+    image: {
+        width: windowWidth,
+        height: windowHeight / 1.8,
     },
     text: {
-        color: "white",
-        fontSize: 15,
+        color: "#1b2d56",
+        fontSize: s(13),
         fontWeight: "bold",
-        marginTop: "10%",
-        marginLeft: 20
+        marginTop: 20,
     },
     text2: {
-        color: "white",
-        fontSize: 13,
+        color: "#707070",
+        fontSize: s(12),
         fontWeight: "400",
-        marginBottom: 0,
-        padding: 20
+        marginBottom: 5,
+        marginTop: s(10),
+        lineHeight: s(20)
+    },
+    logo: {
+        width: 120,
+        height: 120,
+        resizeMode: "contain"
     },
 })
 

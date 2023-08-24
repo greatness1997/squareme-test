@@ -31,6 +31,7 @@ import Notification from '../../mainScreen/Notification';
 import StartimesSum from '../../mainScreen/Tv/StartimesSum';
 import StartimesCompleted from '../../mainScreen/Tv/StartimesCompleted';
 import VirtualAccount from '../../mainScreen/Profile/AgentOnboarding/VirtualAccount';
+import WalletHistory from '../../mainScreen/WalletHistory';
 
 
 const Stack = createNativeStackNavigator();
@@ -75,6 +76,7 @@ const HomeStack = () => {
             <Stack.Screen name='StartimesSum' component={StartimesSum} />
             <Stack.Screen name='StartimesCompleted' component={StartimesCompleted} />
             <Stack.Screen name='VirtualAccount' component={VirtualAccount} />
+            <Stack.Screen name='WalletHistory' component={WalletHistory} />
         </Stack.Navigator>
     )
 }

@@ -34,4 +34,8 @@ export const dstv = require('../assets/DStv-logo.jpg')
 export const startimes = require('../assets/StarTimes.jpg')
 export const ads1 = require('../assets/ads1.png')
 export const adds2 = require('../assets/ads2.png')
+export const splash1 = require('../assets/splash1.jpg')
+export const splash2 = require('../assets/splash2.jpg')
+export const splash3 = require('../assets/splash3.jpg')
+export const splash4 = require('../assets/splash4.jpg')
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
+import { Dimensions, View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
 import { backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,12 +16,17 @@ import ViewShot from 'react-native-view-shot';
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import Options from './AddMoney/Options';
 import AppButton from '../../components/AppButtonBlue';
+import DailyPerformance from '../../components/DailyPerformance';
+
+
 
 
 
 
 const HomeScreen = ({ navigation }) => {
 
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
 
     const vfdAcctDetails = {
         "accountName": "N/A",
@@ -149,50 +154,53 @@ const HomeScreen = ({ navigation }) => {
                         </TouchableWithoutFeedback>
 
                     </View>
-                    <ImageBackground
-                        source={backgroundImage}
-                        style={styles.bg} imageStyle={styles.bgImage}
-                    >
-                        <View style={{ marginTop: vs(10) }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10) }}>
-                                <Text style={styles.name}>{nameOne} {nameTwo}</Text>
-                                <View>
-                                    <Text style={{ color: "white" }}> Tap to View</Text>
-                                    <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowBalance(!showBalance) }}>
-                                        <MaterialCommunityIcons name={showBalance === false ? "eye-outline" : "eye-off-outline"} size={s(20)} color="white" style={{ marginLeft: s(50) }} />
-                                    </TouchableWithoutFeedback>
+                    <TouchableOpacity onPress={() => navigation.navigate("WalletHistory")}>
+                        <ImageBackground
+                            source={backgroundImage}
+                            style={styles.bg} imageStyle={styles.bgImage}
+                        >
+                            <View style={{ marginTop: vs(10) }}>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10) }}>
+                                    <Text style={styles.name}>{nameOne} {nameTwo}</Text>
+                                    <View>
+                                        <Text style={{ color: "white" }}> Tap to View</Text>
+                                        <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowBalance(!showBalance) }}>
+                                            <MaterialCommunityIcons name={showBalance === false ? "eye-outline" : "eye-off-outline"} size={s(20)} color="white" style={{ marginLeft: s(50) }} />
+                                        </TouchableWithoutFeedback>
+
+                                    </View>
 
                                 </View>
-
-                            </View>
-                            <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10), marginBottom: s(5) }}>
-                                <View>
-                                    <Text style={styles.heading}>Available Balance</Text>
-                                    <Text style={styles.balanceText}>{visible === false ? `₦${format.format(balance)}` : hiddenBal}</Text>
-                                    {/* <Text style={styles.balanceText}>₦20,000,000</Text> */}
+                                <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10), marginBottom: s(5) }}>
+                                    <View>
+                                        <Text style={styles.heading}>Available Balance</Text>
+                                        <Text style={styles.balanceText}>{visible === false ? `₦${format.format(balance)}` : hiddenBal}</Text>
+                                        {/* <Text style={styles.balanceText}>₦20,000,000</Text> */}
+                                    </View>
+                                    <View style={{ width: "100%", height: "100%", marginLeft: '35%' }}>
+                                        <Image source={Logo} style={{ flex: 1, resizeMode: 'contain', width: s(55), height: s(55) }} />
+                                    </View>
                                 </View>
-                                <View style={{ width: "100%", height: "100%", marginLeft: '35%' }}>
-                                    <Image source={Logo} style={{ flex: 1, resizeMode: 'contain', width: s(55), height: s(55) }} />
+
+                                <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30) }}>
+                                    <TouchableOpacity style={styles.AddIcon} onPress={() => setModalVisible(true)}>
+                                        <Image source={Add} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
+                                        <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Add Money</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.sendIcon} onPress={() => navigation.navigate("TransferValidate")}>
+                                        <Image source={Send} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
+                                        <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Send Money</Text>
+                                    </TouchableOpacity>
+
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30) }}>
-                                <TouchableOpacity style={styles.AddIcon} onPress={() => setModalVisible(true)}>
-                                    <Image source={Add} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
-                                    <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Add Money</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={styles.sendIcon} onPress={() => navigation.navigate("TransferValidate")}>
-                                    <Image source={Send} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
-                                    <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Send Money</Text>
-                                </TouchableOpacity>
-
-                            </View>
-                        </View>
-
-                    </ImageBackground>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(35) }}>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                    <Text style={{ marginTop: s(40), marginLeft: s(20) }}>Daily Performance History</Text>
+                    <DailyPerformance />
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(25) }}>
 
                         <Text style={{ fontSize: s(14), fontWeight: "500", color: "#2E2E2E" }}>Fast Links</Text>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -201,82 +209,90 @@ const HomeScreen = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around", padding: 0, marginTop: s(10), width: "100%" }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Provider")}>
-                            <ImageBackground
-                                source={Electricity}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(35), fontSize: s(10) }}>Electricity</Text>
-                                    <Text style={{ fontSize: s(10) }}>Tokens</Text>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("AirtimeOrData")}>
-                            <ImageBackground
-                                source={Airtime}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(35), fontSize: s(10) }}>Airtime &</Text>
-                                    <Text style={{ fontSize: s(10) }}>Data</Text>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <View>
-                            <ImageBackground
-                                source={Data}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(45), fontSize: s(10) }}>Internet</Text>
-                                    <Text style={{ fontSize: s(10), marginBottom: 5 }}>Service</Text>
-                                </View>
-                                <View style={styles.tag}>
-                                    <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
-                                </View>
-                            </ImageBackground>
-
-                        </View>
-                        <View>
-                            <ImageBackground
-                                source={Insurance}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Text style={{ marginTop: s(47), fontSize: s(10), marginBottom: 0 }}>Insurance</Text>
-                                </View>
-                                <View style={styles.tag2}>
-                                    <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
-                                </View>
-                            </ImageBackground>
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")}>
-                            <ImageBackground
-                                source={ServiceView}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Image source={CableTv} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
-                                    <Text style={{ fontSize: s(10) }}>Cable Tv</Text>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={ServiceView}
-                                style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
-                            >
-                                <View style={{ alignItems: "center" }}>
-                                    <Image source={Others} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around", padding: 0, marginTop: s(10), marginBottom: s(20), width: "100%" }}>
+                        <View style={{ flexDirection: "row", }}>
+                            <TouchableOpacity style={{ paddingRight: s(20) }} onPress={() => navigation.navigate("Provider")}>
+                                <ImageBackground
+                                    source={Electricity}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
+                                >
                                     <View style={{ alignItems: "center" }}>
-                                        <Text style={{ fontSize: s(10) }}>Other</Text>
-                                        <Text style={{ fontSize: s(10) }}>Services</Text>
+                                        <Text style={{ marginTop: s(35), fontSize: s(10) }}>Electricity</Text>
+                                        <Text style={{ fontSize: s(10) }}>Tokens</Text>
                                     </View>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate("AirtimeOrData")}>
+                                <ImageBackground
+                                    source={Airtime}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <View style={{ alignItems: "center" }}>
+                                        <Text style={{ marginTop: s(35), fontSize: s(10) }}>Airtime &</Text>
+                                        <Text style={{ fontSize: s(10) }}>Data</Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ marginLeft: s(20) }} onPress={() => navigation.navigate("ProviderTv")}>
+                                <ImageBackground
+                                    source={ServiceView}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <View style={{ alignItems: "center" }}>
+                                        <Image source={CableTv} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
+                                        <Text style={{ fontSize: s(10) }}>Cable Tv</Text>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: "row", marginTop: s(10) }}>
+                            <View style={{ paddingRight: s(20) }}>
+                                <ImageBackground
+                                    source={Insurance}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center", }}
+                                >
+                                    <View style={{ alignItems: "center" }}>
+                                        <Text style={{ marginTop: s(47), fontSize: s(10), marginBottom: 0 }}>Insurance</Text>
+                                    </View>
+                                    <View style={styles.tag2}>
+                                        <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
+                                    </View>
+                                </ImageBackground>
+                            </View>
+
+                            <View>
+                                <ImageBackground
+                                    source={Data}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <View style={{ alignItems: "center" }}>
+                                        <Text style={{ marginTop: s(45), fontSize: s(10) }}>Internet</Text>
+                                        <Text style={{ fontSize: s(10), marginBottom: 5 }}>Service</Text>
+                                    </View>
+                                    <View style={styles.tag}>
+                                        <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
+                                    </View>
+                                </ImageBackground>
+
+                            </View>
+
+                            <TouchableOpacity style={{ paddingLeft: s(20) }}>
+                                <ImageBackground
+                                    source={ServiceView}
+                                    style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <View style={{ alignItems: "center" }}>
+                                        <Image source={Others} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
+                                        <View style={{ alignItems: "center" }}>
+                                            <Text style={{ fontSize: s(10) }}>Other</Text>
+                                            <Text style={{ fontSize: s(10) }}>Services</Text>
+                                        </View>
+                                    </View>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     <Modal

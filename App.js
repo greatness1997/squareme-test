@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/screens/navigation/AppNavigator'
 import { color } from './src/constants/color';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import OfflineNotice from "./src/components/OfflineNotice";
 
 
 
@@ -25,8 +26,9 @@ const app = () => {
   return (
     <View style={styles.container}>
       {/* <SafeAreaView> */}
-        <StatusBar barStyle={Platform.select({ android: 'light-content', ios: 'light-content' })}  />
+      <StatusBar barStyle={Platform.select({ android: 'light-content', ios: 'light-content' })} />
       {/* </SafeAreaView> */}
+      {/* <OfflineNotice /> */}
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
@@ -38,7 +40,8 @@ const app = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%"
+    width: "100%",
+    backgroundColor: "#060C27"
   }
 })
 

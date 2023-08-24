@@ -1,106 +1,82 @@
 import React, { useEffect, useRef } from "react";
-import { Image, View, Animated, SafeAreaView, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Platform } from "react-native";
-import { Logo, ads1 } from "../../../constants/images";
-import SwipeButton from "../../../components/SwipeButton";
+import { Image, Dimensions, View, Animated, SafeAreaView, Text, StyleSheet } from "react-native";
+import { Logo, splash3 } from "../../../constants/images";
+import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import AppButton from "../../../components/AppButtonBlue";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 const LandingThree = ({ navigation }) => {
 
-    const animation = useRef(new Animated.Value(0)).current;
+  const animation = useRef(new Animated.Value(0)).current;
 
-    // useEffect(( ) => {
-    //     setTimeout(() => {
-    //         startAnimation()
-    //         // navigation.navigate("login")
-    //     }, 3000)
-    // }, [])
+  // useEffect(( ) => {
+  //     setTimeout(() => {
+  //         startAnimation()
+  //         navigation.navigate("LandingTwo")
+  //     }, 3000)
+  // }, [])
 
-    // const startAnimation = () => {
-    //     Animated.timing(animation, {
-    //         toValue: 1,
-    //         duration:500,
-    //         useNativeDriver: true
-    //     }).start();
-    // }
+  // const startAnimation = () => {
+  //     Animated.timing(animation, {
+  //         toValue: 1,
+  //         duration:500,
+  //         useNativeDriver: true
+  //     }).start();
+  // }
 
-    const next = () => {
-        navigation.navigate("login")
-    }
-
-    return (
-        <View style={styles.container}>
-            <SafeAreaView>
-                <ScrollView>
-                <View style={styles.logoContainer}>
-                    <View style={styles.logoWrapper}>
-                        <Image source={Logo} style={styles.logo} />
-                    </View>
-                    <View style={styles.logoWrapper2}>
-                        <Image source={ads1} style={styles.logo2} />
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.text}>Seamless Payment</Text>
-                    <Text style={styles.text2}>
-                    Experience the magic of seamless payments with our innovative mobile app. Say goodbye to hassles and delays, and say hello to effortless transactions that fit right into your busy lifestyle. Embrace the future of payments and unlock a world of convenience today!
-                    </Text>
-
-                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", paddingLeft: 20, marginTop: 0, fontSize: 15, fontWeight: "600" }}>Skip</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("login")}>
-                            <Text style={{ color: "white", paddingRight: 20, marginTop: 0, fontSize: 15, fontWeight: "600"}}>Next</Text>
-                        </TouchableOpacity>
-                        
-                    </View>
-                    {/* {Platform.OS === "android" ? null : <SwipeButton title="Swipe to Login" onSwipeEnd={() => next()} style={{ marginLeft: 20, marginTop: 30, height: 65 }} />} */}
-                </View>
-                </ScrollView>
-            </SafeAreaView>
-        </View>
-    )
+  return (
+    <View style={styles.container}>
+      <Image source={splash3} style={styles.image} />
+      <View style={{ width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
+        <Image source={Logo} />
+        <Text style={styles.text}>We Care About You</Text>
+        <Text style={styles.text2}>
+        Your Wellbeing Matters: Our priority is your care and satisfaction. Count on us to prioritize your needs and provide exceptional support and services.
+        </Text>
+        <AppButton title="Let's Go!" onPress={() => navigation.navigate("login")} style={{ backgroundColor: "#707070", marginTop: s(25) }} />
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#060C27",
-    },
-    logoContainer: {
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    logoWrapper: {
-        alignItems: "center",
-    },
-    logoWrapper2: {
-        alignItems: "center",
-        marginTop: 5
-    },
-    logo: {
-        width: 100,
-        height: 100,
-        resizeMode: "contain"
-    },
-    logo2: {
-        width: 260,
-        height: 260,
-        resizeMode: "contain"
-    },
-    text: {
-        color: "white",
-        fontSize: 15,
-        fontWeight: "bold",
-        marginTop: "10%",
-        marginLeft: 20
-    },
-    text2: {
-        color: "white",
-        fontSize: 13,
-        fontWeight: "400",
-        marginBottom: 5,
-        padding: 20
-    },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#060C27",
+  },
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    // width: "100%"
+  },
+  image: {
+    width: windowWidth,
+    height: windowHeight / 1.8,
+  },
+  text: {
+    color: "white",
+    fontSize: s(13),
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+  text2: {
+    color: "white",
+    fontSize: s(12),
+    fontWeight: "400",
+    marginBottom: 5,
+    marginTop: s(10),
+    lineHeight: s(20)
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    resizeMode: "contain"
+  },
 })
 
 export default LandingThree

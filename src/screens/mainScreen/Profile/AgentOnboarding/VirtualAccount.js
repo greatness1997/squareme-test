@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Image, TextInput, Alert, Platform } from 'react-native'
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, StatusBar, Image, TextInput, Alert, Platform } from 'react-native'
 import { color } from '../../../../constants/color'
 import { Logo, FingerPrint, image } from '../../../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
@@ -19,12 +20,21 @@ import DeviceInfo from 'react-native-device-info';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment'
 
+import Clipboard from '@react-native-clipboard/clipboard'
+import Share from "react-native-share"
+
 
 
 
 const VirtualAccount = ({ navigation, route }) => {
 
     const data = route.params
+
+    const vfdAcctDetails = {
+        "accountName": "N/A",
+        "accountNo": "N/A",
+        "bank": "N/A"
+    }
 
     const [loading, setIsLoadking] = useState(false)
     const [error, setError] = useState(null)
@@ -33,6 +43,7 @@ const VirtualAccount = ({ navigation, route }) => {
     const [date, setDate] = useState(new Date());
     const [startText, setStartText] = useState('')
     const [userData, setUserData] = useState({})
+    const [accountDetails, setAccountDetails] = useState(vfdAcctDetails)
 
     const dispatch = useDispatch()
 
@@ -103,6 +114,8 @@ const VirtualAccount = ({ navigation, route }) => {
         }
     }
 
+
+
     const getProfile = async () => {
         const url = `${cred.URL}/user/profile`
         const options = { headers: { Authorization: `Bearer ${user.token}` } }
@@ -110,6 +123,7 @@ const VirtualAccount = ({ navigation, route }) => {
         try {
             const response = await axios.get(url, options)
             const { user } = response.data
+            setAccountDetails(user.vfdAcctDetails || vfdAcctDetails)
             setUserData(user)
         } catch (error) {
             console.log(error.response.data)
@@ -119,12 +133,32 @@ const VirtualAccount = ({ navigation, route }) => {
         getProfile()
     }, [])
 
+    const shareText = async () => {
+        try {
+            const text = {
+                message: `Bank: ${accountDetails.bank}\nAccount Number: ${accountDetails.accountNo}\nAccount Name: ${accountDetails.accountName}`,
+            }
+            await Share.open(text)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleCopy = async (text) => {
+        try {
+            await Clipboard.setString(text)
+            Alert.alert("Copied!")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const styles = StyleSheet.create({
         container: {
             width: "100%",
             height: "100%",
             padding: s(8)
-    
+
         },
         profileImage: {
             width: s(100),
@@ -176,7 +210,14 @@ const VirtualAccount = ({ navigation, route }) => {
             alignItems: "center",
             padding: s(15),
             marginTop: s(25)
-        }
+        },
+        serviceContainer: {
+            width: "95%",
+            height: 65,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
     })
 
     return (
@@ -188,7 +229,7 @@ const VirtualAccount = ({ navigation, route }) => {
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <MaterialCommunityIcons name="arrow-left" size={s(22)} color="black" />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: s(16), fontWeight: "600", color: "#2e2e2e" }}>Account Validation</Text>
+                    {accountDetails.accountNo === "N/A" ? <Text style={{ fontSize: s(16), fontWeight: "600", color: "#2e2e2e" }}>Account Validation</Text> : <Text style={{ fontSize: s(16), fontWeight: "600", color: "#2e2e2e" }}>Account Details</Text>}
                     <Text></Text>
                 </View>
                 {error && <View style={styles.msgBox}>
@@ -196,14 +237,14 @@ const VirtualAccount = ({ navigation, route }) => {
                         Hey! We are getting an Error, Please Check If The Details Below Are Correct.
                     </Text>
                 </View>}
-                <View>
+                {accountDetails.accountNo === "N/A" ? <View>
                     <Formik
                         initialValues={{ bvn: userData.bvn ? userData.bvn : "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
                                 .then((res) => {
-                                    createVirtualAccount({ bvn: res.bvn, dateOfBirth: startText  })
+                                    createVirtualAccount({ bvn: res.bvn, dateOfBirth: startText })
                                 })
                                 .catch((err) => setError("Both Fields Are Required"));
                         }}>
@@ -249,7 +290,67 @@ const VirtualAccount = ({ navigation, route }) => {
                             );
                         }}
                     </Formik>
-                </View>
+                </View> : null}
+
+                {accountDetails.accountNo !== "N/A" ? <View style={{ marginTop: s(40) }}> 
+                    <View style={styles.modalScreen}>
+                        <View style={styles.transparentContainer1} />
+                        <View style={styles.contentContainer1}>
+                            <ScrollView>
+                                <View style={{ padding: 0, marginTop: 0, width: "100%", backgroundColor: "#f5f5f5", borderWidth: 1, borderColor: "#3483f5", borderRadius: s(10) }}>
+
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <View style={styles.serviceContainer}>
+                                            <View >
+
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
+
+                                            </View>
+                                            {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
+                                                <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                            </TouchableOpacity>}
+
+                                        </View>
+                                    </View>
+                                    <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <View style={styles.serviceContainer}>
+                                            <View >
+
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
+
+                                            </View>
+                                            {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
+                                                <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                            </TouchableOpacity>}
+                                        </View>
+                                    </View>
+                                    <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <View style={styles.serviceContainer}>
+                                            <View >
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
+                                            </View>
+                                            {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
+                                                <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                            </TouchableOpacity>}
+
+                                        </View>
+                                    </View>
+
+                                </View>
+
+                                {accountDetails.accountNo !== "N/A" ? <AppButton title="Share Account Details" style={{ marginTop: s(25) }} onPress={() => shareText()} /> : null}
+                            </ScrollView>
+                        </View>
+                    </View>
+                </View> : null}
 
             </View>
         </>

@@ -411,7 +411,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#060C27",
     },
     container: {
-        padding: s(15)
+        padding: s(15),
+        marginBottom: s(20)
     },
     upload: {
         flexDirection: "row",
