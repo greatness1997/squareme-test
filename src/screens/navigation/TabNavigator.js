@@ -49,7 +49,9 @@ const TabNavigator = () => {
         'ChangePin',
         'AirtimeSummary',
         'DataSummary',
-        'ElectricitySummary'
+        'ElectricitySummary',
+        'WalletHistory',
+        'WalletHistoryList'
     ];
 
     return (

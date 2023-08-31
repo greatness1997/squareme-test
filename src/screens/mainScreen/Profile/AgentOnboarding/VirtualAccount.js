@@ -195,7 +195,7 @@ const VirtualAccount = ({ navigation, route }) => {
         },
         input: {
             flex: 1,
-            height: s(20),
+            height: s(40),
             color: "black",
             paddingLeft: s(10),
             fontSize: s(15)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Dimensions, View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
-import { backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
+import { image, backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux'
@@ -142,17 +142,22 @@ const HomeScreen = ({ navigation }) => {
         <>
             <StatusBar barStyle="dark-content" />
             <SafeAreaView>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
 
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: ms(20), paddingRight: ms(20) }}>
                         <View>
                             <Image source={LogoBlue} style={{ flex: 1, resizeMode: 'contain', width: s(55), height: vs(50) }} />
                             <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A" }}>Welcome Back,</Text>
                         </View>
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate("Notification")}>
-                            <MaterialCommunityIcons name="bell" size={s(25)} color="#69788B" />
-                        </TouchableWithoutFeedback>
-
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Profile")} style={styles.profileImage}>
+                                {/* <Image source={image} style={{ width: s(50), height: vs(50), borderRadius: s(50), }} /> */}
+                                {userData.picture ? <Image source={{ uri: userData.picture }} style={{ width: 45, height: 45, borderRadius: 50 }} /> : <Image source={image} style={{ width: 45, height: 45, borderRadius: 50, }} />}
+                            </TouchableOpacity>
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate("Notification")}>
+                                <MaterialCommunityIcons name="bell" size={s(25)} color="#69788B" />
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
                     <TouchableOpacity onPress={() => navigation.navigate("WalletHistory")}>
                         <ImageBackground
@@ -584,7 +589,17 @@ const styles = StyleSheet.create({
         width: 80,
         position: "relative",
         marginTop: 8
-    }
+    },
+    profileImage: {
+        width: s(45),
+        height: s(45),
+        borderWidth: s(2),
+        borderRadius: s(100),
+        borderColor: "#1b2d56",
+        // backgroundColor: "white",
+        marginRight: s(10),
+        justifyContent: "center", alignItems: "center"
+    },
 
 })
 

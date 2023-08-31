@@ -288,7 +288,7 @@ const UploadDoc = ({ navigation }) => {
                     </TouchableOpacity>
 
                     {error && <Text style={{ marginTop: s(8), color: "#DD1515", }}>{error}</Text>}
-                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(100) }} />
+                    <AppButton title="Finish Uploading Documents" isSubmitting={loading} onPress={() => uploadDocs()} style={{ marginBottom: s(150) }} />
 
                 </ScrollView>
 

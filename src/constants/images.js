@@ -38,4 +38,5 @@ export const splash1 = require('../assets/splash1.jpg')
 export const splash2 = require('../assets/splash2.jpg')
 export const splash3 = require('../assets/splash3.jpg')
 export const splash4 = require('../assets/splash4.jpg')
+export const comm = require('../assets/commission.png')
 

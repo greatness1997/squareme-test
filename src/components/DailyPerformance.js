@@ -91,7 +91,7 @@ export default function () {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={{ flexDirection: "row", marginRight: s(20) }}>
                 <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", color: "#3382f3" }}>TODAY, {todayDate.toLocaleUpperCase()}</Text>
+                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>TODAY, {todayDate.toLocaleUpperCase()}</Text>
                     <View style={[styles.summary, styles.boxShadow]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                             <View style={{ paddingLeft: s(10) }}>
@@ -142,7 +142,7 @@ export default function () {
                 </View>
 
                 <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", color: "#3382f3" }}>YESTERDAY, {yesterdayDate.toLocaleUpperCase()}</Text>
+                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>YESTERDAY, {yesterdayDate.toLocaleUpperCase()}</Text>
                     <View style={[styles.summary, styles.boxShadow]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                             <View style={{ paddingLeft: s(10) }}>
@@ -194,7 +194,7 @@ export default function () {
 
 
                 <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", color: "#3382f3" }}>2 DAYS AGO, {twodaysAgoDate.toLocaleUpperCase()}</Text>
+                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>2 DAYS AGO, {twodaysAgoDate.toLocaleUpperCase()}</Text>
                     <View style={[styles.summary, styles.boxShadow]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                             <View style={{ paddingLeft: s(10) }}>
