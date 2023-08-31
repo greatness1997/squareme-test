@@ -344,6 +344,21 @@ const VirtualAccount = ({ navigation, route }) => {
                                         </View>
                                     </View>
 
+                                    <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                                    <View style={{ alignItems: "center", padding: s(10), marginBottom: s(0) }}>
+
+                                        <View style={styles.serviceContainer}>
+                                            <View >
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Wallet ID</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{user.walletId}</Text>
+                                            </View>
+                                            {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(user.walletId)}>
+                                                <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                            </TouchableOpacity>}
+
+                                        </View>
+                                    </View>
+
                                 </View>
 
                                 {accountDetails.accountNo !== "N/A" ? <AppButton title="Share Account Details" style={{ marginTop: s(25) }} onPress={() => shareText()} /> : null}

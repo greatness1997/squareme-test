@@ -45,8 +45,8 @@ const ElectricityCompleted = ({ navigation, route }) => {
                 </View>
             </View>
 
-            <ElectricityCard data={completeData} />
-            <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
+            <ElectricityCard data={completeData} navigation={navigation} />
+            {/* <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} /> */}
 
         </View>
     )

@@ -14,7 +14,7 @@ import "intl"
 import "intl/locale-data/jsonp/en";
 
 
-const ElectricityCard = ({ data }) => {
+const ElectricityCard = ({ data, navigation }) => {
     const [showShareButton, setShowShareButton] = useState(true);
 
     const date = moment().format('DD-MM-YYYY')
@@ -82,11 +82,20 @@ const ElectricityCard = ({ data }) => {
                     <Image source={LogoBlue} style={{ marginTop: 15, alignSelf: "center" }} />
                 </View>
             </ViewShot>
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
+            {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
                 <TouchableOpacity style={styles.print} onPress={() => { setShowShareButton(false), shareImage() }}>
                     <Image source={Print} style={{ width: s(15), height: s(15) }} />
                 </TouchableOpacity>
                 <Text style={{ color: color.colorSeven, fontSize: s(11), fontWeight: "500" }}>Print Receipt</Text>
+            </View> */}
+            <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: s(30) }}>
+                <TouchableOpacity onPress={() => { setShowShareButton(false), shareImage() }} style={styles.print}>
+                    <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#1b2d56" }}>Share Receipt</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.done}>
+                    <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#ffffff" }}>Done</Text>
+                </TouchableOpacity>
             </View>
         </>
     )
@@ -113,6 +122,26 @@ const styles = StyleSheet.create({
         marginTop: s(10),
         marginBottom: 10
     },
+    print: {
+        backgroundColor: "#ffffff", 
+        width: "45%", 
+        padding: s(15), 
+        justifyContent: "center", 
+        alignItems: "center",
+        borderRadius: s(50),
+        borderWidth: s(1),
+        borderColor: '#1b2d56'
+    },
+    done: {
+        backgroundColor: "#1b2d56", 
+        width: "45%", 
+        padding: s(15), 
+        justifyContent: "center", 
+        alignItems: "center",
+        borderRadius: s(50),
+        borderWidth: s(1),
+        borderColor: '#1b2d56'
+    }
 
 })
 

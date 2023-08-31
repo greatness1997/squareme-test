@@ -39,8 +39,8 @@ console.log(completeData, "from log")
                 </View>
             </View>
 
-            <StartimesCard data={completeData} />
-            <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
+            <StartimesCard data={completeData} navigation={navigation} />
+            {/* <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} /> */}
 
         </View>
     )

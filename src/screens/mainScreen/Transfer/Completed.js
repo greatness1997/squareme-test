@@ -41,8 +41,8 @@ const Completed = ({ navigation, route }) => {
                 </View>
             </View>
 
-            <CompletedCard data={completeData} />
-            <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} />
+            <CompletedCard data={completeData} navigation={navigation} />
+            {/* <AppButton title="Done" style={styles.botton} onPress={() => navigation.navigate("Home")} /> */}
 
         </View>
     )
