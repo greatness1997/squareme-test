@@ -1,4 +1,4 @@
-package com.spoutmobile;
+package com.spout.payment;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface spoutmobileTests : XCTestCase
+@interface SpoutPayTests : XCTestCase
 
 @end
 
-@implementation spoutmobileTests
+@implementation SpoutPayTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
