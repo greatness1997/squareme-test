@@ -48,6 +48,7 @@ const SendResetCode = ({ navigation, route }) => {
             console.log(response.data)
 
             if (status === "success") {
+                console.log(response.data)
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
                 navigation.navigate("ChangePin", {data: res})

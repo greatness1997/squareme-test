@@ -91,7 +91,7 @@ const WalletHistory = ({ navigation }) => {
             // marginTop: s(20),
             backgroundColor: "white",
             width: "92%",
-            height: s(165),
+            height: "60%",
             borderRadius: s(10),
             marginLeft: "4%"
         },
@@ -159,8 +159,44 @@ const WalletHistory = ({ navigation }) => {
                             <Text style={{ marginTop: s(3), fontWeight: "bold" }}>{`₦ ${format.format(data.totalExp)}`}</Text>
                         </View>
                         <View style={{ flexDirection: "row", padding: s(10) }}>
-                            <View style={{ height: s(20), width: `${(data.income / (data.income + data.expenses)) * 100}%`, backgroundColor: "#1B2D55" }}></View>
-                            <View style={{ height: s(20), width: `${(data.expenses / (data.income + data.expenses)) * 100}%`, backgroundColor: "#7EBAED" }}></View>
+                           
+                                {data.income !== 0 || data.expenses !== 0 ? (
+                                    <>
+                                        <View
+                                            style={{
+                                                height: s(20),
+                                                width: `${(data.income / (data.income + data.expenses)) * 100}%`,
+                                                backgroundColor: "#1B2D55",
+                                            }}
+                                        ></View>
+                                        <View
+                                            style={{
+                                                height: s(20),
+                                                width: `${(data.expenses / (data.income + data.expenses)) * 100}%`,
+                                                backgroundColor: "#7EBAED",
+                                            }}
+                                        ></View>
+                                    </>
+                                ) : (
+                                    <>
+                                        <View
+                                            style={{
+                                                height: s(20),
+                                                width: "50%",
+                                                backgroundColor: "#1B2D55",
+                                            }}
+                                        ></View>
+                                        <View
+                                            style={{
+                                                height: s(20),
+                                                width: "50%",
+                                                backgroundColor: "#7EBAED",
+                                            }}
+                                        ></View>
+                                    </>
+                                )}
+                          
+
                         </View>
 
                         <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", marginTop: s(5) }}>

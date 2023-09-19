@@ -22,7 +22,7 @@ import NoHistory from './NoHistory'
 
 
 
-const History = () => {
+const History = ({ navigation }) => {
 
     const [transaction, setTransaction] = useState([])
     const [loading, setLoading] = useState(false)
@@ -239,7 +239,7 @@ const History = () => {
                         {transaction.map((item, key) => {
                             return (
                                 <React.Fragment key={key}>
-                                    <TouchableOpacity style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18), alignItems: "center" }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("HistoryReceipt", { item })} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18), alignItems: "center" }}>
                                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                                             { item.status === "successful" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="green"/> : item.status === "pending" ?  <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="yellow"/> :
                                             <MaterialCommunityIcons name="arrow-bottom-left-thick" size={s(18)} color="red" />}

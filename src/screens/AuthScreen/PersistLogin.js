@@ -69,6 +69,13 @@ const PersistLogin = ({ navigation, route }) => {
     };
 
     useEffect(() => {
+        const intervalId = setInterval(() => {
+            getData()
+        }, 5000);
+        return () => clearInterval(intervalId);
+    }, [])
+
+    useEffect(() => {
         getData()
     },[])
 

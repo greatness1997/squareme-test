@@ -223,7 +223,7 @@ const CompleteDetails = ({ navigation, route }) => {
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 5 }}>
                                         <View style={styles.formContainer4}>
                                             <TouchableOpacity onPress={() => showMode("date")} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                                <Text style={{ color: "white", fontSize: s(10), marginBottom: s(7), marginLeft: s(6) }}>Select Gender</Text>
+                                                <Text style={{ color: "white", fontSize: s(10), marginBottom: s(7), marginLeft: s(6) }}>Date of Birth</Text>
                                                 <Ionicons name="calendar" size={s(20)} color="white" style={{ marginRight: s(5) }} />
                                             </TouchableOpacity>
                                             <Text style={{ color: "white", fontWeight: "500", fontSize: s(13), marginLeft: s(6) }}>{startText}</Text>

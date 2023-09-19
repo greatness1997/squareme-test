@@ -78,5 +78,9 @@
 	<string>App requesting face id usage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App requesting access to library for image upload</string>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
+	<key>CodePushDeploymentKey</key>
+	<string>qa9tLIWZ8wa3PmZQwrg1q2XzKUY2gu9Wti-Wa</string>
 </dict>
 </plist>

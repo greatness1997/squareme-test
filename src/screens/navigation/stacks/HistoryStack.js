@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import History from '../../mainScreen/History/History';
+import HistoryReceipt from '../../../components/HistoryReceipt';
 
 
 
@@ -23,6 +24,7 @@ const HistoryStack = () => {
             })}
         >
             <Stack.Screen name='History' component={History} />
+            <Stack.Screen name='HistoryReceipt' component={HistoryReceipt} />
         </Stack.Navigator>
     )
 }

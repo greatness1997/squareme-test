@@ -148,7 +148,7 @@ const ElectricityValidation = ({ navigation, route }) => {
                                             keyboardType='numeric'
                                         />
                                     </View>
-                                    <Text style={{ marginLeft: 5, marginBottom: 15, color: "#c66e54", fontSize: 12 }}>Min. amount ₦1000 </Text>
+                                    {/* <Text style={{ marginLeft: 5, marginBottom: 15, color: "#c66e54", fontSize: 12 }}>Min. amount ₦1000 </Text> */}
                                     <Text style={{ marginLeft: 5 }}>Enter Meter Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput

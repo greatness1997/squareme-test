@@ -91,6 +91,7 @@ const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             getBalance()
+            getProfile()
         }, 5000);
         return () => clearInterval(intervalId);
     }, [])
@@ -448,7 +449,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginLeft: s(10),
         borderRadius: s(20),
-        backgroundColor: 'rgba(173, 216, 230, 0.3)'
+        backgroundColor: 'rgba(173, 216, 230, 0.3)',
     },
     bg: {
         width: '95%',

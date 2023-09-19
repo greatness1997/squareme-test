@@ -15,6 +15,7 @@ import AppNavigator from './src/screens/navigation/AppNavigator'
 import { color } from './src/constants/color';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OfflineNotice from "./src/components/OfflineNotice";
+import codePush from "react-native-code-push";
 
 
 
@@ -46,5 +47,5 @@ const styles = StyleSheet.create({
 })
 
 
-export default app
+export default codePush(app)
 
