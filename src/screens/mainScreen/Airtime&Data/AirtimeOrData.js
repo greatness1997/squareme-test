@@ -104,11 +104,11 @@ const AirtimeData = ({ navigation, route }) => {
         <>
             <View style={{ flexDirection: "row", marginTop: s(50), marginLeft: s(18) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(90) }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "bold" }}>Airtime & Data</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "bold", color: "black"}}>Airtime & Data</Text>
                 </View>
 
             </View>
@@ -140,11 +140,12 @@ const AirtimeData = ({ navigation, route }) => {
                             return (
                                 <>
                                     <View>
-                                        <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
+                                        <Text style={{ marginLeft: 5, color: "grey" }}>Enter Phone Number</Text>
                                         <View style={styles.loginContainer}>
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Phone Number'
+                                                placeholderTextColor="grey"
                                                 onChangeText={handleChange('phoneNumber')}
                                                 keyboardType='numeric'
                                                 maxLength={11}
@@ -152,14 +153,15 @@ const AirtimeData = ({ navigation, route }) => {
                                             />
                                             <Image source={networkValue.image ? networkValue.image : mtn} style={{ width: s(35), height: s(35) }} />
                                             <TouchableWithoutFeedback style={styles.serviceContainer} onPress={() => setModalVisible(true)} >
-                                                <MaterialCommunityIcons name='chevron-down' size={30} />
+                                                <MaterialCommunityIcons name='chevron-down' size={30} color="grey" />
                                             </TouchableWithoutFeedback>
                                         </View>
-                                        <Text style={{ marginLeft: 5 }}>Enter Amount</Text>
+                                        <Text style={{ marginLeft: 5, color: "grey" }}>Enter Amount</Text>
                                         <View style={styles.loginContainer}>
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Amount'
+                                                placeholderTextColor="grey"
                                                 onChangeText={handleChange('amount')}
                                                 keyboardType='numeric'
                                                 value={values}
@@ -179,7 +181,7 @@ const AirtimeData = ({ navigation, route }) => {
 
                                                     <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
                                                         <TouchableWithoutFeedback onPress={close}>
-                                                            <MaterialCommunityIcons name="close-circle" size={s(22)} />
+                                                            <MaterialCommunityIcons name="close-circle" size={s(22)} color="black"  />
                                                         </TouchableWithoutFeedback>
                                                     </View>
 
@@ -188,7 +190,7 @@ const AirtimeData = ({ navigation, route }) => {
                                                             <View>
                                                                 <TouchableOpacity style={styles.networkContainer} onPress={() => { close(); setValue(item.name, item.image); }}>
                                                                     <Image source={item.image} style={{ width: s(35), height: s(35) }} />
-                                                                    <Text style={{ marginLeft: s(25), fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Airtime`}</Text>
+                                                                    <Text style={{ marginLeft: s(25), color: "black", fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Airtime`}</Text>
                                                                 </TouchableOpacity>
                                                                 <View style={{ width: "90%", height: s(1), backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
                                                             </View>
@@ -234,11 +236,12 @@ const AirtimeData = ({ navigation, route }) => {
                         return (
                             <>
                                 <View>
-                                    <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Phone Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Phone Number'
+                                            placeholderTextColor="grey"
                                             onChangeText={handleChange('phoneNumber')}
                                             keyboardType='numeric'
                                             maxLength={11}
@@ -246,7 +249,7 @@ const AirtimeData = ({ navigation, route }) => {
                                         />
                                         <Image source={networkValue.image ? networkValue.image : mtn} style={{ width: 40, height: 40 }} />
                                         <TouchableWithoutFeedback style={styles.serviceContainer} onPress={() => setModalVisible(true)} >
-                                            <MaterialCommunityIcons name='chevron-down' size={s(25)} />
+                                            <MaterialCommunityIcons name='chevron-down' size={s(25)} color="grey" />
                                         </TouchableWithoutFeedback>
                                     </View>
 
@@ -256,12 +259,12 @@ const AirtimeData = ({ navigation, route }) => {
                                             <View style={styles.dataPlanCont}>
                                                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
                                                     <View style={{ flexDirection: "row" }}>
-                                                        <Text style={{ marginRight: 5 }}>{plan.allowance}</Text>
-                                                        <Text>for</Text>
-                                                        <Text style={{ marginLeft: 5 }}>₦{`${plan.amount}`}</Text>
+                                                        <Text style={{ marginRight: 5, color: "black" }}>{plan.allowance}</Text>
+                                                        <Text style={{ color: "black" }}>for</Text>
+                                                        <Text style={{ marginLeft: 5, color: "black" }}>₦{`${plan.amount}`}</Text>
                                                     </View>
                                                     <View>
-                                                        <Text>{plan.validity}</Text>
+                                                        <Text style={{ color: "black" }}>{plan.validity}</Text>
                                                     </View>
                                                     {/* <View>
                                                         <TouchableWithoutFeedback>
@@ -287,7 +290,7 @@ const AirtimeData = ({ navigation, route }) => {
 
                                                 <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
                                                     <TouchableWithoutFeedback onPress={close}>
-                                                        <MaterialCommunityIcons name="close-circle" size={s(22)} />
+                                                        <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
                                                     </TouchableWithoutFeedback>
                                                 </View>
 
@@ -296,7 +299,7 @@ const AirtimeData = ({ navigation, route }) => {
                                                         <View>
                                                             <TouchableOpacity style={styles.networkContainer} onPress={() => { close(), setValue(item.name, item.image), dataValidate(item.name.toLowerCase()), setPlan(null) }}>
                                                                 <Image source={item.image} style={{ width: s(35), height: s(35) }} />
-                                                                <Text style={{ marginLeft: s(25), fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Data`}</Text>
+                                                                <Text style={{ marginLeft: s(25), color: "black", fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Data`}</Text>
                                                             </TouchableOpacity>
                                                             <View style={{ width: "90%", height: 2, backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
                                                         </View>
@@ -316,12 +319,12 @@ const AirtimeData = ({ navigation, route }) => {
                                                     <TouchableOpacity style={{ marginBottom: s(13) }} key={key} onPress={() => thePlan(item.allowance, item.amount, item.validity, item.code)}>
                                                         <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(8) }}>
                                                             <View style={{ flexDirection: "row" }}>
-                                                                <Text style={{ marginRight: 5 }}>{item.allowance}</Text>
-                                                                <Text>for</Text>
-                                                                <Text style={{ marginLeft: 5 }}>{`₦${item.amount}`}</Text>
+                                                                <Text style={{ marginRight: 5, color: "grey" }}>{item.allowance}</Text>
+                                                                <Text style={{ color: "grey" }}>for</Text>
+                                                                <Text style={{ marginLeft: 5, color: "grey" }}>{`₦${item.amount}`}</Text>
                                                             </View>
                                                             <View>
-                                                                <Text>{item.validity}</Text>
+                                                                <Text style={{ color: "grey" }}>{item.validity}</Text>
                                                             </View>
                                                         </View>
                                                         <View style={{ width: "95%", height: 1, backgroundColor: "lightgrey", marginLeft: s(8), marginTop: 5 }}></View>
@@ -386,10 +389,14 @@ const styles = StyleSheet.create({
         paddingLeft: s(22),
         paddingRight: s(22),
         paddingTop: s(8),
-        paddingBottom: s(8)
+        paddingBottom: s(8),
+        color: "black",
+        fontWeight: "600"
     },
     unselectedOption: {
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        color: "black",
+        fontWeight: "600"
     },
     serviceContainer: {
         width: s(75),

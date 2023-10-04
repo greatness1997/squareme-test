@@ -92,7 +92,7 @@ const SendResetCode = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(50) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="#06225f" />
+                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="black" />
                     </TouchableOpacity>
                     <Image source={LogoBlue} />
                     <Text></Text>

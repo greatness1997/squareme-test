@@ -108,10 +108,10 @@ const ProfileEdit = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: s(30) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={s(22)} />
+                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="black" />
                     </TouchableOpacity>
 
-                    <Text style={{ fontSize: s(17), fontWeight: "600" }}>Profile Info</Text>
+                    <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Profile Info</Text>
                     <Text></Text>
                 </View>
 
@@ -148,6 +148,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Your Address'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("address")(text);
                                                 setError(null);
@@ -160,6 +161,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Your First Name'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("firstName")(text);
                                                 setError(null);
@@ -172,6 +174,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Your Last Name'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("lastName")(text);
                                                 setError(null);
@@ -184,6 +187,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your state of origin'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("stateOfOrigin")(text);
                                                 setError(null);
@@ -196,6 +200,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Your Phone Number'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("phoneNumber")(text);
                                                 setError(null);
@@ -209,6 +214,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your local government'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("localGovernment")(text);
                                                 setError(null);
@@ -231,6 +237,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Date of Birth'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("dateOfBirth")(text);
                                                 setError(null);
@@ -253,6 +260,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your Gender'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("gender")(text);
                                                 setError(null);
@@ -275,6 +283,7 @@ const ProfileEdit = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your company name'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("companyName")(text);
                                                 setError(null);

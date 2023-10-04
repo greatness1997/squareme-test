@@ -10,6 +10,7 @@ import LoadingScreen from '../../../components/Loading'
 
 
 const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data, summaryData, setModalVisible }) => {
+   
     const [isContFocus, setIsConFocus] = useState(false)
     const [loading, setIsLoading] = useState(false)
     const inputRef = useRef(null)
@@ -55,7 +56,7 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
         const url = `${cred.URL}/vas/transfer/payment`
         const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
         const body = {
-            "phoneNumber": data.phoneNumber,
+            "phoneNumber": summaryData.res.phoneNumber,
             "narration": data.narration,
             "transactionId": data.transactionId,
             "service": "transfer",
@@ -80,6 +81,7 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
                 navigation.navigate("Completed", { data: response, summaryData })
                 setModalVisible(false)
                 setIsLoading(false)
+                console.log(response, "from success")
             } else {
                 Alert.alert(`${transactionStatus}`, `${message}`)
                 setModalVisible(false)
@@ -89,6 +91,7 @@ const InputFieldOTP = ({ code, setCode, setPinReady, maxLength, navigation, data
 
         } catch (error) {
             const { message } = error.response.data
+            console.log(error, "from catch")
             Alert.alert(`${message}`)
             setModalVisible(false)
             setIsLoading(false)
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
     },
     box: {
         borderWidth: 2,
-        borderColor: "grey",
+        borderColor: "black",
         width: s(45),
         height: s(45),
         padding: s(10),

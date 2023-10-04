@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     box: {
         borderWidth: 2,
-        borderColor: "grey",
+        borderColor: "black",
         width: s(45),
         height: s(45),
         padding: s(10),
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: s(45),
-        marginBottom: s(18)
+        marginBottom: s(18),
     },
     text: {
         fontSize: s(25),

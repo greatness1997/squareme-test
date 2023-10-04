@@ -62,11 +62,11 @@ const Summary = ({ navigation, route }) => {
 
             <View style={{ flexDirection: "row", marginBottom: s(35) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(80) }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "500" }}>Transfer Summary</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "500", color: "black" }}>Transfer Summary</Text>
                 </View>
             </View>
 
@@ -82,7 +82,7 @@ const Summary = ({ navigation, route }) => {
                     <View style={styles.transparentContainer}></View>
                     <View style={styles.contentContainer}>
                     <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
-                        <MaterialCommunityIcons name="close-circle" size={30} />
+                        <MaterialCommunityIcons name="close-circle" size={30} color="black" />
                     </TouchableOpacity>
                         <TransferPin data={trasnferBody} summaryData={data} navigation={navigation}  setModalVisible={setModalVisible}/>
                     </View>

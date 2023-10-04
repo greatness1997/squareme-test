@@ -15,8 +15,8 @@ const NoHistory = ({ style }) => {
             />
 
 
-            <Text style={{ fontSize: s(12), fontWeight: "400", marginBottom: 5 }}>No transaction history available.</Text>
-            <Text style={{ fontSize: s(12), fontWeight: "400" }}>Start making transactions or use the date filter.</Text>
+            <Text style={{ fontSize: s(12), fontWeight: "400", marginBottom: 5, color: "grey" }}>No transaction history available.</Text>
+            <Text style={{ fontSize: s(12), fontWeight: "400", color: "grey" }}>Start making transactions or use the date filter.</Text>
         </View>
     )
 }

@@ -9,14 +9,14 @@ const Provider = ({ navigation }) => {
         <>
             <View style={{ flexDirection: "row", marginTop: s(40), marginLeft: s(15) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(95) }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Electricity</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold", color: "black" }}>Electricity</Text>
                 </View>
             </View>
-            <Text style={{ fontSize: 15, fontWeight: "500", marginTop: s(35), marginLeft: s(20) }}>Choose a provider to continue</Text>
+            <Text style={{ fontSize: 15, fontWeight: "500", marginTop: s(35), marginLeft: s(20), color: "black" }}>Choose a provider to continue</Text>
             <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-evenly", padding: s(8), marginTop: s(10), width: "100%" }}>
                 <TouchableOpacity onPress={() => navigation.navigate("ElectricityValidation", {image: ekedc, name: "ekedc"})}>
                     <ImageBackground

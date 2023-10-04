@@ -101,10 +101,10 @@ const ChangePassword = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: s(10) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcon name="arrow-left" size={s(22)} />
+                        <MaterialCommunityIcon name="arrow-left" size={s(22)} color="black" />
                     </TouchableOpacity>
 
-                    <Text style={{ fontSize: s(17), fontWeight: "600" }}>Change Password</Text>
+                    <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Change Password</Text>
                     <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
                         <MaterialCommunityIcon
                             name={showPassword === true ? "eye-outline" : "eye-off-outline"}
@@ -144,6 +144,7 @@ const ChangePassword = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter you old password'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("old_password")(text);
                                                 setError(null);
@@ -158,6 +159,7 @@ const ChangePassword = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter new password'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("password")(text);
                                                 setError(null);
@@ -174,6 +176,7 @@ const ChangePassword = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Confirm new password'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("confirm_password")(text);
                                                 setError(null);
@@ -189,6 +192,7 @@ const ChangePassword = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Confirmation Pin'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("pin")(text);
                                                 setError(null);

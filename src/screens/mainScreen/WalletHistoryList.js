@@ -151,16 +151,16 @@ const WalletHistoryList = ({ navigation }) => {
             <SafeAreaView>
                 <View style={{ marginTop: s(10), alignItems: "center", marginBottom: s(10), flexDirection: "row", justifyContent: "space-between", padding: s(10) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={s(22)} />
+                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color= "black" />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: s(18), fontWeight: "700" }}>Wallet History</Text>
+                    <Text style={{ fontSize: s(18), fontWeight: "700", color: "black" }}>Wallet History</Text>
                     <View></View>
                 </View>
                 <View style={{ width: "100%", height: "90%", padding: s(15), justifyContent: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(5) }}>
                         <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => setModalVisible(true)}>
                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" />
-                            <Text style={{ marginLeft: s(4), fontWeight: "500" }}>Filter By Date</Text>
+                            <Text style={{ marginLeft: s(4), fontWeight: "500", color: "black" }}>Filter By Date</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             {/* <Text style={{ marginLeft: s(4), fontWeight: "500", color: "#3C6BFA" }}>All Transactions</Text>
@@ -238,7 +238,7 @@ const WalletHistoryList = ({ navigation }) => {
                     </Modal>
                     <ScrollView>
                         {loading === true && <ActivityIndicator color="black" style={{ width: s(40), height: s(40), marginLeft: "50%" }} />}
-                        {walletList.length === 0 && <Text style={{ marginTop: s(20) }}> Nothing Here Yet </Text>}
+                        {walletList.length === 0 && <Text style={{ marginTop: s(20), color: "black" }}> Nothing Here Yet </Text>}
                         {walletList.map((item, key) => {
                             return (
                                 <React.Fragment key={key}>

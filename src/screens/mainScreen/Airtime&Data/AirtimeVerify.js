@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     },
     text2: {
         fontSize: s(14),
-        fontWeight: "500"
+        fontWeight: "500",
+        color: "black"
     },
 
     text1: {

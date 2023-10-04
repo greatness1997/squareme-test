@@ -46,18 +46,18 @@ const Summary = ({ navigation, route }) => {
         <View style={{ flex: 1, marginTop: s(60), marginLeft: s(16), width: "90%" }}>
 
             <View style={{ flexDirection: "row", marginBottom: s(35) }}>
-                <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                <TouchableWithoutFeedback onPress={() => navigation.goBack()} >
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(80), }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "600" }}>Airtime Summary</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "600", color: "black" }}>Airtime Summary</Text>
                 </View>
             </View>
             <Image source={data.networkImage} style={styles.image} />
 
 
-            <View style={styles.container}>
+            <View style={[styles.container, styles.boxShadow]}>
 
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
                     {/* <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.data.name}</Text> */}
@@ -114,7 +114,7 @@ const Summary = ({ navigation, route }) => {
                     <View style={styles.transparentContainer}></View>
                     <View style={styles.contentContainer}>
                         <TouchableOpacity style={styles.iconCont} onPress={() => setModalVisible(false)}>
-                            <MaterialCommunityIcons name="close-circle" size={30} />
+                            <MaterialCommunityIcons name="close-circle" size={25} color="black" />
                         </TouchableOpacity>
                         <AirtimeVerify data={data} navigation={navigation} setModalVisible={setModalVisible} />
                     </View>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         width: "100%",
-        height: s(270),
+        height: s(290),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,
@@ -179,6 +179,17 @@ const styles = StyleSheet.create({
         paddingTop: s(20),
         paddingBottom: s(200), // Adjust this value to shift the modal up or down
         top: s(0),
+    },
+    boxShadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        margin: 3,
     },
 })
 

@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     },
     text2: {
         fontSize: s(14),
-        fontWeight: "500"
+        fontWeight: "500",
+        color: "black"
     },
    
     iconCont: {
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         width: "90%",
         marginLeft: s(18),
-        borderRadius: s(18),
+        borderRadius: s(18)
     },
     // duration: {
     //     justifyContent: 'center',

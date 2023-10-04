@@ -38,7 +38,7 @@ const SummaryCard = ({ data }) => {
                 </View>
             </View> */}
 
-            <View style={styles.container}>
+            <View style={[styles.container, styles.boxShadow]}>
 
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(10) }}>
                     <Text style={{ fontSize: s(14), fontWeight: "600", paddingBottom: s(3), color: color.colorSix }}>{data.tranRes.name}</Text>
@@ -96,7 +96,7 @@ const SummaryCard = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(270),
+        height: s(280),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: s(8),
@@ -104,7 +104,18 @@ const styles = StyleSheet.create({
         marginTop: 0,
         padding: ms(18),
         position: "relative"
-    }
+    },
+    boxShadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        margin: 3,
+    },
 })
 
 export default SummaryCard

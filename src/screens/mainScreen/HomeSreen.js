@@ -204,7 +204,7 @@ const HomeScreen = ({ navigation }) => {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <Text style={{ marginTop: s(40), marginLeft: s(20) }}>Daily Performance History</Text>
+                    <Text style={{ marginTop: s(40), marginLeft: s(20), color: "grey" }}>Daily Performance History</Text>
                     <DailyPerformance />
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(25) }}>
 
@@ -223,8 +223,8 @@ const HomeScreen = ({ navigation }) => {
                                     style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
                                 >
                                     <View style={{ alignItems: "center" }}>
-                                        <Text style={{ marginTop: s(35), fontSize: s(10) }}>Electricity</Text>
-                                        <Text style={{ fontSize: s(10) }}>Tokens</Text>
+                                        <Text style={{ marginTop: s(35), fontSize: s(10), color: "black" }}>Electricity</Text>
+                                        <Text style={{ fontSize: s(10), color: "black" }}>Tokens</Text>
                                     </View>
                                 </ImageBackground>
                             </TouchableOpacity>
@@ -234,8 +234,8 @@ const HomeScreen = ({ navigation }) => {
                                     style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
                                 >
                                     <View style={{ alignItems: "center" }}>
-                                        <Text style={{ marginTop: s(35), fontSize: s(10) }}>Airtime &</Text>
-                                        <Text style={{ fontSize: s(10) }}>Data</Text>
+                                        <Text style={{ marginTop: s(35), fontSize: s(10), color: "black" }}>Airtime &</Text>
+                                        <Text style={{ fontSize: s(10), color: "black" }}>Data</Text>
                                     </View>
                                 </ImageBackground>
                             </TouchableOpacity>
@@ -247,7 +247,7 @@ const HomeScreen = ({ navigation }) => {
                                 >
                                     <View style={{ alignItems: "center" }}>
                                         <Image source={CableTv} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
-                                        <Text style={{ fontSize: s(10) }}>Cable Tv</Text>
+                                        <Text style={{ fontSize: s(10), color: "black" }}>Cable Tv</Text>
                                     </View>
                                 </ImageBackground>
                             </TouchableOpacity>
@@ -260,7 +260,7 @@ const HomeScreen = ({ navigation }) => {
                                     style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center", }}
                                 >
                                     <View style={{ alignItems: "center" }}>
-                                        <Text style={{ marginTop: s(47), fontSize: s(10), marginBottom: 0 }}>Insurance</Text>
+                                        <Text style={{ marginTop: s(47), fontSize: s(10), marginBottom: 0, color: "black" }}>Insurance</Text>
                                     </View>
                                     <View style={styles.tag2}>
                                         <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
@@ -274,8 +274,8 @@ const HomeScreen = ({ navigation }) => {
                                     style={{ height: vs(90), width: s(90), alignItems: "center", justifyContent: "center" }}
                                 >
                                     <View style={{ alignItems: "center" }}>
-                                        <Text style={{ marginTop: s(45), fontSize: s(10) }}>Internet</Text>
-                                        <Text style={{ fontSize: s(10), marginBottom: 5 }}>Service</Text>
+                                        <Text style={{ marginTop: s(45), fontSize: s(10), color: "black" }}>Internet</Text>
+                                        <Text style={{ fontSize: s(10), marginBottom: 5, color: "black" }}>Service</Text>
                                     </View>
                                     <View style={styles.tag}>
                                         <Text style={{ fontSize: 10, fontWeight: "bold", color: "white" }}>Coming Soon</Text>
@@ -292,8 +292,8 @@ const HomeScreen = ({ navigation }) => {
                                     <View style={{ alignItems: "center" }}>
                                         <Image source={Others} style={{ width: s(35), height: s(35), marginBottom: s(5) }} />
                                         <View style={{ alignItems: "center" }}>
-                                            <Text style={{ fontSize: s(10) }}>Other</Text>
-                                            <Text style={{ fontSize: s(10) }}>Services</Text>
+                                            <Text style={{ fontSize: s(10), color: "black" }}>Other</Text>
+                                            <Text style={{ fontSize: s(10), color: "black" }}>Services</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
@@ -311,10 +311,10 @@ const HomeScreen = ({ navigation }) => {
                             <View style={styles.contentContainer}>
                                 <View style={styles.closeIconContainer}>
                                     <TouchableWithoutFeedback onPress={close}>
-                                        <MaterialCommunityIcons name="close-circle" size={s(25)} />
+                                        <MaterialCommunityIcons name="close-circle" size={s(25)} color="black" />
 
                                     </TouchableWithoutFeedback>
-                                    <Text style={{ fontSize: s(17), fontWeight: "600" }}>Add Money With</Text>
+                                    <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Add Money With</Text>
                                     <Text></Text>
                                 </View>
                                 <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
@@ -325,8 +325,8 @@ const HomeScreen = ({ navigation }) => {
                                             <View style={{ flexDirection: "row" }}>
                                                 <MaterialCommunityIcons name="bank-transfer" size={30} color="#186f00" />
                                                 <View>
-                                                    <Text style={{ fontWeight: "500", marginLeft: 20 }}>Fund With Bank Transfer</Text>
-                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Tap To View Details</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Fund With Bank Transfer</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, color: "grey", fontSize: 10 }}>Tap To View Details</Text>
                                                 </View>
                                             </View>
 
@@ -341,8 +341,8 @@ const HomeScreen = ({ navigation }) => {
                                             <View style={{ flexDirection: "row" }}>
                                                 <MaterialCommunityIcons name="help-circle" size={30} color="#1b2d56" />
                                                 <View>
-                                                    <Text style={{ fontWeight: "500", marginLeft: 20 }}>Other Payment Options</Text>
-                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Tap To View Details</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Other Payment Options</Text>
+                                                    <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10, color: "grey" }}>Tap To View Details</Text>
                                                 </View>
                                             </View>
 
@@ -365,17 +365,17 @@ const HomeScreen = ({ navigation }) => {
                                     <ScrollView>
                                         <View style={styles.closeIconContainer1}>
                                             <TouchableWithoutFeedback onPress={close1}>
-                                                <MaterialCommunityIcons name="close-circle" size={s(25)} />
+                                                <MaterialCommunityIcons name="close-circle" size={s(25)} color="black"  />
 
                                             </TouchableWithoutFeedback>
-                                            <Text style={{ fontSize: s(17), fontWeight: "600" }}>Add Money</Text>
+                                            <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Add Money</Text>
                                             <Text></Text>
                                         </View>
                                         <View style={{ alignItems: "center", marginBottom: s(15), marginTop: s(10) }}>
                                             <View style={{ backgroundColor: "#ebf0fa", width: "100%", height: s(60), borderRadius: s(10), borderWidth: 1, borderColor: "#3483f5", alignItems: "center", justifyContent: "center" }}>
                                                 <View style={{ alignItems: "center" }}>
-                                                    <Text style={{ fontWeight: "bold", fontSize: s(20), marginTop: 5, marginBottom: 5 }}>{`₦${format.format(balance)}`}</Text>
-                                                    <Text style={{ fontWeight: "500", fontSize: 12 }}>Current Balance</Text>
+                                                    <Text style={{ fontWeight: "bold", fontSize: s(20), marginTop: 5, marginBottom: 5, color: "black"  }}>{`₦${format.format(balance)}`}</Text>
+                                                    <Text style={{ fontWeight: "500", fontSize: 12, color: "black"  }}>Current Balance</Text>
                                                 </View>
                                             </View>
                                         </View>
@@ -388,8 +388,8 @@ const HomeScreen = ({ navigation }) => {
                                                 <View style={styles.serviceContainer}>
                                                     <View >
 
-                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
-                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "grey"  }}>Account Name</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "grey"  }}>{accountDetails.accountName}</Text>
 
                                                     </View>
                                                     {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
@@ -404,8 +404,8 @@ const HomeScreen = ({ navigation }) => {
                                                 <View style={styles.serviceContainer}>
                                                     <View >
 
-                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
-                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "grey" }}>Bank Name</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "grey" }}>{accountDetails.bank}</Text>
 
                                                     </View>
                                                     {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
@@ -418,8 +418,8 @@ const HomeScreen = ({ navigation }) => {
 
                                                 <View style={styles.serviceContainer}>
                                                     <View >
-                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
-                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
+                                                        <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "grey" }}>Account Number</Text>
+                                                        <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "grey" }}>{accountDetails.accountNo}</Text>
                                                     </View>
                                                     {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
                                                         <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />

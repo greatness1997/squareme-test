@@ -106,9 +106,9 @@ const Profile = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ marginTop: s(4), flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
-                    <MaterialCommunityIcons name="arrow-left-thick" size={s(25)} />
+                    <MaterialCommunityIcons name="arrow-left-thick" size={s(25)} color="black"/>
                 </TouchableWithoutFeedback>
-                <Text style={{ fontSize: s(17), fontWeight: "600" }}>Profile</Text>
+                <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Profile</Text>
                 <Text></Text>
             </View>
 

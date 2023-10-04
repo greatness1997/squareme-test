@@ -13,10 +13,11 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
-import TouchID from 'react-native-touch-id'
+
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ToastNotification from '../../components/Toast'
+
 
 
 
@@ -28,6 +29,7 @@ const Login = ({ navigation, route }) => {
     const [visible, setVisible] = useState(true)
     const [messageOne, setMessageOne] = useState('')
     const [isToastVisible, setIsToastVisible] = useState(false)
+
     const dispatch = useDispatch()
 
 
@@ -35,15 +37,6 @@ const Login = ({ navigation, route }) => {
         login: Yup.string().email().required('Email field is required'),
         password: Yup.string().required('Password field is required'),
     });
-
-    const authenticate = async () => {
-        try {
-            const id = await TouchID.authenticate('to demo this react-native component')
-            console.log(id)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const hasFaceID = DeviceInfo.hasNotch();
 
@@ -79,10 +72,12 @@ const Login = ({ navigation, route }) => {
                 showToast(message);
                 setIsLoadking(false)
             } else {
-                dispatch({ type: "LOGIN", user: { ...userData, token: `${token}` } })
-                navigation.navigate("Home", { ...userData })
-                storeData(userData)
-                setIsLoadking(false)
+                const combinedData = { ...userData, token: `${token}`, res };
+                console.log(combinedData)
+                dispatch({ type: "LOGIN", user: combinedData });
+                navigation.navigate("Home", combinedData);
+                storeData(combinedData);
+                setIsLoadking(false);
             }
 
 
@@ -95,12 +90,13 @@ const Login = ({ navigation, route }) => {
         }
     }
 
+
     return (
         <>
 
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={messageOne} />}
-                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(50) }}>
+                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(30) }}>
                     <Image source={Logo} />
                 </View>}
                 <View>
@@ -159,14 +155,6 @@ const Login = ({ navigation, route }) => {
                                     <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
                                         <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
                                     </View>
-                                    {/* <View style={{ marginTop: s(20), alignItems: "center" }}>
-                                        <TouchableWithoutFeedback onPress={() => authenticate()} >
-                                            {hasFaceID ? <MaterialCommunityIcons name="face-recognition" color="white" size={s(40)} /> : <Image source={FingerPrint} />}
-                                        </TouchableWithoutFeedback>
-                                        <View style={{ marginTop: s(13) }}>
-                                            <Text style={{ color: "white", fontSize: s(10), fontWeight: "500" }}>Login Options?</Text>
-                                        </View>
-                                    </View> */}
                                 </View>
                             );
                         }}
@@ -207,7 +195,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#000c27",
         width: '100%',
         height: s(55),
-        marginTop: '2%',
+        // marginTop: '2%',
     },
     loginContainer2: {
         flexDirection: 'row',

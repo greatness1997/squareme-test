@@ -12,6 +12,7 @@ import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import TouchID from 'react-native-touch-id'
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
@@ -22,6 +23,9 @@ const PersistLogin = ({ navigation, route }) => {
     const [visible, setVisible] = useState(true)
     const [email, setEmail] = useState("")
     const [asyncData, setAsyncData] = useState({})
+    const [biometrics, setBiometrics] = useState('');
+    const [bioValue, setBioValue] = useState(false)
+
     const dispatch = useDispatch()
 
 
@@ -31,6 +35,8 @@ const PersistLogin = ({ navigation, route }) => {
     });
 
     const Login = async (res) => {
+
+        console.log(res)
 
         const url = `${cred.URL}/auth/get-token`
 
@@ -60,8 +66,7 @@ const PersistLogin = ({ navigation, route }) => {
         try {
             const userData = await AsyncStorage.getItem('userData');
             const data = JSON.parse(userData)
-
-            setAsyncData(data || {"firstName": "N/A", "lastName": "N/A"})
+            setAsyncData(data || { "firstName": "N/A", "lastName": "N/A" })
             setEmail(data.email)
         } catch (e) {
             console.log(e)
@@ -76,8 +81,58 @@ const PersistLogin = ({ navigation, route }) => {
     }, [])
 
     useEffect(() => {
-        getData()
-    },[])
+        getData(),
+            supported(),
+            getBiometricSetting()
+    }, [])
+
+    const getBiometricSetting = async () => {
+        try {
+            const value = await AsyncStorage.getItem('biometricEnabled');
+
+            if (value !== null) {
+                setBioValue(JSON.parse(value));
+            }
+
+        } catch (error) {
+            console.error('Error retrieving biometric setting:', error);
+            return false;
+        }
+    };
+
+
+    const supported = () => {
+        TouchID.isSupported()
+            .then(biometryType => {
+                // Success code
+                if (biometryType === 'FaceID') {
+                    setBiometrics("FaceId")
+                } else {
+                    setBiometrics("TouchId")
+                }
+            })
+            .catch(error => {
+                // Failure code
+                console.log(error);
+            });
+    }
+
+    const authenticate = () => {
+        if (bioValue === false) {
+            return (
+                Alert.alert("Error", "Enable Finger Print or Face ID in settings")
+            )
+        }
+        TouchID.authenticate('To login to your account')
+            .then(success => {
+                const res = { login: asyncData.email, password: asyncData.res.password }
+                Login(res)
+                console.log("Authentication Successful", success)
+            })
+            .catch(error => {
+                Alert.alert("failed", `${error}`)
+            });
+    }
 
     const name = `${asyncData.firstName}`
     const secondName = `${asyncData.lastName}`
@@ -90,13 +145,13 @@ const PersistLogin = ({ navigation, route }) => {
 
             <View style={styles.container}>
 
-                <View style={{ alignItems: "center", marginTop: s(50) }}>
+                <View style={{ alignItems: "center", marginTop: s(30) }}>
                     <Image source={Logo} />
                 </View>
 
                 <View style={{ alignItems: "center", padding: ms(20), }}>
                     <View style={styles.profileImage}>
-                        {asyncData.picture !== null ? <Image source={{ uri: asyncData.picture }} style={{ width: s(85), height: s(85), borderRadius: 50 }} /> : <Image source={image} style={{ width: s(95), height: s(95), borderRadius: s(50), }} />}
+                        {asyncData.picture !== null ? <Image source={{ uri: asyncData.picture }} style={{ width: s(80), height: s(80), borderRadius: 50 }} /> : <Image source={image} style={{ width: s(85), height: s(85), borderRadius: s(50), }} />}
                     </View>
                     <View style={{ alignItems: "center", marginTop: s(20) }}>
                         <Text style={{ color: "white", fontSize: s(14), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
@@ -150,14 +205,11 @@ const PersistLogin = ({ navigation, route }) => {
                                         </View>
                                     </TouchableWithoutFeedback>
                                     <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
-                                    {/* <View style={{ marginTop: s(40), alignItems: "center" }}>
-                                        <TouchableWithoutFeedback onPress={() => console.log("Finger Print")} >
-                                            <Image source={FingerPrint} style={{ width: s(40), height: vs(40), resizeMode: "contain" }}/>
+                                    <View style={{ marginTop: s(20), alignItems: "center" }}>
+                                        <TouchableWithoutFeedback onPress={authenticate} >
+                                            {biometrics === "FaceId" && Platform.OS === "ios" ? <MaterialCommunityIcons name='face-recognition' size={50} color="white" /> : <Image source={FingerPrint} />}
                                         </TouchableWithoutFeedback>
-                                        <View style={{ marginTop: s(13) }}>
-                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "300" }}>Login Options?</Text>
-                                        </View>
-                                    </View> */}
+                                    </View>
                                 </>
                             );
                         }}
@@ -178,8 +230,8 @@ const styles = StyleSheet.create({
 
     },
     profileImage: {
-        width: s(100),
-        height: s(100),
+        width: s(70),
+        height: s(70),
         borderWidth: s(6),
         borderRadius: s(100),
         borderColor: color.colorOne,

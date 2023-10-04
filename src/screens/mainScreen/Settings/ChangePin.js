@@ -99,10 +99,10 @@ const ChangePin = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: s(10) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcon name="arrow-left" size={s(22)} />
+                        <MaterialCommunityIcon name="arrow-left" size={s(22)} color="black" />
                     </TouchableOpacity>
 
-                    <Text style={{ fontSize: s(17), fontWeight: "600" }}>Change Password</Text>
+                    <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Change Password</Text>
                     <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
                         <MaterialCommunityIcon
                             name={showPassword === true ? "eye-outline" : "eye-off-outline"}
@@ -141,6 +141,7 @@ const ChangePin = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter New Pin'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("pin")(text);
                                                 setError(null);
@@ -157,6 +158,7 @@ const ChangePin = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Confirm New Pin'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange("pin_confirmation")(text);
                                                 setError(null);
@@ -175,6 +177,7 @@ const ChangePin = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Confirmation Pin'
+                                            placeholderTextColor="grey"
                                             keyboardType='numeric'
                                             onChangeText={(text) => {
                                                 handleChange("resetPin")(text);

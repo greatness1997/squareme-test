@@ -304,8 +304,8 @@ const VirtualAccount = ({ navigation, route }) => {
                                         <View style={styles.serviceContainer}>
                                             <View >
 
-                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Name</Text>
-                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountName}</Text>
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "black" }}>Account Name</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "black" }}>{accountDetails.accountName}</Text>
 
                                             </View>
                                             {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
@@ -320,8 +320,8 @@ const VirtualAccount = ({ navigation, route }) => {
                                         <View style={styles.serviceContainer}>
                                             <View >
 
-                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Bank Name</Text>
-                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.bank}</Text>
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12,  color: "black" }}>Bank Name</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "black" }}>{accountDetails.bank}</Text>
 
                                             </View>
                                             {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
@@ -334,8 +334,8 @@ const VirtualAccount = ({ navigation, route }) => {
 
                                         <View style={styles.serviceContainer}>
                                             <View >
-                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Account Number</Text>
-                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{accountDetails.accountNo}</Text>
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "black" }}>Account Number</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "black" }}>{accountDetails.accountNo}</Text>
                                             </View>
                                             {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
                                                 <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
@@ -349,8 +349,8 @@ const VirtualAccount = ({ navigation, route }) => {
 
                                         <View style={styles.serviceContainer}>
                                             <View >
-                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12 }}>Wallet ID</Text>
-                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, }}>{user.walletId}</Text>
+                                                <Text style={{ fontWeight: "500", marginLeft: 20, fontSize: 12, color: "black" }}>Wallet ID</Text>
+                                                <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "black" }}>{user.walletId}</Text>
                                             </View>
                                             {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(user.walletId)}>
                                                 <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />

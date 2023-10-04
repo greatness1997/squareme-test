@@ -25,6 +25,7 @@ const WalletHistory = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({ "commission": 0, "expenses": 0, "income": 0, "totalExp": 0 })
     const [balance, setBalance] = useState(0.00)
+    const [commission, setCommission] = useState(0.00)
 
     const { auth: { user } } = useSelector(state => state)
 
@@ -57,6 +58,7 @@ const WalletHistory = ({ navigation }) => {
             const response = await axios.get(url, options)
             const { data, message, status } = response.data
             setBalance(data.balance)
+            setCommission(data.commission)
         } catch (error) {
             console.log(error.response.data)
         }
@@ -99,7 +101,7 @@ const WalletHistory = ({ navigation }) => {
             // marginTop: s(20),
             backgroundColor: "white",
             width: "92%",
-            height: s(100),
+            height: s(80),
             borderRadius: s(10),
             marginLeft: "4%",
             marginTop: s(10)
@@ -108,10 +110,10 @@ const WalletHistory = ({ navigation }) => {
             // marginTop: s(20),
             backgroundColor: "white",
             width: "92%",
-            height: s(95),
+            height: s(85),
             borderRadius: s(10),
             marginLeft: "4%",
-            marginTop: s(20)
+            marginTop: s(10),
         },
         boxShadow: {
             shadowColor: '#000',
@@ -133,11 +135,11 @@ const WalletHistory = ({ navigation }) => {
             <SafeAreaView>
                 <View style={{ flexDirection: "row", marginTop: s(10), marginLeft: s(18) }}>
                     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                        <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                     </TouchableWithoutFeedback>
 
                     <View style={{ justifyContent: "center", marginLeft: s(100) }}>
-                        <Text style={{ fontSize: s(16), fontWeight: "bold" }}>Wallet Summary</Text>
+                        <Text style={{ fontSize: s(16), fontWeight: "bold", color: "black" }}>Wallet Summary</Text>
                     </View>
 
                 </View>
@@ -155,8 +157,8 @@ const WalletHistory = ({ navigation }) => {
                             <MaterialCommunityIcons name="chevron-right" size={s(22)} color="#2B3CB6" />
                         </TouchableOpacity>
                         <View style={{ alignItems: "center" }}>
-                            <Text>Total Expenses</Text>
-                            <Text style={{ marginTop: s(3), fontWeight: "bold" }}>{`₦ ${format.format(data.totalExp)}`}</Text>
+                            <Text style={{ color: "black" }}>Total Expenses</Text>
+                            <Text style={{ marginTop: s(3), fontWeight: "bold", color: "grey" }}>{`₦ ${format.format(data.totalExp)}`}</Text>
                         </View>
                         <View style={{ flexDirection: "row", padding: s(10) }}>
                            
@@ -204,8 +206,8 @@ const WalletHistory = ({ navigation }) => {
                                 <View style={{ width: s(25), height: s(25), backgroundColor: "#1B2D55" }}>
                                 </View>
                                 <View style={{ marginLeft: s(5) }}>
-                                    <Text style={{ fontWeight: "500" }}>{`₦ ${format.format(data.income)}`}</Text>
-                                    <Text>Income</Text>
+                                    <Text style={{ fontWeight: "500", color: "grey" }}>{`₦ ${format.format(data.income)}`}</Text>
+                                    <Text style={{ color: "grey" }}>Income</Text>
                                 </View>
                             </View>
 
@@ -213,8 +215,8 @@ const WalletHistory = ({ navigation }) => {
                                 <View style={{ width: s(25), height: s(25), backgroundColor: "#7EBAED" }}>
                                 </View>
                                 <View style={{ marginLeft: s(5) }}>
-                                    <Text style={{ fontWeight: "500" }}>{`₦ ${format.format(data.expenses)}`}</Text>
-                                    <Text>Expense</Text>
+                                    <Text style={{ fontWeight: "500",color: "grey" }}>{`₦ ${format.format(data.expenses)}`}</Text>
+                                    <Text style={{ color: "grey" }}>Expense</Text>
                                 </View>
                             </View>
                         </View>
@@ -230,16 +232,15 @@ const WalletHistory = ({ navigation }) => {
                             <MaterialCommunityIcons name="chevron-right" size={s(22)} color="#2B3CB6" />
                         </TouchableOpacity>
 
-                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: s(20) }}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: s(20), }}>
                             <Image source={comm} style={{ width: s(35), height: s(35) }} />
                             <View style={{ marginLeft: s(20) }}>
-                                <Text style={{ marginBottom: s(10), fontWeight: "bold", fontSize: s(14) }}>Commission Tracker</Text>
-                                <Text style={{ fontWeight: "500", fontSize: s(14), color: "#707070" }}>{`₦ ${format.format(data.commission)}`}</Text>
+                                <Text style={{ marginBottom: s(5), fontWeight: "bold", fontSize: s(14),  color: "grey" }}>Commission Tracker</Text>
+                                <Text style={{ fontWeight: "500", fontSize: s(14), color: "#707070" }}>{`₦ ${format.format(commission)}`}</Text>
                             </View>
                         </View>
                     </View>
                 </View>
-                <View></View>
             </SafeAreaView>
         </ScrollView>
     )

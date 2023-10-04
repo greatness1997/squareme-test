@@ -162,7 +162,7 @@ const ScreenOne = ({ navigation }) => {
             <View style={styles.container}>
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(10) }}>
-                    <MaterialCommunityIcon name="arrow-left" size={s(25)} onPress={() => navigation.goBack()} />
+                    <MaterialCommunityIcon name="arrow-left" color="black" size={s(25)} onPress={() => navigation.goBack()} />
                     <Image source={LogoBlue} />
                     <Text></Text>
                 </View>
@@ -210,6 +210,7 @@ const ScreenOne = ({ navigation }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your home'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange('address')(text)
                                                 setError(null)
@@ -223,6 +224,7 @@ const ScreenOne = ({ navigation }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your office'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange('officeAddress')(text)
                                                 setError(null)
@@ -237,6 +239,7 @@ const ScreenOne = ({ navigation }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter your office State'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('officeState')(text)
                                                     setError(null)
@@ -249,6 +252,7 @@ const ScreenOne = ({ navigation }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter your office LGA'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('officeLga')(text)
                                                     setError(null)
@@ -263,6 +267,7 @@ const ScreenOne = ({ navigation }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter next of Kin FullName'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange('nokFullName')(text)
                                                 setError(null)
@@ -277,6 +282,7 @@ const ScreenOne = ({ navigation }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter next of Kin Email'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('nokEmail')(text)
                                                     setError(null)
@@ -289,6 +295,7 @@ const ScreenOne = ({ navigation }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter next of Kin Phone No.'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('nokPhone')(text)
                                                     setError(null)
@@ -303,6 +310,7 @@ const ScreenOne = ({ navigation }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your Business Name'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange('businessName')(text)
                                                 setError(null)
@@ -323,6 +331,7 @@ const ScreenOne = ({ navigation }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter your BVN'
+                                            placeholderTextColor="grey"
                                             onChangeText={(text) => {
                                                 handleChange('bvn')(text)
                                                 setError(null)
@@ -336,7 +345,7 @@ const ScreenOne = ({ navigation }) => {
                                         <View style={styles.formContainer4}>
                                             <TouchableOpacity onPress={() => showMode("date")} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                                 <Text style={{ color: "#A0A0A0", fontSize: s(10), marginBottom: s(7) }}>Select Gender</Text>
-                                                <Ionicons name="calendar" size={s(20)} />
+                                                <Ionicons name="calendar" color="grey" size={s(20)} />
                                             </TouchableOpacity>
                                             <Text style={{ color: "#6a6a6a", fontWeight: "500" }}>{startText}</Text>
                                         </View>
@@ -344,7 +353,7 @@ const ScreenOne = ({ navigation }) => {
                                         <View style={styles.formContainer4}>
                                             <TouchableOpacity onPress={() => setModalVisible(true)} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                                 <Text style={{ color: "#A0A0A0", fontSize: s(10), marginBottom: s(7) }}>Select Gender</Text>
-                                                <MaterialCommunityIcon name="chevron-down" size={s(25)} />
+                                                <MaterialCommunityIcon name="chevron-down" color="grey" size={s(25)} />
                                             </TouchableOpacity>
                                             <Text style={{ color: "#6a6a6a", fontWeight: "500" }}>{genderText}</Text>
                                         </View>
@@ -377,16 +386,16 @@ const ScreenOne = ({ navigation }) => {
                         <SafeAreaView style={styles.contentContainer}>
                             <View style={styles.closeIconContainer}>
                                 <TouchableWithoutFeedback onPress={close}>
-                                    <MaterialCommunityIcon name="close-circle" size={s(25)} />
+                                    <MaterialCommunityIcon name="close-circle" color="black" size={s(20)} />
                                 </TouchableWithoutFeedback>
-                                <Text style={{ fontSize: s(15), fontWeight: "600" }}>Gender Options</Text>
+                                <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Gender Options</Text>
                                 <Text></Text>
                             </View>
                             <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
                                 <View style={{ padding: s(10), marginBottom: s(0), }}>
                                     {gender.map((item, key) => (
                                         <TouchableOpacity key={key} onPress={() => { setGender(item.name), setModalVisible(false) }}>
-                                            <Text style={{ fontSize: s(18), marginBottom: s(15) }}>{item.label}</Text>
+                                            <Text style={{ fontSize: s(14), marginBottom: s(15), color: "black" }}>{item.label}</Text>
                                         </TouchableOpacity>
                                     ))}
                                 </View>

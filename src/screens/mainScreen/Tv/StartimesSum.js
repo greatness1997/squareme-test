@@ -47,10 +47,10 @@ const StartimesSum = ({ navigation, route }) => {
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
-                <Text style={{ fontSize: s(16), fontWeight: "600" }}>Startimes</Text>
+                <Text style={{ fontSize: s(16), fontWeight: "600", color: "black" }}>Startimes</Text>
 
                 <View style={{ alignItems: "center" }}>
                     <Image source={image} style={styles.image} />
@@ -59,7 +59,7 @@ const StartimesSum = ({ navigation, route }) => {
 
 
 
-            <View style={styles.container}>
+            <View style={[styles.container, styles.boxShadow]}>
 
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(0) }}>
                     <Text style={{ marginBottom: s(5), color: "#e66e54" }}>Decoder Account details</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         width: "100%",
-        height: s(275),
+        height: s(290),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,
@@ -189,6 +189,17 @@ const styles = StyleSheet.create({
         paddingTop: s(20),
         paddingBottom: s(200), // Adjust this value to shift the modal up or down
         top: s(0),
+    },
+    boxShadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        margin: 3,
     },
 })
 

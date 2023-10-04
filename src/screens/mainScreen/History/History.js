@@ -151,13 +151,13 @@ const History = ({ navigation }) => {
             <StatusBar barStyle="dark-content" />
             <SafeAreaView>
                 <View style={{ marginTop: s(30), alignItems: "center", marginBottom: s(10) }}>
-                    <Text style={{ fontSize: s(18), fontWeight: "700" }}>Transaction History</Text>
+                    <Text style={{ fontSize: s(18), fontWeight: "700", color: "black" }}>Transaction History</Text>
                 </View>
                 <View style={{ width: "100%", height: "90%", padding: s(15), justifyContent: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(5), marginTop: s(10) }}>
                         <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => setModalVisible(true)}>
                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" />
-                            <Text style={{ marginLeft: s(4), fontWeight: "500" }}>Filter By Date</Text>
+                            <Text style={{ marginLeft: s(4), fontWeight: "500", color: "black" }}>Filter By Date</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Text style={{ marginLeft: s(4), fontWeight: "500", color: "#3C6BFA" }}>All Transactions</Text>
@@ -175,26 +175,26 @@ const History = ({ navigation }) => {
                             <View style={styles.contentContainer}>
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: s(10) }}>
                                     <Text></Text>
-                                    <Text style={{ fontSize: s(14), fontWeight: "500" }}>Filter by date</Text>
+                                    <Text style={{ fontSize: s(14), fontWeight: "500", color: "black" }}>Filter by date</Text>
                                     <TouchableOpacity onPress={() => setModalVisible(false)}>
                                         <Ionicons name="close-circle" size={s(27)} color="#9E9E9E" />
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: "row", marginTop: s(30), justifyContent: "space-between" }}>
                                     <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", marginRight: s(10) }} onPress={() => showMode("startdate")} >
-                                        <Text style={{ marginRight: s(4) }}>From</Text>
+                                        <Text style={{ marginRight: s(4), color: "black", fontWeight: "500" }}>From</Text>
                                         <View style={styles.dateContainer}>
                                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" style={{ marginRight: s(10) }} />
-                                            <Text>{startText !== "" ? startText : "Start Date"} </Text>
+                                            <Text style={{ color: "black" }}>{startText !== "" ? startText : "Start Date"} </Text>
                                         </View>
                                     </TouchableOpacity>
 
 
                                     <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => showMode("enddate")} >
-                                        <Text style={{ marginRight: s(4) }}>To</Text>
+                                        <Text style={{ marginRight: s(4), color: "black", fontWeight: "500" }}>To</Text>
                                         <View style={styles.dateContainer}>
                                             <Ionicons name="calendar" size={s(18)} color="#0B44BD" style={{ marginRight: s(10) }} />
-                                            <Text>{endText !== "" ? endText : "End Date"}</Text>
+                                            <Text style={{ color: "black" }}>{endText !== "" ? endText : "End Date"}</Text>
                                         </View>
                                     </TouchableOpacity>
 
@@ -214,12 +214,13 @@ const History = ({ navigation }) => {
                                         return (
                                             <TouchableOpacity style={styles.filterItem} key={index} onPress={() => setFilterVal(item.value)}>
                                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                                    <Text style={{ fontSize: s(14), fontWeight: "500" }}>{item.name}</Text>
+                                                    <Text style={{ fontSize: s(14), fontWeight: "500", color: "black" }}>{item.name}</Text>
                                                     <CheckBox
                                                         disabled={false}
                                                         value={item.isChecked}
                                                         onValueChange={() => handleCheckboxToggle(index)}
                                                         style={styles.checkbox}
+                                                        tintColors={{ true: 'green', false: 'black' }}
                                                     />
                                                 </View>
                                                 <View style={{ height: s(0.5), backgroundColor: "#c4c4c4", width: "100%", marginTop: s(10) }}></View>
@@ -312,8 +313,7 @@ const styles = StyleSheet.create({
     },
     checkbox: {
         width: s(18),
-        height: s(18)
-
+        height: s(18),
     }
 })
 

@@ -95,7 +95,8 @@ const HistoryReceipt = ({ route }) => {
     ]
 
     return (
-        <View style={{ flex: 1, marginTop: s(45), marginLeft: s(15), width: "90%" }}>
+        <>
+        <View style={{ flex: 1, marginTop: s(30), marginLeft: s(15), width: "90%" }}>
 
             <View style={{ marginBottom: s(20), marginTop: 0, alignItems: "center" }}>
 
@@ -104,123 +105,122 @@ const HistoryReceipt = ({ route }) => {
                 </View>
             </View>
 
-            <ScrollView>
-
-                {/* summary container */}
-                <ViewShot ref={ref} >
-                    <View style={styles.container}>
-                        <View style={styles.header}>
-                            <Text style={{ fontSize: s(16), fontWeight: "bold", color: "#0b44bd" }}>{`₦${format.format(item.amount)}`}</Text>
-                            <Text style={{ fontWeight: "bold", color: "#b1b1b1", marginTop: s(5) }}>{date} {time}</Text>
+            {/* summary container */}
+            <ViewShot ref={ref} >
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Text style={{ fontSize: s(14), fontWeight: "bold", color: "#0b44bd" }}>{`₦${format.format(item.amount)}`}</Text>
+                        <Text style={{ fontWeight: "bold", color: "#b1b1b1", marginTop: s(5), fontSize: s(12) }}>{date} {time}</Text>
+                    </View>
+                    <View style={{ marginTop: s(30), padding: s(0) }}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(10) }}>
+                            {item.product === "withdrawal" ? <MaterialCommunityIcons name="credit-card-minus" size={s(25)} color="#896cfa" /> : item.product === "transfer" ? <Ionicons name="paper-plane" size={s(25)} color="#896cfa" /> : null}
+                            {item.product === "mtnvtu" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glovtu" ? <Image source={glo} style={{ width: s(30), height: s(30) }} /> :
+                                item.product === "airtelvtu" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobilevtu" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
+                                    : null}
+                            {item.product === "mtndata" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glodata" ? <Image source={glo} style={{ width: s(30), height: s(30) }} /> :
+                                item.product === "airteldata" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobiledata" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
+                                    : null}
+                            {item.product === "ekedc" ? <Image source={ekedc} style={{ width: s(30), height: s(30) }} /> : item.product === "ikedc" ? <Image source={ikedc} style={{ width: s(30), height: s(30) }} /> :
+                                item.product === "ibedc" ? <Image source={ibedc} style={{ width: s(30), height: s(30) }} /> : item.product === "eedc" ? <Image source={eedc} style={{ width: s(30), height: s(30) }} /> : item.product === "phedc" ? <Image source={phdc} style={{ width: s(30), height: s(30) }} /> : item.product === "aedc" ? <Image source={abdc} style={{ width: s(30), height: s(30) }} /> :
+                                    item.product === "jedc" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" /> : item.product === "kedco" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" /> : item.product === "kadec" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" />
+                                        : null}
+                            {airtime.includes(item.product) ? <Text style={{ color: "#626562" }}>Airtime Purchase</Text> : data.includes(item.product) ? <Text style={{ color: "#626562" }}>Data Purchase</Text> : electricity.includes(item.product) ? <Text style={{ color: "#626562" }}>Electricity Purchase</Text> : cabletv.includes(item.product) ? <Text style={{ color: "#626562" }}>Cable TV Purchase</Text> : transfer.includes(item.product) ? <Text style={{ color: "#626562" }}>Money Sent</Text> : withrawal.includes(item.product) ? <Text style={{ color: "#626562" }}>withdrawal Made</Text> : null}
+                            <Text style={{ color: item.status === "failed" ? "red" : "#00a020" }}>{item.status}</Text>
                         </View>
-                        <View style={{ marginTop: s(20), padding: s(0) }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(15) }}>
-                                {item.product === "withdrawal" ? <MaterialCommunityIcons name="credit-card-minus" size={s(25)} color="#896cfa" /> : item.product === "transfer" ? <Ionicons name="paper-plane" size={s(25)} color="#896cfa" /> : null}
-                                {item.product === "mtnvtu" ? <Image source={mtn} style={{ width: s(40), height: s(40) }} /> : item.product === "glovtu" ? <Image source={glo} style={{ width: s(40), height: s(40) }} /> :
-                                    item.product === "airtelvtu" ? <Image source={airtel} style={{ width: s(40), height: s(40) }} /> : item.product === "9mobilevtu" ? <Image source={nineMobile} style={{ width: s(40), height: s(40) }} />
-                                        : null}
-                                {item.product === "mtndata" ? <Image source={mtn} style={{ width: s(40), height: s(40) }} /> : item.product === "glodata" ? <Image source={glo} style={{ width: s(40), height: s(40) }} /> :
-                                    item.product === "airteldata" ? <Image source={airtel} style={{ width: s(40), height: s(40) }} /> : item.product === "9mobiledata" ? <Image source={nineMobile} style={{ width: s(40), height: s(40) }} />
-                                        : null}
-                                {item.product === "ekedc" ? <Image source={ekedc} style={{ width: s(40), height: s(40) }} /> : item.product === "ikedc" ? <Image source={ikedc} style={{ width: s(40), height: s(40) }} /> :
-                                    item.product === "ibedc" ? <Image source={ibedc} style={{ width: s(40), height: s(40) }} /> : item.product === "eedc" ? <Image source={eedc} style={{ width: s(40), height: s(40) }} /> : item.product === "phedc" ? <Image source={phdc} style={{ width: s(40), height: s(40) }} /> : item.product === "aedc" ? <Image source={abdc} style={{ width: s(40), height: s(40) }} /> :
-                                        item.product === "jedc" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" /> : item.product === "kedco" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" /> : item.product === "kadec" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(25)} color="#896cfa" />
-                                            : null}
-                                {airtime.includes(item.product) ? <Text style={{ color: "#626562" }}>Airtime Purchase</Text> : data.includes(item.product) ? <Text style={{ color: "#626562" }}>Data Purchase</Text> : electricity.includes(item.product) ? <Text style={{ color: "#626562" }}>Electricity Purchase</Text> : cabletv.includes(item.product) ? <Text style={{ color: "#626562" }}>Cable TV Purchase</Text> : transfer.includes(item.product) ? <Text style={{ color: "#626562" }}>Money Sent</Text> : withrawal.includes(item.product) ? <Text style={{ color: "#626562" }}>withdrawal Made</Text> : null}
-                                <Text style={{ color: item.status === "failed" ? "red" : "#00a020" }}>{item.status}</Text>
-                            </View>
-                            <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(15) }}></View>
+                        <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(12) }}></View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                <Text style={{ color: "#aaaaaa" }}>Amount</Text>
-                                <Text style={{ color: "#626562" }}>{`₦${format.format(item.amount)}`}</Text>
-                            </View>
-                            <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(15) }}></View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                            <Text style={{ color: "#aaaaaa" }}>Amount</Text>
+                            <Text style={{ color: "#626562" }}>{`₦${format.format(item.amount)}`}</Text>
+                        </View>
+                        <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(12) }}></View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                <Text style={{ color: "#aaaaaa" }}>Product</Text>
-                                <Text style={{ color: "#626562" }}>{item.product}</Text>
-                            </View>
-                            <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(15) }}></View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                            <Text style={{ color: "#aaaaaa" }}>Product</Text>
+                            <Text style={{ color: "#626562" }}>{item.product}</Text>
+                        </View>
+                        <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(12) }}></View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                <Text style={{ color: "#aaaaaa" }}>Beneficiary</Text>
-                                <Text style={{ color: "#626562" }}>{item.account}</Text>
-                            </View>
-                            <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(15) }}></View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                            <Text style={{ color: "#aaaaaa" }}>Beneficiary</Text>
+                            <Text style={{ color: "#626562" }}>{item.account}</Text>
+                        </View>
+                        <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(12) }}></View>
 
-                            {item.product === "transfer" ? (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                    <Text style={{ color: "#aaaaaa" }}>Beneficiary Name</Text>
-                                    <Text style={{ color: "#626562", flex: 1, marginLeft: s(10) }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.response.beneficiaryAccountName}
-                                    </Text>
-                                </View>
-                            ) : airtime.includes(item.product) ? (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                    <Text style={{ color: "#aaaaaa" }}>Description</Text>
-                                    <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.response.transactionMessage || item.description}
-                                    </Text>
-                                </View>
-                            ) : data.includes(item.product) ? (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                    <Text style={{ color: "#aaaaaa" }}>Description</Text>
-                                    <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.response.transactionMessage || item.description}
-                                    </Text>
-                                </View>) : electricity.includes(item.product) ? (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
+                        {item.product === "transfer" ? (
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                                <Text style={{ color: "#aaaaaa" }}>Beneficiary Name</Text>
+                                <Text style={{ color: "#626562", flex: 1, marginLeft: s(10) }} numberOfLines={3} ellipsizeMode="tail">
+                                    {item.response.beneficiaryAccountName || item.response.name}
+                                </Text>
+                            </View>
+                        ) : airtime.includes(item.product) ? (
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                                <Text style={{ color: "#aaaaaa" }}>Description</Text>
+                                <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
+                                    {item.response.transactionMessage || item.description}
+                                </Text>
+                            </View>
+                        ) : data.includes(item.product) ? (
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                                <Text style={{ color: "#aaaaaa" }}>Description</Text>
+                                <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
+                                    {item.response.transactionMessage || item.description}
+                                </Text>
+                            </View>) : electricity.includes(item.product) ? (
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
                                     <Text style={{ color: "#aaaaaa" }}>Token</Text>
                                     <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
                                         {item.status === "successful" ? item.response.token : null}
                                     </Text>
                                 </View>) : cabletv.includes(item.product) ? (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                    <Text style={{ color: "#aaaaaa" }}>Description</Text>
-                                    <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.description}
-                                    </Text>
-                                </View>) : (
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                    <Text style={{ color: "#aaaaaa" }}>Description</Text>
-                                    <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.description}
-                                    </Text>
-                                </View>)}
-                            <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.7, marginTop: s(15) }}></View>
-
-                            { electricity.includes(item.product) && (<View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                <Text style={{ color: "#aaaaaa" }}>Units</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                                        <Text style={{ color: "#aaaaaa" }}>Description</Text>
+                                        <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
+                                            {item.description}
+                                        </Text>
+                                    </View>) : (
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                                <Text style={{ color: "#aaaaaa" }}>Description</Text>
                                 <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
-                                        {item.status === "successful" ? item.response.units : null}
-                                    </Text>
-                            </View>
-                           )}
-                           { electricity.includes(item.product) && <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(15) }}></View>}
+                                    {item.description}
+                                </Text>
+                            </View>)}
+                        <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.7, marginTop: s(12) }}></View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(15) }}>
-                                <Text style={{ color: "#aaaaaa" }}>Reference</Text>
-                                <Text style={{ color: "#626562" }}>{item.reference}</Text>
-                            </View>
-
+                        {electricity.includes(item.product) && (<View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                            <Text style={{ color: "#aaaaaa" }}>Units</Text>
+                            <Text style={{ color: "#626562", flex: 1, marginLeft: s(10), }} numberOfLines={3} ellipsizeMode="tail">
+                                {item.status === "successful" ? item.response.units : null}
+                            </Text>
                         </View>
-                        <Image source={LogoBlue} style={{ marginTop: s(30), alignSelf: "center" }} />
+                        )}
+                        {electricity.includes(item.product) && <View style={{ backgroundColor: "#e0e0e0", width: "100%", height: 0.5, marginTop: s(12) }}></View>}
+
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(12) }}>
+                            <Text style={{ color: "#aaaaaa" }}>Reference</Text>
+                            <Text style={{ color: "#626562" }}>{item.reference}</Text>
+                        </View>
+
                     </View>
-
-                </ViewShot>
-
-                <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: s(5) }}>
-                    <TouchableOpacity onPress={() => { setShowShareButton(false), shareImage() }} style={styles.print}>
-                        <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#1b2d56" }}>Share</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => captureImage()} style={styles.done}>
-                        <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#ffffff" }}>Print</Text>
-                    </TouchableOpacity>
+                    <Image source={LogoBlue} style={{ marginTop: s(30), alignSelf: "center" }} />
+                    
                 </View>
-            </ScrollView>
+
+            </ViewShot>
         </View>
+
+        <View style={{ flexDirection: "row", justifyContent: 'space-between', padding: s(25), marginBottom: s(10), position: "absolute", top: "77%", marginLeft: "5%"  }}>
+                <TouchableOpacity onPress={() => { setShowShareButton(false), shareImage() }} style={styles.print}>
+                    <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#1b2d56" }}>Share</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => captureImage()} style={styles.done}>
+                    <Text style={{ fontSize: s(12), fontWeight: "bold", color: "#ffffff" }}>Print</Text>
+                </TouchableOpacity>
+            </View>
+        </>
     )
 }
 
@@ -228,9 +228,9 @@ const HistoryReceipt = ({ route }) => {
 
 
 const styles = StyleSheet.create({
-    container:{
-        padding:s(15),
-        backgroundColor:"#f2f1f6",
+    container: {
+        padding: s(15),
+        backgroundColor: "#f2f1f6",
         height: "96%",
         width: "100%"
     },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        height: s(70)
+       padding: s(7)
     },
     print: {
         backgroundColor: "#ffffff",

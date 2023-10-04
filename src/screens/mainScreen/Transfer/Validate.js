@@ -75,6 +75,7 @@ const Validate = ({ navigation }) => {
         accountNo: Yup.string().required('Account Number is Required'),
         amount: Yup.string().required('Enter Amount is Required'),
         narration: Yup.string().required('Narration is Required'),
+        phoneNumber: Yup.string().required('Phone number is Required'),
     });
 
     const { auth: { user } } = useSelector(state => state)
@@ -91,6 +92,8 @@ const Validate = ({ navigation }) => {
             "bankCode": bankName.bankCode,
             "channel": "mobile"
         }
+
+        console.log(body)
 
         try {
             const data = await axios.post(url, body, options)
@@ -146,16 +149,16 @@ const Validate = ({ navigation }) => {
 
                 <View style={{ flexDirection: "row", marginBottom: s(40) }}>
                     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name='arrow-left-thick' size={s(21)} />
+                        <MaterialCommunityIcons name='arrow-left-thick' size={s(21)} color="black" />
                     </TouchableWithoutFeedback>
 
                     <View style={{ justifyContent: "center", marginLeft: s(80) }}>
-                        <Text style={{ fontSize: s(15), fontWeight: "500" }}>Send Money To</Text>
+                        <Text style={{ fontSize: s(15), fontWeight: "500", color: "black" }}>Send Money To</Text>
                     </View>
                 </View>
 
                 <Formik
-                    initialValues={{ banks: bankName.bankName ? `${bankName.bankName}` : "", accountNo: "", amount: "", narration: "" }}
+                    initialValues={{ banks: bankName.bankName ? `${bankName.bankName}` : "", accountNo: "", amount: "", phoneNumber: "", narration: "" }}
                     enableReinitialize={true}
                     onSubmit={(values) => {
                         Schema.validate(values)
@@ -177,26 +180,28 @@ const Validate = ({ navigation }) => {
 
                         return (
                             <View>
-                                <Text>What Bank?</Text>
+                                <Text style={{ color: "black" }}>What Bank?</Text>
                                 <View style={styles.emailContainer}>
                                     <TextInput
                                         style={styles.input}
                                         placeholder='Select Recipient Bank'
+                                        placeholderTextColor="grey"
                                         onChangeText={handleChange('banks')}
                                         value={values.banks}
                                     />
                                     <TouchableWithoutFeedback onPress={() => { setModalVisible(true), getBanks({ service: "transfer" }) }}>
-                                        <MaterialCommunityIcons name='chevron-down' size={s(28)} />
+                                        <MaterialCommunityIcons name='chevron-down' size={s(28)} color="grey" />
                                     </TouchableWithoutFeedback>
                                 </View>
 
                                 {visible === true && (
                                     <View>
-                                        <Text style={{ marginTop: s(25) }}>How much do you want to send</Text>
+                                        <Text style={{ marginTop: s(25), color: "black" }}>How much do you want to send</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Min N10'
+                                                placeholderTextColor="grey"
                                                 onChangeText={handleChange('amount')}
                                                 value={values.amount}
                                                 keyboardType='numeric'
@@ -205,11 +210,12 @@ const Validate = ({ navigation }) => {
 
                                         </View>
 
-                                        <Text style={{ marginTop: s(25) }}>Enter Account Number?</Text>
+                                        <Text style={{ marginTop: s(25), color:"black" }}>Enter Account Number?</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Account Number'
+                                                placeholderTextColor="grey"
                                                 onChangeText={handleAccountChange}
                                                 keyboardType='numeric'
                                                 value={values.accountNo}
@@ -221,11 +227,26 @@ const Validate = ({ navigation }) => {
                                             <Text style={{ color: "#3B81E3" }}>{beneficiary}</Text>
                                         </View>)}
 
-                                        <Text style={{ marginTop: s(25) }}>Narration</Text>
+                                        <Text style={{ marginTop: s(25), color: "black" }}>Phone Number</Text>
+                                        <View style={styles.emailContainer}>
+                                            <TextInput
+                                                style={styles.input}
+                                                placeholder='Whats your phone number?'
+                                                placeholderTextColor="grey"
+                                                keyboardType='numeric'
+                                                onChangeText={handleChange('phoneNumber')}
+                                                value={values.phoneNumber}
+                                                maxLength={15}
+                                            />
+
+                                        </View>
+
+                                        <Text style={{ marginTop: s(25), color: "black" }}>Narration</Text>
                                         <View style={styles.emailContainer}>
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='What is it for?'
+                                                placeholderTextColor="grey"
                                                 onChangeText={handleChange('narration')}
                                                 value={values.narration}
                                                 maxLength={15}
@@ -252,7 +273,7 @@ const Validate = ({ navigation }) => {
                         <SafeAreaView style={styles.contentContainer}>
                             <View style={styles.closeIconContainer}>
                                 <TouchableWithoutFeedback onPress={close}>
-                                    <MaterialCommunityIcons name="close-circle" size={s(25)} />
+                                    <MaterialCommunityIcons name="close-circle" size={s(25)} color="black" />
                                 </TouchableWithoutFeedback>
                             </View>
                             <ScrollView style={styles.scrollView}>
@@ -272,10 +293,11 @@ const Validate = ({ navigation }) => {
                                         return (
                                             <View>
                                                 <View style={styles.searchContainer}>
-                                                    <MaterialCommunityIcons name="magnify" size={s(22)} style={{ marginRight: s(10) }} />
+                                                    <MaterialCommunityIcons name="magnify" size={s(22)} color="grey" style={{ marginRight: s(10) }} />
                                                     <TextInput
                                                         style={styles.input}
                                                         placeholder='Search for a Bank'
+                                                        placeholderTextColor="grey"
                                                         onChangeText={(text) => {
                                                             handleChange('banks')(text);
                                                             filterBanks(text);
@@ -313,9 +335,9 @@ const Validate = ({ navigation }) => {
                                                         justifyContent: "center",
                                                     }}
                                                 >
-                                                    <MaterialCommunityIcons name="bank" size={s(22)} />
+                                                    <MaterialCommunityIcons name="bank" size={s(22)} color="grey" />
                                                 </View>
-                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
+                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12), color: "grey" }}>
                                                     {item.bankName}
                                                 </Text>
                                             </TouchableOpacity>
@@ -342,9 +364,9 @@ const Validate = ({ navigation }) => {
                                                         justifyContent: "center",
                                                     }}
                                                 >
-                                                    <MaterialCommunityIcons name="bank" size={s(22)} />
+                                                    <MaterialCommunityIcons name="bank" size={s(22)} color="grey" />
                                                 </View>
-                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12) }}>
+                                                <Text style={{ fontSize: s(14), fontWeight: "500", marginLeft: s(12), color:"grey" }}>
                                                     {item.bankName}
                                                 </Text>
                                             </TouchableOpacity>
@@ -387,6 +409,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: s(0.5),
+        borderBottomColor: "black",
         paddingBottom: s(1),
         width: '100%',
         height: s(45),

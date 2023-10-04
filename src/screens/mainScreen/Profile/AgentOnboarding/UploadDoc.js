@@ -178,7 +178,7 @@ const UploadDoc = ({ navigation }) => {
 
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(10), padding: s(10) }}>
-                <MaterialCommunityIcon name="arrow-left" size={s(25)} onPress={() => navigation.goBack()} />
+                <MaterialCommunityIcon name="arrow-left" color="black" size={s(25)} onPress={() => navigation.goBack()} />
                 <Image source={LogoBlue} />
                 <Text></Text>
             </View>

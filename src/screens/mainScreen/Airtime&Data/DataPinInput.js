@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     box: {
         borderWidth: 2,
-        borderColor: "grey",
+        borderColor: "black",
         width: s(45),
         height: s(45),
         padding: s(10),

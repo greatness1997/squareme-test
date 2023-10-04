@@ -76,11 +76,11 @@ const ElectricityValidation = ({ navigation, route }) => {
         <>
             <View style={{ flexDirection: "row", marginTop: s(10), justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name='arrow-left-thick' size={25} />
+                    <MaterialCommunityIcons name='arrow-left-thick' size={25} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center" }}>
-                    <Text style={{ fontSize: s(20), fontWeight: "500" }}>Electricity</Text>
+                    <Text style={{ fontSize: s(20), fontWeight: "500", color: "black" }}>Electricity</Text>
                 </View>
                 <View style={{ marginTop: 10 }}>
                     <Image source={image} style={{ width: s(80), height: s(50) }} />
@@ -138,38 +138,41 @@ const ElectricityValidation = ({ navigation, route }) => {
                         return (
                             <>
                                 <View>
-                                    <Text style={{ marginLeft: 5 }}>Enter Amount</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Amount</Text>
                                     <View style={styles.loginContainer1}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='₦0.00'
+                                            placeholderTextColor="lightgrey"
                                             onChangeText={handleChange('amount')}
                                             value={values.amount}
                                             keyboardType='numeric'
                                         />
                                     </View>
                                     {/* <Text style={{ marginLeft: 5, marginBottom: 15, color: "#c66e54", fontSize: 12 }}>Min. amount ₦1000 </Text> */}
-                                    <Text style={{ marginLeft: 5 }}>Enter Meter Number</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Meter Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Meter Number'
+                                            placeholderTextColor="lightgrey"
                                             onChangeText={handleAccountChange}
                                             value={values.meterNumber}
                                             keyboardType='numeric'
                                             maxLength={13}
                                         />
                                     </View>
-                                    <Text style={{ marginLeft: 5 }}>Customer's Name</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Customer's Name</Text>
                                     <View style={styles.accountName}>
                                         {accountName ? <Text style={{ color: "#3c68f8", fontWeight: "500" }}>{accountName}</Text> : error ? <Text style={{ color: "#d0312d", fontWeight: "500" }}>{error}</Text> : <Text style={{ color: "#d4d4d4", fontWeight: "500" }}>Account Name</Text>}
                                     </View>
 
-                                    <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Phone Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Phone Number'
+                                            placeholderTextColor="lightgrey"
                                             keyboardType='numeric'
                                             onChangeText={handleChange('phoneNumber')}
                                             value={values.phoneNumber}
@@ -218,38 +221,41 @@ const ElectricityValidation = ({ navigation, route }) => {
                         return (
                             <>
                                 <View>
-                                    <Text style={{ marginLeft: 5 }}>Enter Amount</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Amount</Text>
                                     <View style={styles.loginContainer1}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='₦0.00'
+                                            placeholderTextColor="lightgrey"
                                             onChangeText={handleChange('amount')}
                                             value={values.amount}
                                             keyboardType='numeric'
                                         />
                                     </View>
-                                    <Text style={{ marginLeft: 5, marginBottom: 15, color: "#c66e54", fontSize: 12 }}>Min. amount ₦100 </Text>
-                                    <Text style={{ marginLeft: 5 }}>Enter Meter Number</Text>
+                                    {/* <Text style={{ marginLeft: 5, marginBottom: 15, color: "#c66e54", fontSize: 12 }}>Min. amount ₦100 </Text> */}
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Meter Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Meter Number'
+                                            placeholderTextColor="lightgrey"
                                             onChangeText={handleAccountChange}
                                             value={values.meterNumber}
                                             keyboardType='numeric'
                                             maxLength={11}
                                         />
                                     </View>
-                                    <Text style={{ marginLeft: 5 }}>Customer's Name</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Customer's Name</Text>
                                     <View style={styles.accountName}>
                                         {accountName ? <Text style={{ color: "#3c68f8", fontWeight: "500" }}>{accountName}</Text> : <Text style={{ color: "#d4d4d4", fontWeight: "500" }}>Account Name</Text>}
                                     </View>
 
-                                    <Text style={{ marginLeft: 5 }}>Enter Phone Number</Text>
+                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Phone Number</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Phone Number'
+                                            placeholderTextColor="grey"
                                             keyboardType='numeric'
                                             onChangeText={handleChange('phoneNumber')}
                                             value={values.phoneNumber}
@@ -308,6 +314,8 @@ const styles = StyleSheet.create({
 
     selectedOption: {
         borderWidth: 2,
+        color: "black",
+        fontWeight: "600",
         borderColor: color.primary2,
         paddingLeft: 25,
         paddingRight: 25,
@@ -315,7 +323,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     unselectedOption: {
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        color: "black",
+        fontWeight: "600",
     },
     accountName: {
         flexDirection: 'row',

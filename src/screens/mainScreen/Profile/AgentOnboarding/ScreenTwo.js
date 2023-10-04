@@ -189,6 +189,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter gurantors full name'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsFullName')(text)
                                                     setError(null)
@@ -202,6 +203,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter Guarantors email'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsEmail')(text)
                                                     setError(null)
@@ -215,6 +217,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter guarantors residence'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsResidence')(text)
                                                     setError(null)
@@ -228,6 +231,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter Guarantors relationship status'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsRelationship')(text)
                                                     setError(null)
@@ -241,6 +245,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter Guarantors office location'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsOffice')(text)
                                                     setError(null)
@@ -254,6 +259,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter Guarantors phone number'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsPhone')(text)
                                                     setError(null)
@@ -268,6 +274,7 @@ const ScreenTwo = ({ navigation, route }) => {
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='Enter Gurantors Profession'
+                                                placeholderTextColor="grey"
                                                 onChangeText={(text) => {
                                                     handleChange('guarantorsProfession')(text)
                                                     setError(null)
