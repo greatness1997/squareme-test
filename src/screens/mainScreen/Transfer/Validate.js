@@ -93,8 +93,6 @@ const Validate = ({ navigation }) => {
             "channel": "mobile"
         }
 
-        console.log(body)
-
         try {
             const data = await axios.post(url, body, options)
             console.log(data.data)
@@ -188,6 +186,7 @@ const Validate = ({ navigation }) => {
                                         placeholderTextColor="grey"
                                         onChangeText={handleChange('banks')}
                                         value={values.banks}
+                                        editable={false}
                                     />
                                     <TouchableWithoutFeedback onPress={() => { setModalVisible(true), getBanks({ service: "transfer" }) }}>
                                         <MaterialCommunityIcons name='chevron-down' size={s(28)} color="grey" />
@@ -255,7 +254,7 @@ const Validate = ({ navigation }) => {
                                         </View>
                                     </View>
                                 )}
-                                {visible === true && anError == null && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(30) }} />)}
+                                {visible === true && anError == null && (<AppButton title="Complete Transfer" onPress={handleSubmit} isSubmitting={loading} style={{ marginTop: s(30), marginBottom: (50) }} />)}
                             </View>
 
 
@@ -428,7 +427,8 @@ const styles = StyleSheet.create({
         paddingLeft: s(10)
     },
     input: {
-        flex: 1
+        flex: 1,
+        color: "black"
     },
     modalContainer: {
         flex: 1,

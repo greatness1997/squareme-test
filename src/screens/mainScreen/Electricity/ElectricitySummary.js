@@ -42,24 +42,24 @@ const ElectricitySummary = ({ navigation, route }) => {
     })
 
     return (
-        <View style={{ flex: 1, marginTop: s(30), marginLeft: s(16), width: "90%" }}>
+        <View style={{ flex: 1, marginTop: s(40), marginLeft: s(16), width: "90%" }}>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between"}}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
-
-                <Text style={{ fontSize: s(16), fontWeight: "600", color: "black" }}>Electricity</Text>
-
-                <View style={{ alignItems: "center" }}>
-                    <Image source={image} style={styles.image} />
+                <View>
+                    <Text style={{ fontSize: s(16), fontWeight: "600", color: "black" }}>Summary</Text>
+                    <View style={{ alignItems: "center" }}>
+                        <Image source={image} style={styles.image} />
+                    </View>
                 </View>
+                <Text></Text>
             </View>
 
 
 
             <View style={[styles.container, styles.boxShadow]}>
-
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: s(0) }}>
                     <Text style={{ marginBottom: s(5), color: "#e66e54" }}>Meter account details</Text>
                     <Text style={{ fontSize: s(13), fontWeight: "600", paddingBottom: 5, color: color.colorSix }}>{data.response.name}</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         // alignItems: "center",
         borderRadius: 10,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
-        marginTop: s(20),
+        marginTop: s(10),
         padding: 20
     },
     image: {
@@ -163,7 +163,8 @@ const styles = StyleSheet.create({
         // transform: [{ translateX: -s(50) }],
         // zIndex: 1,
         width: 70,
-        height: 70
+        height: 70,
+        resizeMode: "contain"
     },
     modalScreen: {
         flex: 1,

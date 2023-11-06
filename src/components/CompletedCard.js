@@ -110,7 +110,7 @@ const CompletedCard = ({ data, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(300),
+        height: s(340),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,

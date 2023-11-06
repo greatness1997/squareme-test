@@ -73,11 +73,14 @@ const Login = ({ navigation, route }) => {
                 setIsLoadking(false)
             } else {
                 const combinedData = { ...userData, token: `${token}`, res };
-                console.log(combinedData)
                 dispatch({ type: "LOGIN", user: combinedData });
                 navigation.navigate("Home", combinedData);
                 storeData(combinedData);
                 setIsLoadking(false);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Home' }],
+                  });
             }
 
 
@@ -96,7 +99,7 @@ const Login = ({ navigation, route }) => {
 
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={messageOne} />}
-                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(30) }}>
+                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(50) }}>
                     <Image source={Logo} />
                 </View>}
                 <View>

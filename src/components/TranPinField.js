@@ -98,7 +98,7 @@ const TranPinField = ({ pin, setPin, pinConfirmation, setPinConfirmation, setPin
 
             if (status === "success") {
                 Alert.alert(status, "Transaction Pin Successfully created")
-                navigation.navigate("UserDetails")
+                navigation.navigate("CompleteDetails")
                  setIsLoading(false)
 
             } else {

@@ -98,7 +98,7 @@ const Completed = ({ navigation, route }) => {
                     </View> */}
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Status</Text>
-                            <Text style={{ fontSize: s(14), fontWeight: "600", color: color.colorThree }}>{data.message}</Text>
+                            <Text style={{ fontSize: s(14), fontWeight: "600", color: "green" }}>{data.message}</Text>
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                             <Text style={{ fontSize: s(13), fontWeight: "400", color: color.colorFour }}>Amount</Text>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: "100%",
-        height: s(270),
+        height: s(300),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,

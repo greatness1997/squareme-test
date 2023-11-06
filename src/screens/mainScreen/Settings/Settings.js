@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Alert, Switch, Text, View, TouchableWithoutFeedback, Image, TouchableOpacity, SafeAreaView } from 'react-native'
-import { airtel, mtn, glo } from '../../../constants/images'
+import { StyleSheet, Alert, Switch, Text, View, TouchableWithoutFeedback, Image, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native'
+import { airtel, mtn, glo, eclipse, password, changepin, biometrics, logout, help } from '../../../constants/images'
 import AppButton from '../../../components/AppButtonBlue'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { s } from 'react-native-size-matters'
@@ -47,6 +47,11 @@ const Settings = ({ navigation }) => {
     const removeValue = async () => {
         try {
             await AsyncStorage.removeItem('userData')
+
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'login' }],
+            });
         } catch (e) {
             console.log(e)
         }
@@ -131,17 +136,28 @@ const Settings = ({ navigation }) => {
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View> */}
 
-                {/* <TouchableOpacity onPress={() => navigation.navigate('Help')} style={styles.serviceContainer}>
-                    <MaterialCommunityIcon name="headset" size={30} color="#808080" />
+                <TouchableOpacity onPress={() => navigation.navigate('Help')} style={styles.serviceContainer}>
+                <ImageBackground
+                        source={eclipse}
+                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Image source={help} />
+                    </ImageBackground>
                     <View>
-                        <Text style={{ fontWeight: "500", marginLeft: 20 }}>Help Center</Text>
-                        <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Have an issue? Speak to our</Text>
+                        <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Help Center</Text>
+                        <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10, color: "grey" }}>Have an issue? speak to our support</Text>
                     </View>
 
-                </TouchableOpacity> */}
-                {/* <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View> */}
+                </TouchableOpacity>
+                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
                 <TouchableOpacity onPress={() => navigation.navigate("ResetCode2", { data: "from settings" })} style={styles.serviceContainer}>
-                    <MaterialCommunityIcon name="lock-reset" size={30} color="#808080" />
+                    <ImageBackground
+                        source={eclipse}
+                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Image source={password} />
+                    </ImageBackground>
+
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Change Password</Text>
                         <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10, color: "grey" }}>Change your old password</Text>
@@ -150,7 +166,12 @@ const Settings = ({ navigation }) => {
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
                 <TouchableOpacity style={styles.serviceContainer} onPress={() => navigation.navigate("ResetCode3")}>
-                    <MaterialCommunityIcon name="numeric" size={30} color="#808080" />
+                    <ImageBackground
+                        source={eclipse}
+                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Image source={changepin} />
+                    </ImageBackground>
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Change Pin</Text>
                         <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10, color: "grey" }}>Change your transaction pin</Text>
@@ -159,7 +180,12 @@ const Settings = ({ navigation }) => {
                 </TouchableOpacity>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
                 <View style={styles.serviceContainer}>
-                    <MaterialCommunityIcon name="key-variant" size={30} color="#808080" />
+                <ImageBackground
+                        source={eclipse}
+                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Image source={biometrics} />
+                    </ImageBackground>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={{ fontWeight: "500", marginLeft: 20, color: "black", marginRight: s(20) }}>Enable Finger / Face ID</Text>
                         <Switch
@@ -173,8 +199,13 @@ const Settings = ({ navigation }) => {
 
                 </View>
                 <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
-                <TouchableOpacity style={styles.serviceContainer} onPress={() => { navigation.navigate("login"), removeValue() }}>
-                    <MaterialCommunityIcon name="logout" size={30} color="#808080" />
+                <TouchableOpacity style={styles.serviceContainer} onPress={() => removeValue()}>
+                <ImageBackground
+                        source={eclipse}
+                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Image source={logout} />
+                    </ImageBackground>
                     <View>
                         <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Logout</Text>
                     </View>

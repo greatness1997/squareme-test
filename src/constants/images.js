@@ -4,12 +4,17 @@ export const Lock = require('../assets/lock.png');
 export const Add = require('../assets/add.png');
 export const Send = require('../assets/send.png');
 export const ServiceView = require('../assets/serviceView.png');
-export const Airtime = require('../assets/services/airtime.png');
-export const Data = require('../assets/services/data.png');
-export const CableTv = require('../assets/services/cabletv.png');
-export const Electricity = require('../assets/services/electricity.png');
-export const Insurance = require('../assets/services/insurance.png');
-export const Others = require('../assets/services/others.png');
+export const Airtime = require('../assets/product/airtime.png');
+export const Data = require('../assets/product/internet.png');
+export const CableTv = require('../assets/product/cabletv.png');
+export const Electricity = require('../assets/product/electricity.png');
+export const Insurance = require('../assets/product/insurance.png');
+export const Others = require('../assets/product/others.png');
+export const transfer = require('../assets/product/transfer.png');
+export const withd = require('../assets/product/withd.png');
+export const bill = require('../assets/product/bill.png');
+export const airtimeData = require('../assets/product/airtimeData.png');
+export const swit = require('../assets/product/switch.png');
 export const Ads = require('../assets/ads.png');
 export const FingerPrint =  require('../assets/fingerPrint.png')
 export const Print =  require('../assets/print.png')
@@ -39,4 +44,32 @@ export const splash2 = require('../assets/splash2.jpg')
 export const splash3 = require('../assets/splash3.jpg')
 export const splash4 = require('../assets/splash4.jpg')
 export const comm = require('../assets/commission.png')
+
+export const eko =  require('../assets/electricity/new/eko.png')
+export const ikeja =  require('../assets/electricity/new/ikeja.png')
+export const abuja =  require('../assets/electricity/new/abuja.png')
+export const benin =  require('../assets/electricity/new/benin.png')
+export const enugu =  require('../assets/electricity/new/enugu.png')
+export const ibadan =  require('../assets/electricity/new/ibadan.png')
+export const jos =  require('../assets/electricity/new/jos.png')
+export const kano =  require('../assets/electricity/new/kano.png')
+export const kaduna =  require('../assets/electricity/new/kaduna.png')
+export const port =  require('../assets/electricity/new/port.png')
+export const wallet =  require('../assets/electricity/new/wallet.png')
+export const wall =  require('../assets/electricity/new/wallet2.png')
+
+export const password =  require('../assets/electricity/new/password.png')
+export const changepin =  require('../assets/electricity/new/changepin.png')
+export const biometrics =  require('../assets/electricity/new/biometrics.png')
+export const logout =  require('../assets/electricity/new/logout.png')
+export const refer =  require('../assets/electricity/new/refer.png')
+export const help =  require('../assets/electricity/new/help.png')
+
+export const eclipse =  require('../assets/electricity/new/eclipse.png')
+export const livechat =  require('../assets/electricity/new/livechat.png')
+export const whatsapp =  require('../assets/electricity/new/whatsapp.png')
+export const call =  require('../assets/electricity/new/call.png')
+export const mail =  require('../assets/electricity/new/mail.png')
+
+
 

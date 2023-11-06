@@ -52,7 +52,8 @@ const TabNavigator = () => {
         'ElectricitySummary',
         'WalletHistory',
         'WalletHistoryList',
-        'HistoryReceipt'
+        'HistoryReceipt',
+        'liveChat'
     ];
 
     return (

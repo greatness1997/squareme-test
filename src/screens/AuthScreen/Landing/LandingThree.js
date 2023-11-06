@@ -27,6 +27,15 @@ const LandingThree = ({ navigation }) => {
   //     }).start();
   // }
 
+  const next = () => {
+    navigation.navigate("login")
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'login' }],
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Image source={splash3} style={styles.image} />
@@ -36,7 +45,7 @@ const LandingThree = ({ navigation }) => {
         <Text style={styles.text2}>
         Your Wellbeing Matters: Our priority is your care and satisfaction. Count on us to prioritize your needs and provide exceptional support and services.
         </Text>
-        <AppButton title="Let's Go!" onPress={() => navigation.navigate("login")} style={{ backgroundColor: "#707070", marginTop: s(25) }} />
+        <AppButton title="Let's Go!" onPress={next()} style={{ backgroundColor: "#707070", marginTop: s(25) }} />
       </View>
     </View>
   )

@@ -74,16 +74,16 @@ const ElectricityValidation = ({ navigation, route }) => {
 
     return (
         <>
-            <View style={{ flexDirection: "row", marginTop: s(10), justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
+            <View style={{ flexDirection: "row", marginTop: s(25), justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={25} color="black" />
                 </TouchableWithoutFeedback>
 
-                <View style={{ justifyContent: "center" }}>
+                <View>
                     <Text style={{ fontSize: s(20), fontWeight: "500", color: "black" }}>Electricity</Text>
                 </View>
                 <View style={{ marginTop: 10 }}>
-                    <Image source={image} style={{ width: s(80), height: s(50) }} />
+                    <Image source={image} style={{ width: s(60), height: s(40), resizeMode: "contain" }} />
                 </View>
 
             </View>

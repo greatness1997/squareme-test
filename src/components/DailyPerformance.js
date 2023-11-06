@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { ScrollView, StyleSheet, Text, View, Button, Dimensions, Image } from 'react-native';
 import { s } from 'react-native-size-matters'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -7,6 +7,7 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import cred from '../config'
+import { transfer, airtimeData, bill, withd } from "../constants/images"
 
 import "intl"
 import "intl/locale-data/jsonp/en";
@@ -24,6 +25,22 @@ export default function () {
     const [withdrawal, setWithdrawal] = useState({ "dayBeforeYesterday": { "totalAmount": 0, "transactionCount": 0 }, "today": { "totalAmount": 0, "transactionCount": 0 }, "yesterday": { "totalAmount": 0, "transactionCount": 0 } })
     const [trans, setTrans] = useState({ "dayBeforeYesterday": { "totalAmount": 0, "transactionCount": 0 }, "today": { "totalAmount": 0, "transactionCount": 0 }, "yesterday": { "totalAmount": 0, "transactionCount": 0 } })
     // const [ dayBeforeYesterday, setDayBeforeYesterday ] = useState({})
+
+    const [activeBox, setActiveBox] = useState(0);
+
+    const scrollViewRef = useRef();
+
+    // const scrollToBox = (index) => {
+    //     if (scrollViewRef.current) {
+    //         scrollViewRef.current.scrollTo({ x: index * windowWidth, animated: true });
+    //     }
+    // }
+
+    const handleScrollEnd = (event) => {
+        const contentOffsetX = event.nativeEvent.contentOffset.x;
+        const newIndex = Math.round(contentOffsetX / windowWidth);
+        setActiveBox(newIndex);
+    }
 
     const styles = StyleSheet.create({
         summary: {
@@ -88,163 +105,178 @@ export default function () {
 
 
     return (
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={{ flexDirection: "row", marginRight: s(20) }}>
-                <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>TODAY, {todayDate.toLocaleUpperCase()}</Text>
-                    <View style={[styles.summary, styles.boxShadow]}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
-                                        <Ionicons name="paper-plane" size={16} color="#225db9" />
+        <>
+            <ScrollView
+                ref={scrollViewRef} // Attach the ref
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                onMomentumScrollEnd={handleScrollEnd}
+            >
+                <View style={{ flexDirection: "row", marginRight: s(20) }}>
+                    <View>
+                        <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(10), color: "#3382f3" }}>TODAY, {todayDate.toLocaleUpperCase()}</Text>
+                        <View style={[styles.summary, styles.boxShadow]}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={transfer} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
                                     </View>
-                                    <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.today.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.today.transactionCount} Transactions</Text>
                                 </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.today.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.today.transactionCount} Transactions</Text>
+                                <View style={{ paddingRight: s(20) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={withd} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(withdrawal.today.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.today.transactionCount} Transactions</Text>
+                                </View>
                             </View>
-                            <View style={{ paddingRight: s(20) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="arrow-right-top-bold" size={16} color="#BF6295" />
+
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={bill} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
                                     </View>
-                                    <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.today.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.today.transactionCount} Transactions</Text>
                                 </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(withdrawal.today.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.today.transactionCount} Transactions</Text>
+                                <View style={{ paddingRight: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={airtimeData} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.today.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.today.transactionCount} Transactions</Text>
+                                </View>
                             </View>
                         </View>
+                    </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="credit-card" size={16} color="#8954c2" />
+                    <View>
+                        <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(10), color: "#3382f3" }}>YESTERDAY, {yesterdayDate.toLocaleUpperCase()}</Text>
+                        <View style={[styles.summary, styles.boxShadow]}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={transfer} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
                                     </View>
-                                    <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.yesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.yesterday.transactionCount} Transactions</Text>
                                 </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.today.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.today.transactionCount} Transactions</Text>
+                                <View style={{ paddingRight: s(20) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={withd} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(withdrawal.yesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.yesterday.transactionCount} Transactions</Text>
+                                </View>
                             </View>
-                            <View style={{ paddingRight: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="phone-outgoing" size={16} color="#269dd9" />
+
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={bill} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
                                     </View>
-                                    <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.yesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.yesterday.transactionCount} Transactions</Text>
                                 </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.today.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.today.transactionCount} Transactions</Text>
+                                <View style={{ paddingRight: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={airtimeData} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.yesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.yesterday.transactionCount} Transactions</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+
+
+                    <View>
+                        <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(10), color: "#3382f3" }}>2 DAYS AGO, {twodaysAgoDate.toLocaleUpperCase()}</Text>
+                        <View style={[styles.summary, styles.boxShadow]}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={transfer} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.dayBeforeYesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.dayBeforeYesterday.transactionCount} Transactions</Text>
+                                </View>
+                                <View style={{ paddingRight: s(20) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={withd} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{format.format(withdrawal.dayBeforeYesterday.totalAmount)}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.dayBeforeYesterday.transactionCount} Transactions</Text>
+                                </View>
+                            </View>
+
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
+                                <View style={{ paddingLeft: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={bill} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.dayBeforeYesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.dayBeforeYesterday.transactionCount} Transactions</Text>
+                                </View>
+                                <View style={{ paddingRight: s(10) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
+                                            <Image source={airtimeData} style={{ width: s(18), height: s(18), resizeMode: "contain" }} />
+                                        </View>
+                                        <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
+                                    </View>
+                                    <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.dayBeforeYesterday.totalAmount)}`}</Text>
+                                    <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.dayBeforeYesterday.transactionCount} Transactions</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
                 </View>
+            </ScrollView>
 
-                <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>YESTERDAY, {yesterdayDate.toLocaleUpperCase()}</Text>
-                    <View style={[styles.summary, styles.boxShadow]}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
-                                        <Ionicons name="paper-plane" size={16} color="#225db9" />
-                                    </View>
-                                    <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.yesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.yesterday.transactionCount} Transactions</Text>
-                            </View>
-                            <View style={{ paddingRight: s(20) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="arrow-right-top-bold" size={16} color="#BF6295" />
-                                    </View>
-                                    <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(withdrawal.yesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.yesterday.transactionCount} Transactions</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="credit-card" size={16} color="#8954c2" />
-                                    </View>
-                                    <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.yesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.yesterday.transactionCount} Transactions</Text>
-                            </View>
-                            <View style={{ paddingRight: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="phone-outgoing" size={16} color="#269dd9" />
-                                    </View>
-                                    <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.yesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.yesterday.transactionCount} Transactions</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
-
-                <View>
-                    <Text style={{ marginLeft: s(20), marginTop: s(10), fontWeight: "600", fontSize: s(12), color: "#3382f3" }}>2 DAYS AGO, {twodaysAgoDate.toLocaleUpperCase()}</Text>
-                    <View style={[styles.summary, styles.boxShadow]}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#cee1ff", padding: s(5), marginRight: s(5) }}>
-                                        <Ionicons name="paper-plane" size={16} color="#225db9" />
-                                    </View>
-                                    <Text style={{ color: "#225db9", fontWeight: "600", fontSize: s(10) }}>TRANSFERS</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(trans.dayBeforeYesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{trans.dayBeforeYesterday.transactionCount} Transactions</Text>
-                            </View>
-                            <View style={{ paddingRight: s(20) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ffd0ea", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="arrow-right-top-bold" size={16} color="#BF6295" />
-                                    </View>
-                                    <Text style={{ color: "#BF6295", fontWeight: "600", fontSize: s(10) }}>WITHDRAWAL</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{format.format(withdrawal.dayBeforeYesterday.totalAmount)}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{withdrawal.dayBeforeYesterday.transactionCount} Transactions</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
-                            <View style={{ paddingLeft: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#ecdbff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="credit-card" size={16} color="#8954c2" />
-                                    </View>
-                                    <Text style={{ color: "#8954c2", fontWeight: "600", fontSize: s(10) }}>BILLS PAYMENT</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(bills.dayBeforeYesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{bills.dayBeforeYesterday.transactionCount} Transactions</Text>
-                            </View>
-                            <View style={{ paddingRight: s(10) }}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ backgroundColor: "#d5f1ff", padding: s(5), marginRight: s(5) }}>
-                                        <MaterialCommunityIcon name="phone-outgoing" size={16} color="#269dd9" />
-                                    </View>
-                                    <Text style={{ color: "#269dd9", fontWeight: "600", fontSize: s(10) }}>AIRTIME & DATA</Text>
-                                </View>
-                                <Text style={{ color: "#2e2e2e", fontWeight: "bold", fontSize: s(12), marginTop: 5 }}>{`₦${format.format(airtimedata.dayBeforeYesterday.totalAmount)}`}</Text>
-                                <Text style={{ color: "#9f9f9f", fontWeight: "bold", fontSize: s(9.5), marginTop: 5 }}>{airtimedata.dayBeforeYesterday.transactionCount} Transactions</Text>
-                            </View>
-                        </View>
-                    </View>
+            <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
+                    <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: activeBox === 0 ? '#3e6bff' : 'white', marginHorizontal: 5 }}></View>
+                    <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: activeBox === 1 ? '#3e6bff' : 'white', marginHorizontal: 5 }}></View>
+                    <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: activeBox === 2 ? '#3e6bff' : 'white', marginHorizontal: 5 }}></View>
                 </View>
             </View>
-        </ScrollView>
+        </>
     );
 }
 

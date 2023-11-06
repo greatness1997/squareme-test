@@ -3,6 +3,7 @@ apply plugin: "com.facebook.react"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
+
 import com.android.build.OutputFile
 
 /**
@@ -100,8 +101,8 @@ android {
         applicationId "com.spout.payment"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.0.1"
+        versionCode 6
+        versionName "1.0.3"
         multiDexEnabled true
     }
 

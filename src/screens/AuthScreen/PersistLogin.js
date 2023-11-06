@@ -145,7 +145,7 @@ const PersistLogin = ({ navigation, route }) => {
 
             <View style={styles.container}>
 
-                <View style={{ alignItems: "center", marginTop: s(30) }}>
+                <View style={{ alignItems: "center", marginTop: s(50) }}>
                     <Image source={Logo} />
                 </View>
 

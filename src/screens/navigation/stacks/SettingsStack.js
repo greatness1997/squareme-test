@@ -8,6 +8,7 @@ import ChangePassword from '../../mainScreen/Settings/ChangePassword';
 import ChangePin from '../../mainScreen/Settings/ChangePin';
 import SendResetCode from '../../mainScreen/Settings/SendResetCode2';
 import SendResetCode3 from '../../mainScreen/Settings/SendResetCode3';
+import LiveChat from '../../mainScreen/Settings/LiveChat';
 
 
 
@@ -33,6 +34,7 @@ const SettingsStack = () => {
             <Stack.Screen name='ChangePin' component={ChangePin} />
             <Stack.Screen name='ResetCode2' component={SendResetCode} />
             <Stack.Screen name='ResetCode3' component={SendResetCode3} />
+            <Stack.Screen name='liveChat' component={LiveChat} />
         </Stack.Navigator>
     )
 }

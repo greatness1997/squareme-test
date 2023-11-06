@@ -258,6 +258,7 @@ const VirtualAccount = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter you Bvn'
+                                            placeholderTextColor="#bababa"
                                             onChangeText={handleChange('bvn')}
                                             keyboardType='numeric'
                                             value={values.bvn}

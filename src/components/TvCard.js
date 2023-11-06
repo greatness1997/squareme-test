@@ -106,7 +106,7 @@ const TvCard = ({ data, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: s(290),
+        height: s(300),
         backgroundColor: "white",
         // alignItems: "center",
         borderRadius: 10,

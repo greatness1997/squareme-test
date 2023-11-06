@@ -1,6 +1,6 @@
 {
   "name": "spoutpay",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -50,6 +50,7 @@
     "react-native-touch-id": "^4.4.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-view-shot": "^3.6.0",
+    "react-native-webview": "^13.6.2",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",

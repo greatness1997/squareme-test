@@ -23,6 +23,10 @@ const Splash = ({ navigation }) => {
             const data = JSON.parse(userData)
             if(userData){
                 navigation.navigate("PersistLogin")
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'PersistLogin' }],
+                  });
             }
         } catch (e) {
             console.log(e)
@@ -35,9 +39,13 @@ const Splash = ({ navigation }) => {
             const hasAppInstalledBefore = await AsyncStorage.getItem('hasAppInstalledBefore');
             if (!hasAppInstalledBefore) {
                 navigation.navigate("LandingOne")
-            } else (
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'LandingOne' }],
+                  });
+            } else {
                 navigation.navigate("login")
-            )
+            }
             await AsyncStorage.setItem('hasAppInstalledBefore', 'true');
         } catch (error) {
             console.error('Error checking app installation:', error);
