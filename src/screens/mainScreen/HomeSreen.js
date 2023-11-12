@@ -47,6 +47,7 @@ const HomeScreen = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalVisible1, setModalVisible1] = useState(false)
+    const [modalBalance, setModalBalance] = useState(false)
 
     const ref = useRef();
 
@@ -56,6 +57,10 @@ const HomeScreen = ({ navigation }) => {
 
     const close1 = () => {
         setModalVisible1(false)
+    }
+
+    const close3 = () => {
+        setModalBalance(false)
     }
 
     const hiddenBal = "*****"
@@ -140,6 +145,8 @@ const HomeScreen = ({ navigation }) => {
         navigation.navigate("VirtualAccount")
     }
 
+    const virtualAccount = `Bank: ${accountDetails.bank}\nAccount Number: ${accountDetails.accountNo}\nAccount Name: ${accountDetails.accountName}`
+
 
     return (
         <>
@@ -170,7 +177,9 @@ const HomeScreen = ({ navigation }) => {
                                 </TouchableOpacity>
 
                             </View>
-                            <MaterialCommunityIcons name="chevron-down" color="#C3C3C3" size={20} />
+                            <TouchableWithoutFeedback onPress={() => setModalBalance(true)}>
+                                <MaterialCommunityIcons name="chevron-down" color="#C3C3C3" size={20} />
+                            </TouchableWithoutFeedback>
                         </View>
                     </ImageBackground> : null}
                     <TouchableOpacity onPress={() => navigation.navigate("WalletHistory")}>
@@ -235,24 +244,24 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity style={[styles.product, styles.boxShadow]} onPress={() => navigation.navigate("Provider")}>
                                 <Image source={Electricity} style={{ width: s(30), height: s(45), marginTop: s(3) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(2) }}>
-                                    <Text style={{ fontSize: s(12) }}>Electricity</Text>
-                                    <Text style={{ fontSize: s(12) }}>Tokens</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Electricity</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Tokens</Text>
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={[styles.product, styles.boxShadow]} onPress={() => navigation.navigate("AirtimeOrData")}>
                                 <Image source={Airtime} style={{ width: s(30), height: s(45), marginTop: s(3) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(2) }}>
-                                    <Text style={{ fontSize: s(12) }}>Airtime &</Text>
-                                    <Text style={{ fontSize: s(12) }}>Data</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Airtime &</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Data</Text>
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={[styles.product, styles.boxShadow]}>
                                 <Image source={Data} style={{ width: s(30), height: s(50), marginTop: s(3) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(0) }}>
-                                    <Text style={{ fontSize: s(12) }}>Internet</Text>
-                                    <Text style={{ fontSize: s(12) }}>Service</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Internet</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Service</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -261,21 +270,21 @@ const HomeScreen = ({ navigation }) => {
                             <TouchableOpacity style={[styles.product, styles.boxShadow]}>
                                 <Image source={Insurance} style={{ width: s(30), height: s(45), marginTop: s(10) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(2) }}>
-                                    <Text style={{ fontSize: s(12) }}>Insurance</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Insurance</Text>
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={[styles.product, styles.boxShadow]} onPress={() => navigation.navigate("ProviderTv")}>
                                 <Image source={CableTv} style={{ width: s(40), height: s(40), marginTop: s(10) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(8) }}>
-                                    <Text style={{ fontSize: s(12) }}>Cable TV</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Cable TV</Text>
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={[styles.product, styles.boxShadow]}>
                                 <Image source={Others} style={{ width: s(30), height: s(40), marginTop: s(10) }} />
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: s(10) }}>
-                                    <Text style={{ fontSize: s(12) }}>Others</Text>
+                                    <Text style={{ fontSize: s(12), color: "black" }}>Others</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -417,6 +426,60 @@ const HomeScreen = ({ navigation }) => {
                         </Modal>
                     </Modal>
 
+                    <Modal
+                        visible={modalBalance}
+                        animationType='slide'
+                        transparent={true}
+                    >
+                        <View style={styles.modalScreen}>
+                            <View style={styles.transparentContainer} />
+                            <View style={styles.contentContainer}>
+                                <View style={styles.closeIconContainer}>
+                                    <Text></Text>
+                                    <Text></Text>
+                                    <TouchableWithoutFeedback onPress={close3}>
+                                        <MaterialCommunityIcons name="close-circle" size={s(21)} color="black" />
+                                    </TouchableWithoutFeedback>
+                                </View>
+
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ width: s(45), height: s(45), backgroundColor: "#D3D3D3", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
+                                            <Text style={{ fontSize: s(18), fontWeight: "bold", color: "#1C1C1C" }}>
+                                                {accountDetails.accountName
+                                                    ? accountDetails.accountName
+                                                        .split('-') // Split by hyphen
+                                                        .pop() // Take the last part after the last hyphen
+                                                        .split(' ')
+                                                        .map(word => word[0])
+                                                        .slice(0, 2)
+                                                        .join('')
+                                                        .toUpperCase()
+                                                    : "N/A"}
+                                            </Text>
+                                        </View>
+                                        <Text style={{ marginLeft: s(8), color: "#1B2D56", fontWeight: "500" }}>{accountDetails.accountName ? accountDetails.accountName : "N/A"}</Text>
+                                    </View>
+
+                                    <Text></Text>
+                                    {accountDetails.accountNo && (<TouchableOpacity onPress={() => handleCopy(virtualAccount)}>
+                                        <Text style={{ fontWeight: "500", fontSize: s(11), color: "#3382F3" }}>Copy Details</Text>
+                                    </TouchableOpacity>)}
+
+                                </View>
+
+                                <View style={{ marginLeft: "21%" }}>
+                                    <Text style={{ fontSize: s(10), color: "#4E4E4E", }}>Account Number</Text>
+                                    <Text style={{ color: "#1C1C1C", fontSize: s(14), fontWeight: "600", marginTop: s(2) }}>{accountDetails.accountNo ? accountDetails.accountNo : "N/A"}</Text>
+                                </View>
+
+                                <View style={{ marginTop: s(8), marginLeft: "21%" }}>
+                                    <Text style={{ fontSize: s(10), color: "#4E4E4E", }}>Bank Name</Text>
+                                    <Text style={{ color: "#1C1C1C", fontSize: s(14), fontWeight: "600", marginTop: s(2) }}>{accountDetails.bank ? accountDetails.bank : "N/A"}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
                 </ScrollView>
             </SafeAreaView>
         </>

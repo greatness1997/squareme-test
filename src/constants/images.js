@@ -70,6 +70,6 @@ export const livechat =  require('../assets/electricity/new/livechat.png')
 export const whatsapp =  require('../assets/electricity/new/whatsapp.png')
 export const call =  require('../assets/electricity/new/call.png')
 export const mail =  require('../assets/electricity/new/mail.png')
-
+export const lock =  require('../assets/electricity/new/otplock.png')
 
 
