@@ -100,7 +100,7 @@ const Login = ({ navigation, route }) => {
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={messageOne} />}
                 {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(50) }}>
-                    <Image source={Logo} />
+                    {/* <Image source={Logo} /> */}
                 </View>}
                 <View>
                     <Formik
@@ -150,7 +150,7 @@ const Login = ({ navigation, route }) => {
 
                                     <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", { data: "from login" })}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                            <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
 
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "#49001b",
         padding: s(8)
 
     },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         borderRadius: s(50),
         padding: ms(10),
         borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        backgroundColor: "white",
         width: '100%',
         height: s(55),
         // marginTop: '2%',
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         borderRadius: s(50),
         padding: ms(10),
         borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        backgroundColor: "white",
         width: '100%',
         height: s(55),
         marginBottom: s(30),
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: s(40),
-        color: "white",
+        color: "black",
         paddingLeft: s(10),
         fontSize: s(15)
     },

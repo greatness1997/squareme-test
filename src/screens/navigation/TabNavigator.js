@@ -96,25 +96,6 @@ const TabNavigator = () => {
             />
 
             <Tab.Screen
-                name="Settings"
-                component={SettingsStack}
-                options={({ route }) => ({
-                    tabBarLabel: 'Settings',
-                    tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="cog" color="#120549" size={s(25)} />
-                    ),
-                    headerShown: false,
-                    tabBarStyle: ((route) => {
-                      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-                      if (hiddenTabRoutes.includes(routeName)) {
-                        return { display: "none" }
-                      }
-                      return
-                    })(route),
-                  })}
-            />
-
-            <Tab.Screen
                 name="Profile"
                 component={ProfileStack}
                 options={({ route }) => ({
