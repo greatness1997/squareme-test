@@ -98,18 +98,6 @@ const Settings = ({ navigation }) => {
     }, []);
 
 
-    // const authenticate = () => {
-    //     TouchID.authenticate('To login to your account')
-    //         .then(success => {
-    //             navigation.navigate("home")
-    //             console.log("Authentication Successful", success)
-    //         })
-    //         .catch(error => {
-    //             Alert.alert("failed", `${error}`)
-    //         });
-    // }
-
-
 
     return (
         <SafeAreaView>
@@ -126,30 +114,7 @@ const Settings = ({ navigation }) => {
                     <Text></Text>
                 </View>
 
-                {/* <TouchableOpacity style={styles.serviceContainer} onPress={() => handleBoxPress(1)}>
-                    <MaterialCommunityIcon name="gift" size={30} color="#808080" />
-                    <View>
-                        <Text style={{ fontWeight: "500", marginLeft: 20 }}>Refer & Earn</Text>
-                        <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10 }}>Refer your friends and get a bonus</Text>
-                    </View>
-
-                </TouchableOpacity>
-                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View> */}
-
-                <TouchableOpacity onPress={() => navigation.navigate('Help')} style={styles.serviceContainer}>
-                <ImageBackground
-                        source={eclipse}
-                        style={{ width: s(35), height: s(35), justifyContent: "center", alignItems: "center" }}
-                    >
-                        <Image source={help} />
-                    </ImageBackground>
-                    <View>
-                        <Text style={{ fontWeight: "500", marginLeft: 20, color: "black" }}>Help Center</Text>
-                        <Text style={{ fontWeight: "500", marginLeft: 20, marginTop: 5, fontSize: 10, color: "grey" }}>Have an issue? speak to our support</Text>
-                    </View>
-
-                </TouchableOpacity>
-                <View style={{ height: 1, backgroundColor: "lightgrey", width: "80%", marginLeft: s(30) }}></View>
+                
                 <TouchableOpacity onPress={() => navigation.navigate("ResetCode2", { data: "from settings" })} style={styles.serviceContainer}>
                     <ImageBackground
                         source={eclipse}

@@ -24,19 +24,19 @@ const Provider = ({ navigation }) => {
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={eko} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Eko</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Eko</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: ikeja, name: "ikedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={ikeja} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Ikeja</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Ikeja</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: abuja, name: "aedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={abuja} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Abuja</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Abuja</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -45,19 +45,19 @@ const Provider = ({ navigation }) => {
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={ibadan} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Ibadan</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Ibadan</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: port, name: "phedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
-                            <Image source={port} />
+                            <Image source={port}  />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Portharcourt</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Portharcourt</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: enugu, name: "eedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={enugu} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Enugu</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Enugu</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -66,28 +66,28 @@ const Provider = ({ navigation }) => {
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={kano} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Kano</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Kano</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: jos, name: "jedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={jos} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Jos</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Jos</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: benin, name: "bedc" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={benin} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Benin</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Benin</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ flexWrap: "wrap", justifyContent: "space-evenly", padding: s(8), marginTop: s(0), width: "100%" }}>
+                <View style={{ flexWrap: "wrap", justifyContent: "space-evenly", padding: s(8), marginLeft: "3%", width: "100%" }}>
                     <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("ElectricityValidation", { image: kaduna, name: "kadec" })}>
                         <View style={[styles.provider, styles.boxShadow]}>
                             <Image source={kaduna} />
                         </View>
-                        <Text style={{ marginTop: s(5), fontWeight: "600" }}>Kaduna</Text>
+                        <Text style={{ marginTop: s(5), fontWeight: "600", color: "black" }}>Kaduna</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -97,8 +97,8 @@ const Provider = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     provider: {
-        width: s(100),
-        height: s(70),
+        width: s(90),
+        height: s(60),
         backgroundColor: "white",
         borderRadius: s(10),
         alignItems: 'center',

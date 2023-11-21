@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, Alert, TouchableWithoutFeedback } from 'react-native'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { s, ms, vs } from 'react-native-size-matters'
@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { image } from '../../../constants/images'
 import { color } from '../../../constants/color'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import cred from '../../../config'
 import axios from 'axios'
 
@@ -103,96 +103,96 @@ const Profile = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ marginTop: s(4), flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#49001b" }}>
+            <View style={{ marginTop: s(30), flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
-                    <MaterialCommunityIcons name="arrow-left-thick" size={s(25)} color="black"/>
+                    <MaterialCommunityIcons name="arrow-left-thick" size={s(25)} color="white" />
                 </TouchableWithoutFeedback>
-                <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Profile</Text>
-                <Text></Text>
+                <View style={{ flexDirection: "row" }}>
+
+                    <View style={styles.profileImage}>
+                        {userData.picture ? <Image source={{ uri: userData.picture }} style={{ width: 80, height: 80, borderRadius: 50 }} /> : <Image source={image} style={{ width: 80, height: 80, borderRadius: 50, }} />}
+                    </View>
+                    <TouchableOpacity onPress={() => uploadImage()} style={styles.edit}>
+                        <MaterialCommunityIcons name="camera-outline" color="#ffffff" size={s(15)} />
+                    </TouchableOpacity>
+                </View>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate("Settings")}>
+                    <MaterialCommunityIcons name="cog" size={s(25)} color="white" />
+                </TouchableWithoutFeedback>
             </View>
 
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
                 <View style={{ alignItems: "center", }}>
-                    <View style={{ flexDirection: "row" }}>
 
-                        <View style={styles.profileImage}>
-                            {/* <Image source={image} style={{ width: s(50), height: vs(50), borderRadius: s(50), }} /> */}
-                            {userData.picture ? <Image source={{ uri: userData.picture }} style={{ width: 80, height: 80, borderRadius: 50 }} /> : <Image source={image} style={{ width: 80, height: 80, borderRadius: 50, }} />}
-                        </View>
-                        <TouchableOpacity onPress={() => uploadImage()} style={styles.edit}>
-                            <MaterialCommunityIcons name="camera-outline" color="#ffffff" size={s(15)} />
-                        </TouchableOpacity>
-                    </View>
                     <View style={{ alignItems: "center", marginTop: s(10) }}>
-                        <Text style={{ color: "#464646", fontSize: s(17), fontWeight: "600" }}>{userData.firstName} {userData.lastName}</Text>
-                        <Text style={{ color: "#6c6c6c", fontSize: s(12), fontWeight: "400", marginTop: s(3) }}>{userData.email}</Text>
+                        <Text style={{ color: "white", fontSize: s(17), fontWeight: "600" }}>{userData.firstName} {userData.lastName}</Text>
+                        <Text style={{ color: "white", fontSize: s(12), fontWeight: "400", marginTop: s(3) }}>{userData.email}</Text>
                     </View>
-                    <TouchableOpacity style={{ marginTop: s(10), backgroundColor: "#c66e5443", padding: s(8), borderRadius: s(5) }} onPress={() => navigation.navigate("PersonalDetails")}>
-                        <Text style={{ color: "#e66e54", fontWeight: "500", fontSize: s(12) }}>Upgrade Now!</Text>
-                    </TouchableOpacity>
                 </View>
 
-                <View style={{ marginTop: s(20), marginLeft: s(20), flexDirection: "row", alignItems: "center" }} >
-                    <Text style={{ color: "#6c6c6c", fontWeight: "500", fontSize: s(12) }}>WALLET ID: {userData.walletId}</Text>
+                <View style={{ marginTop: s(30), marginLeft: s(20), flexDirection: "row", alignItems: "center" }} >
+                    <Text style={{ color: "white", fontWeight: "500", fontSize: s(12) }}>WALLET ID: {userData.walletId}</Text>
                     <TouchableOpacity onPress={() => handleCopy(user.walletId)}>
-                        <Ionicons name="copy-outline" size={s(12)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                        <Ionicons name="copy-outline" size={s(12)} color="white" style={{ marginLeft: s(5) }} />
                     </TouchableOpacity>
 
                 </View>
 
                 <View style={styles.box1}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(20) }}>
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={{ color: "#c9d3ff", fontWeight: "300", fontSize: s(10), marginBottom: s(3) }}>Account Type</Text>
-                            <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: s(12) }}>{userData.agentType}</Text>
-                        </View>
-
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={{ color: "#c9d3ff", fontWeight: "300", fontSize: s(10), marginBottom: s(3) }}>KYC Level</Text>
-                            <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: s(12) }}>{userData.agentType === "user" ? "Level 1" : userData.agentType === "agent" ? "Level 2" : userData.agentType === "aggregator" ? "Level 3" : ""}</Text>
-                        </View>
-
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={{ color: "#c9d3ff", fontWeight: "300", fontSize: s(10), marginBottom: s(3) }}>Account Status</Text>
-                            <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: s(12) }}>Active</Text>
-                        </View>
-                    </View>
 
                     <View style={styles.box2}>
-                        <TouchableOpacity onPress={() => navigation.navigate("ProfileEdit")} style={{ backgroundColor: "#ededed", marginTop: s(20), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
+                        <TouchableOpacity onPress={() => navigation.navigate("ProfileEdit")} style={{ backgroundColor: "white", marginTop: s(20), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                    <MaterialCommunityIcons name="clipboard-edit" size={s(20)} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "black", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Edit Profile</Text>
+                                    <Text style={{ color: "black", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(1)}}>Make changes to your profile</Text>
+                                </View>
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Edit Profile</Text>
+                            <MaterialCommunityIcons name="menu-right" size={s(30)} color="black" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate("Settings")} style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" />
+                        <TouchableOpacity onPress={() => navigation.navigate("History")} style={{ backgroundColor: "white", marginTop: s(2), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                    <MaterialCommunityIcons name="clipboard-list" size={s(20)} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "black", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Transaction History</Text>
+                                    <Text style={{ color: "black", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(1)}}>Quick view of your wallet history</Text>
+                                </View>
                             </View>
-                            <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Settings</Text>
+                            <MaterialCommunityIcons name="menu-right" size={s(30)} color="black" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate("UploadDoc")} style={{ backgroundColor: "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: userData.isKycDocument === true ? "#6C6C6C" : "#c66e5443", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                {userData.isKycDocument === true ? <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" /> : <MaterialCommunityIcons name="thumb-down" size={s(18)} color="#e66e54" />}
+                        <TouchableOpacity style={{ backgroundColor: "white", marginTop: s(2), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                    <MaterialCommunityIcons name="help-network" size={s(20)} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "black", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Help & Support</Text>
+                                    <Text style={{ color: "black", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(1)}}>Contact Us for help & support</Text>
+                                </View>
                             </View>
-                            <View>
-                                <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Documents</Text>
-                                {userData.isKycDocument !== true && <Text style={{ color: "#6c6c6c", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(4) }}>Tap to Upload Documents</Text>}
-                            </View>
+                            <MaterialCommunityIcons name="menu-right" size={s(30)} color="black" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate("VirtualAccount")} style={{ backgroundColor:  "#ededed", marginTop: s(10), width: "90%", height: s(45), flexDirection: "row", alignItems: "center", padding: s(10), marginBottom: s(10) }}>
-                            <View style={{ width: s(30), height: s(30), backgroundColor: userData.vfdAcctDetails ? "#6C6C6C" : "#c66e5443", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
-                                {userData.vfdAcctDetails ? <MaterialCommunityIcons name="thumb-up" size={s(18)} color="#c9d3ff" /> : <MaterialCommunityIcons name="thumb-down" size={s(18)} color="#e66e54" />}
+                        <TouchableOpacity style={{ backgroundColor: "white", marginTop: s(2), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
+                                    <MaterialCommunityIcons name="clipboard-list" size={s(20)} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "black", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Wallet History</Text>
+                                    <Text style={{ color: "black", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(1)}}>View activities on your wallet</Text>
+                                </View>
                             </View>
-                            <View>
-                                <Text style={{ color: "#6c6c6c", fontWeight: "600", fontSize: s(14), marginLeft: s(20) }}>Account Validation</Text>
-                                {!userData.vfdAcctDetails && <Text style={{ color: "#6c6c6c", fontWeight: "400", fontSize: s(10), marginLeft: s(20), marginTop: s(4) }}>Tap to Create Virtual Account</Text>}
-                            </View>
+                            <MaterialCommunityIcons name="menu-right" size={s(30)} color="black" />
                         </TouchableOpacity>
                     </View>
 
@@ -216,11 +216,11 @@ const styles = StyleSheet.create({
         justifyContent: "center", alignItems: "center"
     },
     box1: {
-        backgroundColor: "#1b2d56",
+        backgroundColor: "white",
         width: "100%",
         height: "100%",
         borderRadius: s(20),
-        marginTop: s(10)
+        marginTop: s(20)
     },
     box2: {
         width: "100%",

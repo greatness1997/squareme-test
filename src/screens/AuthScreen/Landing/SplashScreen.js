@@ -13,7 +13,7 @@ const Splash = ({ navigation }) => {
             startAnimation()
             checkIfAppInstalledBefore();
             getData()
-        }, 1000)
+        }, 3000)
     }, [])
 
 
@@ -65,7 +65,7 @@ const Splash = ({ navigation }) => {
     return (
         <View style={{
             flex: 1,
-            backgroundColor: "#060C27",
+            backgroundColor: "#49001b",
             justifyContent: "center",
             alignItems: "center"
         }}>
@@ -79,7 +79,7 @@ const Splash = ({ navigation }) => {
                     }
                 ]
             }]}>
-                <Image source={Logo} />
+                <Image source={Logo} style={{ width: 200, height: 200, resizeMode: "contain", justifyContent: "center", alignItems: "center" }} />
             </Animated.View>
         </View>
     )

@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LandingOne from '../../AuthScreen/Landing/LandingOne';
 import LandingTwo from '../../AuthScreen/Landing/LandingTwo';
 import LandingThree from '../../AuthScreen/Landing/LandingThree';
+import LandingFour from '../../AuthScreen/Landing/LandingFour';
 import Splash from '../../AuthScreen/Landing/SplashScreen';
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ const LandingStack = () => {
             <Stack.Screen name='LandingOne' component={LandingOne} />
             <Stack.Screen name='LandingTwo' component={LandingTwo} />
             <Stack.Screen name='LandingThree' component={LandingThree} />
+            <Stack.Screen name='LandingFour' component={LandingFour} />
         </Stack.Navigator>
     )
 }

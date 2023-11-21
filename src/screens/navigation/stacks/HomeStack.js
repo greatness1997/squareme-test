@@ -11,7 +11,8 @@ import Completed from '../../mainScreen/Transfer/Completed';
 import Provider from '../../mainScreen/Electricity/Provider';
 import ElectricityValidation from '../../mainScreen/Electricity/ElectricityValidation';
 import SelectNetwork from '../../mainScreen/Airtime&Data/SlectNetwork';
-import AirtimeOrData from '../../mainScreen/Airtime&Data/AirtimeOrData'
+import Airtime from '../../mainScreen/Airtime&Data/Airtime'
+import Data from '../../mainScreen/Airtime&Data/Data'
 import PaymentMethod from '../../mainScreen/PaymentMethod'
 import AirtimeVerify from '../../mainScreen/Airtime&Data/AirtimeVerify';
 import DataVerify from '../../mainScreen/Airtime&Data/DataVerify';
@@ -57,7 +58,8 @@ const HomeStack = () => {
             <Stack.Screen name='Provider' component={Provider} />
             <Stack.Screen name='ElectricityValidation' component={ElectricityValidation} />
             <Stack.Screen name='Airtime&Data' component={SelectNetwork} />
-            <Stack.Screen name='AirtimeOrData' component={AirtimeOrData} />
+            <Stack.Screen name='Airtime' component={Airtime} />
+            <Stack.Screen name='Data' component={Data} />
             <Stack.Screen name='paymentmethod' component={PaymentMethod} />
             <Stack.Screen name='TransferPin' component={PinVerify} />
             <Stack.Screen name='AirtimeVerify' component={AirtimeVerify} />

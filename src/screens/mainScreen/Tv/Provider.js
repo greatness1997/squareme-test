@@ -16,7 +16,7 @@ const Provider = ({ navigation }) => {
                     <Text style={{ fontSize: 18, fontWeight: "bold", color: "black" }}>Cable Tv</Text>
                 </View>
             </View>
-            <Text style={{ fontSize: 15, color: "black", fontWeight: "500", marginTop: s(35), marginLeft: s(20) }}>Choose a provider to continue</Text>
+            <Text style={{ fontSize: 15, color: "black", fontWeight: "500", marginTop: s(35), marginLeft: s(20) }}>Choose Provider</Text>
             <View style={{ flexDirection: "row", paddingRight: s(10), marginTop: s(15), marginLeft: s(15), width: "100%", }}>
                 <TouchableOpacity onPress={() => navigation.navigate("TvValidation", {image: gotv, name: "gotv"})}>
                     <Image

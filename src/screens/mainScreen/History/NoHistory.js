@@ -13,10 +13,6 @@ const NoHistory = ({ style }) => {
                 loop
                 style={styles.animation}
             />
-
-
-            <Text style={{ fontSize: s(12), fontWeight: "400", marginBottom: 5, color: "grey" }}>No transaction history available.</Text>
-            <Text style={{ fontSize: s(12), fontWeight: "400", color: "grey" }}>Start making transactions or use the date filter.</Text>
         </View>
     )
 }
@@ -25,7 +21,7 @@ const styles = StyleSheet.create({
     notice: {
         justifyContent: "center",
         alignItems: "center",
-        padding: s(10)
+        
     },
     animation: {
         position: "relative",

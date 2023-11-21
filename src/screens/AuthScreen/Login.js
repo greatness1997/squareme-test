@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppButton from '../../components/AppButtonWhite'
+import AppButton from '../../components/AppButtonBlue'
 import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -80,7 +80,7 @@ const Login = ({ navigation, route }) => {
                 navigation.reset({
                     index: 0,
                     routes: [{ name: 'Home' }],
-                  });
+                });
             }
 
 
@@ -96,12 +96,22 @@ const Login = ({ navigation, route }) => {
 
     return (
         <>
-
+            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={messageOne} />}
-                {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(50) }}>
-                    {/* <Image source={Logo} /> */}
-                </View>}
+                {/* {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(20) }}>
+                    <Image source={Logo} style={{ width: (120), height: s(120), resizeMode: "contain" }} />
+                </View>} */}
+                <View style={{ marginBottom: s(30), marginTop: s(60) }}>
+                    <View style={{ flexDirection: "row", alignSelf: "center" }}>
+                        <Text style={{ color: "#49001b", fontSize: s(20), fontWeight: "bold", marginRight: s(5) }}>Sign In</Text>
+                        <MaterialCommunityIcons name="login" size={s(25)} color="#49001b" />
+                    </View>
+
+                    <Text style={{ color: "#49001b", fontSize: s(11), fontWeight: "400", alignSelf: "center", marginTop: s(3) }}>Login your account to continue</Text>
+                </View>
+
+
                 <View>
                     <Formik
                         initialValues={{ login: "", password: "" }}
@@ -117,32 +127,39 @@ const Login = ({ navigation, route }) => {
                             const { handleChange, values, handleSubmit } = props;
 
                             return (
-                                <View style={{ marginTop: s(60) }}>
-                                    <Text style={{ color: "white", marginBottom: s(15), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                <View style={{ marginTop: s(10) }}>
+                                    <Text style={{ color: "#49001b", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='example@gmail.com'
-                                            placeholderTextColor="#414a5e"
+                                            placeholderTextColor="grey"
                                             onChangeText={handleChange('login')}
-                                            value={values}
+                                            value={values.login}
                                         />
+
+                                        <MaterialCommunityIcons
+                                            name="email"
+                                            size={s(25)}
+                                            color="#49001b"
+                                        />
+
                                     </View>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "#49001b", fontWeight: "bold", marginBottom: s(10), fontSize: s(14), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Password'
-                                            placeholderTextColor="#414a5e"
+                                            placeholderTextColor="grey"
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
-                                            value={values}
+                                            value={values.password}
                                         />
                                         <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowPassword(!showPassword) }}>
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-                                                color="#414a5e"
+                                                color="#49001b"
                                             />
                                         </TouchableWithoutFeedback>
 
@@ -150,13 +167,13 @@ const Login = ({ navigation, route }) => {
 
                                     <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", { data: "from login" })}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                            <Text style={{ color: "#49001b", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>New Here? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#ffffff" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
+                                        <Text style={{ color: "#49001b", fontSize: s(12), fontWeight: "500" }}>Don't have an account? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#49001b" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
                                     </View>
                                 </View>
                             );
@@ -173,9 +190,8 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#49001b",
+        backgroundColor: "white",
         padding: s(8)
-
     },
     profileImage: {
         width: s(100),
@@ -191,10 +207,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "#414a5e",
+        borderColor: "#49001b",
         backgroundColor: "white",
         width: '100%',
         height: s(55),
@@ -204,10 +220,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "#414a5e",
+        borderColor: "#49001b",
         backgroundColor: "white",
         width: '100%',
         height: s(55),
@@ -221,7 +237,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#a9c2f8",
+        backgroundColor: "#49001b",
         marginTop: s(28),
         height: s(50)
     },

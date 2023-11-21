@@ -53,7 +53,8 @@ const TabNavigator = () => {
         'WalletHistory',
         'WalletHistoryList',
         'HistoryReceipt',
-        'liveChat'
+        'liveChat',
+        'Settings'
     ];
 
     return (
@@ -70,7 +71,7 @@ const TabNavigator = () => {
                 options={({ route }) => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="home" color="#120549" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="home" color="#410018" size={s(25)} />
                     ),
                     headerShown: false,
                     tabBarStyle: ((route) => {
@@ -89,7 +90,7 @@ const TabNavigator = () => {
                 options={{
                     tabBarLabel: 'History',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#120549" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#410018" size={s(25)} />
                     ),
                     headerShown: false
                 }}
@@ -101,7 +102,7 @@ const TabNavigator = () => {
                 options={({ route }) => ({
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#120549" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#410018" size={s(25)} />
                     ),
                     headerShown: false,
                     tabBarStyle: ((route) => {

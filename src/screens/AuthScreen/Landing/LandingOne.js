@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Image, Dimensions, View, Animated, SafeAreaView, Text, StyleSheet } from "react-native";
+import { Image, StatusBar, Dimensions, View, Animated, SafeAreaView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { LogoBlue, splash4 } from "../../../constants/images";
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import AppButton from "../../../components/AppButtonBlue";
@@ -7,38 +7,31 @@ import AppButton from "../../../components/AppButtonBlue";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+
 
 const LandingOne = ({ navigation }) => {
 
   const animation = useRef(new Animated.Value(0)).current;
 
-  // useEffect(( ) => {
-  //     setTimeout(() => {
-  //         startAnimation()
-  //         navigation.navigate("LandingTwo")
-  //     }, 3000)
-  // }, [])
-
-  // const startAnimation = () => {
-  //     Animated.timing(animation, {
-  //         toValue: 1,
-  //         duration:500,
-  //         useNativeDriver: true
-  //     }).start();
-  // }
 
   return (
-    <View style={styles.container}>
-      <Image source={splash4} style={styles.image} />
-      <View style={{ width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
-        <Image source={LogoBlue} />
-        <Text style={styles.text}>Seamless Payment</Text>
-        <Text style={styles.text2}>
-        Effortless Transactions: Experience smooth and seamless payments. Simplify your financial interactions with our user-friendly and efficient payment solutions.
-        </Text>
-        <AppButton title="Next" onPress={() => navigation.navigate("LandingTwo")} style={{ backgroundColor: "#1b2d56", marginTop: s(25) }} />
+    <>
+    <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+      <View style={styles.container}>
+        <Image source={splash4} style={styles.image} />
+        <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
+          <Text style={styles.text}>Pay Bills Fast and Seamless</Text>
+          <Text style={styles.text2}>
+            Pay your electricity, internet, Tv and other utility bills fast and seamless from your confort zone
+          </Text>
+          <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10) }}>1 of 3</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("LandingTwo")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center"}}>
+            <MaterialCommunityIcons name="arrow-right" size={s(30)} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   )
 }
 
@@ -46,31 +39,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
-    // backgroundColor: "#060C27",
-  },
-  logoContainer: {
-    alignItems: "center",
     justifyContent: "center",
-    // width: "100%"
+    backgroundColor: "white",
   },
   image: {
-    width: windowWidth,
-    height: windowHeight / 1.8,
+    width: "100%",
+    height: s(300),
+    resizeMode: "contain",
   },
   text: {
-    color: "#1b2d56",
-    fontSize: s(13),
+    color: "#49001b",
+    fontSize: s(15),
     fontWeight: "bold",
     marginTop: 20,
   },
   text2: {
-    color: "#707070",
-    fontSize: s(12),
+    color: "grey",
+    fontSize: s(13),
     fontWeight: "400",
-    marginBottom: 5,
-    marginTop: s(10),
-    lineHeight: s(20)
+    lineHeight: s(20),
+    textAlign: "center",
+    padding: s(20)
   },
   logo: {
     width: 120,

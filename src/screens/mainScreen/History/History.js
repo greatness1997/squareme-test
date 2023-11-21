@@ -40,16 +40,16 @@ const History = ({ navigation }) => {
     const onChange = (selectedDate) => {
         setShow(false);
         if (!selectedDate) return; // Handle case when no date is selected
-      
+
         setDate(selectedDate);
-      
+
         if (mode === 'startdate') {
-          setStartText(formatDate(selectedDate));
+            setStartText(formatDate(selectedDate));
         } else {
-          setEndText(formatDate(selectedDate));
+            setEndText(formatDate(selectedDate));
         }
         setMode('');
-      };
+    };
 
 
     const showMode = (currentMode) => {
@@ -60,8 +60,8 @@ const History = ({ navigation }) => {
     const formatDate = (date) => {
         if (!date) return '';
         return moment(date).format('MMM DD, YYYY');
-        
-      };
+
+    };
 
 
     const formatter = () => {
@@ -95,15 +95,15 @@ const History = ({ navigation }) => {
     const today = moment().format('YYYY-MM-DD');
     let startDate;
     if (itemValue) {
-      startDate = moment().subtract(itemValue, 'days').format('YYYY-MM-DD');
+        startDate = moment().subtract(itemValue, 'days').format('YYYY-MM-DD');
     } else {
-      startDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
+        startDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
     }
     const endDate = today
 
     const transactionHistory = async () => {
 
-       
+
 
         const url = `${credentials.URL2}/user/transaction-history`
         const options = { headers: { Authorization: `Bearer ${user.token}` } }
@@ -228,7 +228,7 @@ const History = ({ navigation }) => {
                                         )
                                     })}
 
-                                    <AppButton title="Apply Filter" style={{ marginTop: s(15), borderRadius: s(10) }} onPress={() => {transactionHistory(), setModalVisible(false)}} />
+                                    <AppButton title="Apply Filter" style={{ marginTop: s(15), borderRadius: s(10) }} onPress={() => { transactionHistory(), setModalVisible(false) }} />
                                 </ScrollView>
 
                             </View>
@@ -236,26 +236,34 @@ const History = ({ navigation }) => {
                     </Modal>
                     <ScrollView>
                         {loading === true && <ActivityIndicator color="black" style={{ width: s(40), height: s(40), marginLeft: "50%" }} />}
-                        {transaction.length === 0 ? <NoHistory style={{ marginTop: s(20) }}/> : null}
+                        {transaction.length === 0 ? <NoHistory style={{ marginTop: s(5) }} /> : null}
+                        {transaction.length === 0 ? <Text style={{ color: "black", marginTop: s(10), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
+                            No Transaction Found,
+                        </Text> : null}
+
+                        {transaction.length === 0 ? <Text style={{ color: "black", marginTop: s(5), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
+                            Start Transacting or Use Date Filter
+                        </Text> : null}
+
                         {transaction.map((item, key) => {
                             return (
                                 <React.Fragment key={key}>
                                     <TouchableOpacity onPress={() => navigation.navigate("HistoryReceipt", { item })} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18), alignItems: "center" }}>
                                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                            { item.status === "successful" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="green"/> : item.status === "pending" ?  <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="yellow"/> :
-                                            <MaterialCommunityIcons name="arrow-bottom-left-thick" size={s(18)} color="red" />}
+                                            {item.status === "successful" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="green" /> : item.status === "pending" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="yellow" /> :
+                                                <MaterialCommunityIcons name="arrow-bottom-left-thick" size={s(18)} color="red" />}
                                             <View style={{ width: s(30), height: s(30), justifyContent: "center", alignItems: "center", backgroundColor: "#ffffff", borderRadius: s(40), marginLeft: s(5), marginRight: s(5) }}>
-                                                { item.product === "withdrawal" ? <MaterialCommunityIcons name="credit-card-minus" size={s(18)} color="#896cfa" /> : item.product === "transfer" ? <Ionicons name="paper-plane" size={s(18)} color="#896cfa" /> : null }
-                                                { item.product === "mtnvtu" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glovtu" ? <Image source={glo} style={{ width: s(30), height: s(30) }} />  : 
-                                                item.product === "airtelvtu" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobilevtu" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
-                                                : null }
-                                                { item.product === "mtndata" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glodata" ? <Image source={glo} style={{ width: s(30), height: s(30) }} />  : 
-                                                item.product === "airteldata" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobiledata" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
-                                                : null }
-                                                { item.product === "ekedc" ? <Image source={ekedc} style={{ width: s(30), height: s(30) }} /> : item.product === "ikedc" ? <Image source={ikedc} style={{ width: s(30), height: s(30) }} />  : 
-                                                item.product === "ibedc" ? <Image source={ibedc} style={{ width: s(30), height: s(30) }} /> : item.product === "eedc" ? <Image source={eedc} style={{ width: s(30), height: s(30) }} /> : item.product === "phedc" ? <Image source={phdc} style={{ width: s(30), height: s(30) }} /> : item.product === "aedc" ? <Image source={abdc} style={{ width: s(30), height: s(30) }} />  : 
-                                                item.product === "jedc" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kedco" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kadec" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> 
-                                                : null }
+                                                {item.product === "withdrawal" ? <MaterialCommunityIcons name="credit-card-minus" size={s(18)} color="#896cfa" /> : item.product === "transfer" ? <Ionicons name="paper-plane" size={s(18)} color="#896cfa" /> : null}
+                                                {item.product === "mtnvtu" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glovtu" ? <Image source={glo} style={{ width: s(30), height: s(30) }} /> :
+                                                    item.product === "airtelvtu" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobilevtu" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
+                                                        : null}
+                                                {item.product === "mtndata" ? <Image source={mtn} style={{ width: s(30), height: s(30) }} /> : item.product === "glodata" ? <Image source={glo} style={{ width: s(30), height: s(30) }} /> :
+                                                    item.product === "airteldata" ? <Image source={airtel} style={{ width: s(30), height: s(30) }} /> : item.product === "9mobiledata" ? <Image source={nineMobile} style={{ width: s(30), height: s(30) }} />
+                                                        : null}
+                                                {item.product === "ekedc" ? <Image source={ekedc} style={{ width: s(30), height: s(30) }} /> : item.product === "ikedc" ? <Image source={ikedc} style={{ width: s(30), height: s(30) }} /> :
+                                                    item.product === "ibedc" ? <Image source={ibedc} style={{ width: s(30), height: s(30) }} /> : item.product === "eedc" ? <Image source={eedc} style={{ width: s(30), height: s(30) }} /> : item.product === "phedc" ? <Image source={phdc} style={{ width: s(30), height: s(30) }} /> : item.product === "aedc" ? <Image source={abdc} style={{ width: s(30), height: s(30) }} /> :
+                                                        item.product === "jedc" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kedco" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kadec" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" />
+                                                            : null}
                                             </View>
                                             <View style={{ marginLeft: s(5) }}>
                                                 <Text style={{ fontSize: s(10), fontWeight: "500", color: "grey" }}>{item.product.charAt(0).toUpperCase() + item.product.slice(1)}</Text>
@@ -264,7 +272,7 @@ const History = ({ navigation }) => {
                                         </View>
                                         <View style={{ alignItems: "flex-end" }}>
                                             <Text style={{ fontSize: s(14), fontWeight: "600", color: "#484747", marginBottom: s(5) }}>{`₦${format.format(item.amount)}`}</Text>
-                                            { item.status === "successful" ? <Text style={{ color: "green" }} >{ item.status }</Text> : item.status === "pending" ? <Text style={{ color: "yellow" }} >{ item.status }</Text> : <Text style={{ color: "red" }} >{ item.status }</Text> }
+                                            {item.status === "successful" ? <Text style={{ color: "green" }} >{item.status}</Text> : item.status === "pending" ? <Text style={{ color: "yellow" }} >{item.status}</Text> : <Text style={{ color: "red" }} >{item.status}</Text>}
                                             <Text style={{ marginTop: s(2) }}>{formatDate(item.createdAt)}</Text>
                                         </View>
                                     </TouchableOpacity>

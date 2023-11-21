@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Dimensions, View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert, Platform } from 'react-native'
+import { Dimensions, View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, ImageBackground, Image, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert, Platform, FlatList, RefreshControl, ActivityIndicator } from 'react-native'
 import { image, swit, wallet, wallet2, backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,6 +17,10 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import Options from './AddMoney/Options';
 import AppButton from '../../components/AppButtonBlue';
 import DailyPerformance from '../../components/DailyPerformance';
+
+import moment from 'moment';
+import credentials from '../../config'
+import NoHistory from './History/NoHistory';
 
 
 
@@ -48,6 +52,9 @@ const HomeScreen = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [modalVisible1, setModalVisible1] = useState(false)
     const [modalBalance, setModalBalance] = useState(false)
+
+    const [transaction, setTransaction] = useState([])
+    const [refreshing, setRefreshing] = useState(false);
 
     const ref = useRef();
 
@@ -147,111 +154,220 @@ const HomeScreen = ({ navigation }) => {
 
     const virtualAccount = `Bank: ${accountDetails.bank}\nAccount Number: ${accountDetails.accountNo}\nAccount Name: ${accountDetails.accountName}`
 
+    const today = moment();
+    const startDate = moment(today).subtract(1, 'day').format('YYYY-MM-DD'); // Create a new moment instance for startDate
+    const endDate = today.format('YYYY-MM-DD');
+
+    const transactionHistory = async () => {
+        const url = `${cred.URL2}/user/transaction-history`
+        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+
+        const body = {
+            "page": 1,
+            "startDate": startDate,
+            "endDate": endDate,
+            "status": "",
+            "reference": "",
+            "product": "",
+            "account": "",
+            "channel": "",
+            "provider": ""
+        }
+
+        try {
+            const response = await axios.post(url, body, options)
+            const { transactions } = response.data
+
+            setTransaction(transactions.docs)
+            setRefreshing(false)
+
+
+        } catch (error) {
+            console.log(error.response.data, 'from catch')
+            const { message } = error.response.data
+            setRefreshing(false)
+            Alert.alert(`${message}`);
+
+        }
+    }
+
+    const handleRefresh = () => {
+        setRefreshing(true)
+        transactionHistory()
+    }
+
+    useEffect(() => {
+        transactionHistory()
+    }, [])
+
+    const formatDate = (date) => {
+        if (!date) return '';
+        return moment(date).format('MMM DD, YYYY');
+
+    };
+
+    const renderItem = ({ item }) => {
+        let displayText = '';
+
+        if (item.product.includes('data')) {
+            displayText = 'Data Purchase';
+        } else if (item.product.includes('vtu')) {
+            displayText = 'Airtime Purchase';
+        } else if (item.product.includes('multichoice') || item.product.includes('startimes')) {
+            displayText = 'TV Subscription';
+        } else {
+            displayText = 'Electricity Tokens';
+        }
+
+        return (
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(15), marginBottom: s(10) }}>
+                <View>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        {displayText && <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12), marginRight: s(5) }}>{displayText}</Text>}
+                        <Text style={{ color: "black", fontWeight: "bold" }}>{`₦${format.format(item.amount)}`}</Text>
+                    </View>
+
+                    <Text style={{ color: "grey", fontWeight: "600", marginTop: s(3), fontSize: s(13) }}>mobile wallet</Text>
+                </View>
+                <View>
+                    <Text style={{ color: item.status === "successful" ? "green" : item.status === "failed" ? "red" : "yellow", fontWeight: "bold", marginRight: s(5) }}>{item.status}</Text>
+                    <Text style={{ color: "grey", fontWeight: "bold", marginTop: s(3) }}>{formatDate(item.createdAt)}</Text>
+                </View>
+            </View>
+        );
+    };
+
+
 
     return (
         <>
             <StatusBar barStyle="dark-content" />
             <SafeAreaView>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={handleRefresh}
+                        />
+                    }
+                >
 
-                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: ms(20), paddingRight: ms(20) }}>
+
+                    <View style={{ marginTop: s(10), flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: ms(20), paddingRight: ms(20) }}>
+                        {/* {refreshing && <ActivityIndicator size='large' color="black" />} */}
                         <View>
-                            <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A" }}>Welcome Back,</Text>
+                            <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A" }}>Hello,</Text>
                             <Text style={styles.name}>{nameOne.toLocaleUpperCase()} {nameTwo.toLocaleUpperCase()}</Text>
                         </View>
+
                         <View style={styles.profileImage}>
-                            {userData.picture !== null ? <Image source={{ uri: userData.picture }} style={{ width: s(50), height: s(50), borderRadius: 50 }} /> : <Image source={image} style={{ width: s(65), height: s(65), borderRadius: s(50), }} />}
+                            {userData.picture ? <Image source={{ uri: userData.picture }} style={{ width: 50, height: 50, borderRadius: 50 }} /> : <Image source={image} style={{ width: 50, height: 50, borderRadius: 50, }} />}
                         </View>
+
                     </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate("WalletHistory")}>
+                    <TouchableOpacity>
                         <ImageBackground
                             source={wallet2}
                             style={styles.bg}
                             imageStyle={styles.bgImage}
                         >
                             <View style={{ marginTop: vs(0) }}>
-                                <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(20), justifyContent: "space-between", alignItems: "center", marginTop: s(20) }}>
+                                {/* <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(20), justifyContent: "space-between", alignItems: "center", marginTop: s(7) }}>
                                     <Text></Text>
-                                    <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowBalance(!showBalance) }}>
-                                        <MaterialCommunityIcons name={showBalance === false ? "eye-outline" : "eye-off-outline"} size={s(20)} color="white" style={{ marginLeft: s(50) }} />
-                                    </TouchableWithoutFeedback>
-                                </View>
+                                    
+                                </View> */}
 
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: ms(30), paddingRight: ms(20), marginTop: s(4) }}>
-                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>
-
-                                    </View>
-                                </View>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingLeft: ms(30), paddingRight: ms(20), marginTop: s(0), marginBottom: s(7) }}>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingLeft: ms(30), paddingRight: ms(20), marginBottom: s(5), marginTop: s(20) }}>
                                     <View>
                                         <Text style={styles.balanceText}>{visible === false ? `₦${format.format(balance)}` : hiddenBal}</Text>
                                         <Text style={styles.heading}>Available Balance</Text>
                                     </View>
-                                    <View>
-                                        <Image source={Logo} style={{ width: s(60), height: s(60), resizeMode: "contain" }} />
-                                    </View>
+                                    <TouchableWithoutFeedback onPress={() => { setVisible(!visible), setShowBalance(!showBalance) }}>
+                                        <MaterialCommunityIcons name={showBalance === false ? "eye-outline" : "eye-off-outline"} size={s(20)} color="white" style={{ marginLeft: s(50) }} />
+                                    </TouchableWithoutFeedback>
+                                    {/* <View>
+                                        <Image source={Logo} style={{ width: s(80), height: s(80), resizeMode: "contain" }} />
+                                    </View> */}
 
                                 </View>
-                                <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10) }}>
+                                <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10), justifyContent: "center" }}>
                                     <TouchableOpacity style={styles.AddIcon} onPress={() => setModalVisible(true)}>
-                                        <Image source={Add} style={{ height: ms(40), width: s(40), borderRadius: s(50) }} />
-                                        <Text style={{ marginLeft: s(8), fontSize: s(13), fontWeight: '500', color: 'white' }}>Add Money</Text>
+                                        <View>
+                                            <MaterialCommunityIcons name="plus-circle" size={40} color="white" />
+                                        </View>
+                                        <Text style={{ marginLeft: s(8), fontSize: s(14), fontWeight: 'bold', color: 'white' }}>Fund Wallet</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                         </ImageBackground>
                     </TouchableOpacity>
 
+                    <Text style={{ marginTop: s(30), fontWeight: "bold", fontSize: s(13), marginLeft: "4%", color: "grey" }}>Quick Actions</Text>
+
                     <View style={[styles.billsCont, styles.boxShadow]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                            <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Airtime")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="signal-cellular-3" size={s(35)} color="#410018" />
+                                    <MaterialCommunityIcons name="signal-cellular-3" size={s(25)} color="#410018" />
                                 </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>Airtime</Text>
-                            </View>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Airtime</Text>
+                            </TouchableOpacity>
 
-                            <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Data")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="cellphone-wireless" size={s(35)} color="#410018" />
+                                    <MaterialCommunityIcons name="cellphone-wireless" size={s(25)} color="#410018" />
                                 </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>Data</Text>
-                            </View>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Data</Text>
+                            </TouchableOpacity>
 
-                            <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="television-classic" size={s(35)} color="#410018" />
+                                    <MaterialCommunityIcons name="television-classic" size={s(25)} color="#410018" />
                                 </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>TV</Text>
-                            </View>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>TV</Text>
+                            </TouchableOpacity>
                         </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(20) }}>
-                            <View style={{ alignItems: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(25) }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Provider")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="lightbulb-on" size={s(35)} color="#410018" />
+                                    <MaterialCommunityIcons name="lightbulb-on" size={s(25)} color="#410018" />
                                 </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>Electricity</Text>
-                            </View>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Electricity</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ alignItems: "center" }}>
+                                <View style={styles.productCont}>
+                                    <MaterialCommunityIcons name="home-map-marker" size={s(35)} color="#410018" />
+                                </View>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Apartments</Text>
+                            </TouchableOpacity>
 
                             <View style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="home-map-marker" size={s(40)} color="#410018" />
+                                    <MaterialCommunityIcons name="view-list" size={s(25)} color="#410018" />
                                 </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>Short Let</Text>
-                            </View>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="view-list" size={s(35)} color="#410018" />
-                                </View>
-                                <Text style={{ fontSize: s(14), marginTop: s(8), color: "#410018" }}>Others</Text>
+                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Others</Text>
                             </View>
                         </View>
 
                     </View>
 
+                    <View style={{ marginTop: s(10), flexDirection: "row", justifyContent: "space-between" }}>
+                        <Text style={{ fontWeight: "bold", fontSize: s(13), marginLeft: "4%", color: "grey" }}>Today's Activities</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("History")}>
+                            <Text style={{ fontWeight: "bold", fontSize: s(13), marginRight: "4%", color: "#410018" }}>See Others</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {transaction.length === 0 ? <NoHistory style={{ marginBottom: s(20), width: s(70), height: s(70), alignSelf: "center", marginTop: s(30) }} /> : null}
+
+                    <FlatList
+                        data={transaction}
+                        key={item => item._id}
+                        renderItem={renderItem}
+                    />
 
 
                     <Modal
@@ -321,18 +437,18 @@ const HomeScreen = ({ navigation }) => {
                                                 <MaterialCommunityIcons name="close-circle" size={s(25)} color="black" />
 
                                             </TouchableWithoutFeedback>
-                                            <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Add Money</Text>
+                                            <Text style={{ fontSize: s(17), fontWeight: "600", color: "black" }}>Virtual Account</Text>
                                             <Text></Text>
                                         </View>
-                                        <View style={{ alignItems: "center", marginBottom: s(15), marginTop: s(10) }}>
-                                            <View style={{ backgroundColor: "#ebf0fa", width: "100%", height: s(60), borderRadius: s(10), borderWidth: 1, borderColor: "#3483f5", alignItems: "center", justifyContent: "center" }}>
-                                                <View style={{ alignItems: "center" }}>
-                                                    <Text style={{ fontWeight: "bold", fontSize: s(20), marginTop: 5, marginBottom: 5, color: "black" }}>{`₦${format.format(balance)}`}</Text>
-                                                    <Text style={{ fontWeight: "500", fontSize: 12, color: "black" }}>Current Balance</Text>
-                                                </View>
+
+                                        <View style={{ backgroundColor: "#3c68f8", alignItems: "center", flexDirection: "row", padding: s(10), marginBottom: s(10), borderRadius: s(15) }}>
+                                            <View style={{ backgroundColor: "#0487e2", padding: s(5), borderRadius: s(20), marginRight: s(10) }}>
+                                                <MaterialCommunityIcons name="bell" size={s(25)} color="white" />
                                             </View>
+
+                                            <Text style={{ alignSelf: "center", color: "white", fontWeight: "500" }}>Fund Wallet Using The Account Details Bellow</Text>
                                         </View>
-                                        <Text style={{ alignSelf: "center", marginBottom: s(15), color: "#9a9a9a", fontWeight: "500" }}>Fund Using The Account Bellow</Text>
+
 
                                         <View style={{ padding: 0, marginTop: 0, width: "100%", backgroundColor: "#f5f5f5", borderWidth: 1, borderColor: "#3483f5", borderRadius: s(10) }}>
 
@@ -346,7 +462,7 @@ const HomeScreen = ({ navigation }) => {
 
                                                     </View>
                                                     {accountDetails.accountName !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountName)}>
-                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#49001b" style={{ marginLeft: s(5) }} />
                                                     </TouchableOpacity>}
 
                                                 </View>
@@ -362,7 +478,7 @@ const HomeScreen = ({ navigation }) => {
 
                                                     </View>
                                                     {accountDetails.bank !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.bank)}>
-                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#49001b" style={{ marginLeft: s(5) }} />
                                                     </TouchableOpacity>}
                                                 </View>
                                             </View>
@@ -375,7 +491,7 @@ const HomeScreen = ({ navigation }) => {
                                                         <Text style={{ fontWeight: "bold", marginLeft: 20, fontSize: 15, marginTop: 5, color: "grey" }}>{accountDetails.accountNo}</Text>
                                                     </View>
                                                     {accountDetails.accountNo !== "N/A" && <TouchableOpacity onPress={() => handleCopy(accountDetails.accountNo)}>
-                                                        <Ionicons name="copy-outline" size={s(18)} color="#3c68f8" style={{ marginLeft: s(5) }} />
+                                                        <Ionicons name="copy-outline" size={s(18)} color="#49001b" style={{ marginLeft: s(5) }} />
                                                     </TouchableOpacity>}
 
                                                 </View>
@@ -452,7 +568,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     bgImage: {
-        height: s(200),
+        height: s(155),
         width: '100%',
         marginLeft: s(10),
         borderRadius: s(20),
@@ -495,19 +611,19 @@ const styles = StyleSheet.create({
         marginLeft: "4%",
         borderRadius: s(10),
         backgroundColor: "white",
-        marginTop: s(50),
+        marginTop: s(15),
         padding: s(20)
     },
     productCont: {
-        width: s(60),
-        height: s(60),
+        width: s(50),
+        height: s(50),
         backgroundColor: "lightgrey",
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: s(50)
     },
     balanceText: {
-        fontSize: s(25),
+        fontSize: s(27),
         fontWeight: 'bold',
         fontFamily: "PingFangTC-Semibold",
         color: "white",
@@ -562,8 +678,8 @@ const styles = StyleSheet.create({
         textShadowRadius: s(5)
     },
     AddIcon: {
-        width: "50%",
-        height: "100%",
+        width: "55%",
+        height: s(50),
         flexDirection: "row",
         alignItems: "center",
         borderColor: "white",
@@ -645,10 +761,10 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     profileImage: {
-        width: s(45),
-        height: s(45),
-        borderWidth: s(2),
-        borderRadius: s(100),
+        width: s(40),
+        height: s(40),
+        borderWidth: s(1),
+        borderRadius: s(50),
         borderColor: "#1b2d56",
         // backgroundColor: "white",
         marginRight: s(10),
@@ -673,8 +789,8 @@ const styles = StyleSheet.create({
         margin: s(5),
     },
     profileImage: {
-        width: s(60),
-        height: s(60),
+        width: s(50),
+        height: s(50),
         borderWidth: s(2),
         borderRadius: s(50),
         backgroundColor: "white",

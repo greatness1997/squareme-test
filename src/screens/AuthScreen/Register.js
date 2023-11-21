@@ -108,14 +108,18 @@ const Register = ({ navigation, route }) => {
 
     return (
         <>
+            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
 
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={message} />}
                 {!isToastVisible && <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: s(40) }}>
-                    <MaterialCommunityIcons name="arrow-left" size={s(25)} color="white" />
+                    <MaterialCommunityIcons name="arrow-left" size={s(25)} color="#49001b" />
                 </TouchableOpacity>}
-                <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginLeft: s(5), marginTop: s(30) }}>Create Your</Text>
-                <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginLeft: s(5), marginTop: s(5) }}>Account</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: s(5), marginTop: s(20) }}>
+                    <Text style={{ color: "#49001b", fontSize: s(20), fontWeight: "bold", marginRight: s(7)  }}>Sign Up</Text>
+                    <MaterialCommunityIcons name="account-plus" size={s(25)} color="#49001b" />
+                </View>
+
                 <KeyboardAvoidView>
                     <Formik
                         initialValues={{ email: "", firstName: "", lastName: "", phoneNumber: "", password: "", referenceEmail: "" }}
@@ -136,7 +140,7 @@ const Register = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(30) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -151,7 +155,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -166,7 +170,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -181,7 +185,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -197,7 +201,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -214,39 +218,16 @@ const Register = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-                                                color="#414a5e"
+                                                color="#49001b"
                                             />
                                         </TouchableWithoutFeedback>
 
                                     </View>
-                                    {ref === false && <Text style={{ marginLeft: 5, marginTop: 10, color: "#c66e54", fontSize: 12 }}>Min. of 6 characters </Text>}
-                                    {ref === false && <View style={{ marginLeft: s(5), marginTop: s(10), flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ flexDirection: "row", alignItems: "center" }} >
-                                            <TouchableOpacity onPress={() => setRef(!ref)}>
-                                                <View style={{ width: s(15), height: s(15), backgroundColor: "white" }}></View>
-                                            </TouchableOpacity>
-                                            <Text style={{ color: "white", marginLeft: s(10) }}>Check box to register with a reference email?</Text>
-                                        </View>
-                                    </View>}
-
-                                    {ref === true && <Text style={{ color: "white", marginTop: s(15), marginBottom: s(15), fontSize: s(12), marginLeft: s(5) }}>Reference Email</Text>}
-                                    {ref === true && (<View style={styles.loginContainer2}>
-                                        {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='example@gmail.com'
-                                            placeholderTextColor="#414a5e"
-                                            onChangeText={(text) => {
-                                                handleChange("referenceEmail")(text);
-                                                setError(null);
-                                            }}
-                                            value={values.referenceEmail}
-                                        />
-                                    </View>)}
+                                    <Text style={{ marginLeft: 5, marginTop: 10, color: "#c66e54", fontSize: 12 }}>Min. of 6 characters </Text>
 
                                     {error && <Text style={{ fontSize: s(12), marginTop: s(10), color: "red", marginLeft: s(8) }}>{error}</Text>}
                                     {/* <AppButton title="Sign Up" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} /> */}
-                                    <AppButton title="Sign Up" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
+                                    <AppButtonblue title="Sign Up" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
 
 
                                 </View>
@@ -254,29 +235,6 @@ const Register = ({ navigation, route }) => {
                         }}
                     </Formik>
                 </KeyboardAvoidView>
-                <Modal
-                    visible={modalVisible}
-                    animationType='slide'
-                    transparent={true}
-                >
-                    <View style={styles.modalScreen}>
-                        <View style={styles.transparentContainer} />
-                        <View style={styles.contentContainer}>
-                            <View style={styles.imageContainer}>
-                                <Image source={lock} style={styles.image} />
-                            </View>
-                            <Text style={{ color: "grey", alignSelf: "center", marginBottom: s(30), fontSize: s(14), fontWeight: "500" }}>copy the OTP code to proceed</Text>
-                            <View style={styles.otpContainer}>
-                                {pin && pin.split('').map((digit, index) => (
-                                    <View style={styles.otpBox} key={index}>
-                                        <Text style={styles.otpText}>{digit}</Text>
-                                    </View>
-                                ))}
-                            </View>
-                            <AppButtonblue onPress={() => handleCopy()} title="Copy Code" isSubmitting={loading} style={styles.btn2} />
-                        </View>
-                    </View>
-                </Modal>
             </View>
         </>
     )
@@ -287,7 +245,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "white",
         padding: s(8)
     },
     profileImage: {
@@ -304,11 +262,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        borderColor: "#49001b",
+        backgroundColor: "white",
         width: '100%',
         height: s(50),
         marginTop: '2%',
@@ -317,11 +275,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        borderColor: "#49001b",
+        backgroundColor: "white",
         width: '100%',
         height: s(50),
         marginBottom: s(20),
@@ -329,7 +287,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: s(40),
-        color: "white",
+        color: "black",
         paddingLeft: s(10),
         fontSize: s(12)
     },
@@ -340,7 +298,7 @@ const styles = StyleSheet.create({
         marginBottom: s(20)
     },
     btn: {
-        backgroundColor: "#a9c2f8",
+        backgroundColor: "#49001b",
         marginTop: s(20),
         height: s(50),
         marginBottom: s(20)

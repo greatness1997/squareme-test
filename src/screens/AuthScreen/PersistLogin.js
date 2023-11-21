@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppButton from '../../components/AppButtonWhite'
+import AppButton from '../../components/AppButtonBlue'
 import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -142,26 +142,12 @@ const PersistLogin = ({ navigation, route }) => {
 
     return (
         <>
-
+            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
             <View style={styles.container}>
-
-                <View style={{ alignItems: "center", marginTop: s(50) }}>
-                    <Image source={Logo} />
-                </View>
-
-                <View style={{ alignItems: "center", padding: ms(20), }}>
-                    <View style={styles.profileImage}>
-                        {asyncData.picture !== null ? <Image source={{ uri: asyncData.picture }} style={{ width: s(80), height: s(80), borderRadius: 50 }} /> : <Image source={image} style={{ width: s(85), height: s(85), borderRadius: s(50), }} />}
-                    </View>
+                <View style={{ alignItems: "center", padding: ms(20), marginTop: s(40) }}>
                     <View style={{ alignItems: "center", marginTop: s(20) }}>
-                        <Text style={{ color: "white", fontSize: s(14), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
-                        <View style={{ flexDirection: "row", marginTop: s(20) }}>
-                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Not You?</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                                <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Switch Account</Text>
-                            </TouchableOpacity>
-
-                        </View>
+                        <Text style={{ color: "black", fontWeight: "bold", marginBottom: s(5) }}>WELCOME BACK,</Text>
+                        <Text style={{ color: "black", fontSize: s(16), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
                     </View>
                 </View>
                 <View>
@@ -184,7 +170,7 @@ const PersistLogin = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Password'
-                                            placeholderTextColor="#414a5e"
+                                            placeholderTextColor="black"
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
                                             value={values.password}
@@ -204,11 +190,20 @@ const PersistLogin = ({ navigation, route }) => {
                                             <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
-                                    <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
-                                    <View style={{ marginTop: s(20), alignItems: "center" }}>
-                                        <TouchableWithoutFeedback onPress={authenticate} >
-                                            {biometrics === "FaceId" && Platform.OS === "ios" ? <MaterialCommunityIcons name='face-recognition' size={50} color="white" /> : <Image source={FingerPrint} />}
-                                        </TouchableWithoutFeedback>
+                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(5) }}>
+                                        <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
+                                        <View style={{ marginTop: s(20), alignItems: "center" }}>
+                                            <TouchableWithoutFeedback onPress={authenticate} >
+                                                {biometrics === "FaceId" && Platform.OS === "ios" ? <MaterialCommunityIcons name='face-recognition' size={45} color="black" /> : <Image source={FingerPrint} />}
+                                            </TouchableWithoutFeedback>
+                                        </View>
+                                    </View>
+
+                                    <View style={{ flexDirection: "row", marginTop: s(20), justifyContent: "center" }}>
+                                        <Text style={{ color: color.colorTwo, fontSize: s(12), fontWeight: "500" }}>Not You?</Text>
+                                        <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                                            <Text style={{ color: color.colorTwo, fontSize: s(13), fontWeight: "500" }}>Switch Account</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </>
                             );
@@ -225,29 +220,18 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
-        padding: s(8)
-
-    },
-    profileImage: {
-        width: s(70),
-        height: s(70),
-        borderWidth: s(6),
-        borderRadius: s(100),
-        borderColor: color.colorOne,
         backgroundColor: "white",
-        marginTop: s(18),
-        justifyContent: "center", alignItems: "center"
+        padding: s(8)
     },
     loginContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
         borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        backgroundColor: "white",
         width: '100%',
         height: s(55),
         marginTop: '2%',
@@ -255,13 +239,14 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: s(40),
-        color: "white",
+        color: "black",
         paddingLeft: s(10),
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#a9c2f8",
-        marginTop: s(28)
+        backgroundColor: "#49001b",
+        marginTop: s(28),
+        width: "82%"
     }
 })
 

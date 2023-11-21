@@ -72,58 +72,23 @@ const AirtimeData = ({ navigation, route }) => {
 
     const { auth: { user } } = useSelector(state => state)
 
-    const dataValidate = async (item) => {
-        setIsLoading(true)
-        const url = `${cred.URL}/vas/data/validation`
-        const options = { headers: { Authorization: cred.API_KEY, Token: user.token } }
-        const body = {
-            "channel": "mobile",
-            "service": `${item}data`,
-        }
-
-        try {
-            const data = await axios.post(url, body, options)
-            const { response, transactionId } = data.data
-            setTranId(transactionId)
-            setDataPlan(response.data)
-            setIsLoading(false)
-
-        } catch (error) {
-            const { message } = error.response.data
-            Alert.alert(`${message}`)
-            setIsLoading(false)
-        }
-    }
-
-
-
-
 
 
     return (
         <>
-            <View style={{ flexDirection: "row", marginTop: s(50), marginLeft: s(18) }}>
+            <View style={{ flexDirection: "row", marginTop: s(70), marginLeft: s(18) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name='arrow-left-thick' size={s(22)} color="black" />
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(90) }}>
-                    <Text style={{ fontSize: s(16), fontWeight: "bold", color: "black"}}>Airtime & Data</Text>
+                    <Text style={{ fontSize: s(16), fontWeight: "bold", color: "black" }}>Buy Airtime</Text>
                 </View>
 
             </View>
 
-            <View style={{ marginTop: s(60), flexDirection: "row", justifyContent: "space-evenly" }}>
-                <TouchableOpacity onPress={() => { handleOptionPress('Airtime'), setPhase(1) }}>
-                    <Text style={selectedOption === "Airtime" ? styles.selectedOption : styles.unselectedOption}>Airtime</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { handleOptionPress('Data'), setPhase(2) }}>
-                    <Text style={selectedOption === "Data" ? styles.selectedOption : styles.unselectedOption}>Data</Text>
-                </TouchableOpacity>
-
-            </View>
             <ScrollView>
-                {phase === 1 && (<View style={{ alignItems: "center", marginTop: s(35) }}>
+                <View style={{ alignItems: "center", marginTop: s(35) }}>
                     <Formik
                         initialValues={{ phoneNumber: "", amount: "" }}
                         enableReinitialize={true}
@@ -181,7 +146,7 @@ const AirtimeData = ({ navigation, route }) => {
 
                                                     <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
                                                         <TouchableWithoutFeedback onPress={close}>
-                                                            <MaterialCommunityIcons name="close-circle" size={s(22)} color="black"  />
+                                                            <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
                                                         </TouchableWithoutFeedback>
                                                     </View>
 
@@ -213,137 +178,42 @@ const AirtimeData = ({ navigation, route }) => {
                     </Formik>
 
 
-                </View>)}
+                </View>
             </ScrollView>
 
-            {/* phase 2  */}
+            <Modal
+                visible={modalVisible}
+                animationType='slide'
+                transparent={true}
+            >
 
 
-            {phase === 2 && (<View style={{ alignItems: "center", marginTop: s(35) }}>
-                <Formik
-                    initialValues={{ phoneNumber: "" }}
-                    enableReinitialize={true}
-                    onSubmit={(values) => {
-                        Schema1.validate(values)
-                            .then((res) => {
-                                navigation.navigate("DataSummary", { plan: plan.allowance, data: res, networkName: networkValue.name ? networkValue.name : "mtn", itemCode: itemCode, tranId: tranId, amount: amnt, networkImage: networkValue.image ? networkValue.image : mtn })
-                            })
-                            .catch((err) => Alert.alert('Please provide proper details',));
-                    }}>
-                    {(props) => {
-                        const { handleChange, values, handleSubmit } = props;
+                <View style={styles.modalScreen}>
+                    <View style={styles.transparentContainer}></View>
+                    <View style={styles.contentContainer}>
 
-                        return (
-                            <>
+                        <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
+                            <TouchableWithoutFeedback onPress={close}>
+                                <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
+                            </TouchableWithoutFeedback>
+                        </View>
+
+                        {network.map((item, key) => {
+                            return (
                                 <View>
-                                    <Text style={{ marginLeft: 5, color: "grey" }}>Enter Phone Number</Text>
-                                    <View style={styles.loginContainer}>
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Phone Number'
-                                            placeholderTextColor="grey"
-                                            onChangeText={handleChange('phoneNumber')}
-                                            keyboardType='numeric'
-                                            maxLength={11}
-                                            value={values}
-                                        />
-                                        <Image source={networkValue.image ? networkValue.image : mtn} style={{ width: 40, height: 40 }} />
-                                        <TouchableWithoutFeedback style={styles.serviceContainer} onPress={() => setModalVisible(true)} >
-                                            <MaterialCommunityIcons name='chevron-down' size={s(25)} color="grey" />
-                                        </TouchableWithoutFeedback>
-                                    </View>
-
-                                    {plan && (
-                                        <>
-                                            <Text style={{ marginLeft: 5 }}>Data Plan</Text>
-                                            <View style={styles.dataPlanCont}>
-                                                <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
-                                                    <View style={{ flexDirection: "row" }}>
-                                                        <Text style={{ marginRight: 5, color: "black" }}>{plan.allowance}</Text>
-                                                        <Text style={{ color: "black" }}>for</Text>
-                                                        <Text style={{ marginLeft: 5, color: "black" }}>₦{`${plan.amount}`}</Text>
-                                                    </View>
-                                                    <View>
-                                                        <Text style={{ color: "black" }}>{plan.validity}</Text>
-                                                    </View>
-                                                    {/* <View>
-                                                        <TouchableWithoutFeedback>
-                                                            <MaterialCommunityIcons name='chevron-down' size={30} />
-                                                        </TouchableWithoutFeedback>
-                                                    </View> */}
-                                                </View>
-                                            </View>
-                                        </>
-
-                                    )}
-
-                                    <Modal
-                                        visible={modalVisible}
-                                        animationType='slide'
-                                        transparent={true}
-                                    >
-
-
-                                        <View style={styles.modalScreen}>
-                                            <View style={styles.transparentContainer}></View>
-                                            <View style={styles.contentContainer}>
-
-                                                <View style={{ flexDirection: 'row-reverse', alignItems: 'center', padding: s(5) }}>
-                                                    <TouchableWithoutFeedback onPress={close}>
-                                                        <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
-                                                    </TouchableWithoutFeedback>
-                                                </View>
-
-                                                {network.map((item, key) => {
-                                                    return (
-                                                        <View>
-                                                            <TouchableOpacity style={styles.networkContainer} onPress={() => { close(), setValue(item.name, item.image), dataValidate(item.name.toLowerCase()), setPlan(null) }}>
-                                                                <Image source={item.image} style={{ width: s(35), height: s(35) }} />
-                                                                <Text style={{ marginLeft: s(25), color: "black", fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Data`}</Text>
-                                                            </TouchableOpacity>
-                                                            <View style={{ width: "90%", height: 2, backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
-                                                        </View>
-                                                    )
-                                                })}
-
-                                            </View>
-                                        </View>
-
-                                    </Modal>
-
-                                    {dataPlan && (
-                                        <ScrollView style={{ height: "100%", marginBottom: "50%" }}>
-                                            {loading === true ? <ActivityIndicator color="black" /> : null}
-                                            {dataPlan.map((item, key) => {
-                                                return (
-                                                    <TouchableOpacity style={{ marginBottom: s(13) }} key={key} onPress={() => thePlan(item.allowance, item.amount, item.validity, item.code)}>
-                                                        <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(8) }}>
-                                                            <View style={{ flexDirection: "row" }}>
-                                                                <Text style={{ marginRight: 5, color: "grey" }}>{item.allowance}</Text>
-                                                                <Text style={{ color: "grey" }}>for</Text>
-                                                                <Text style={{ marginLeft: 5, color: "grey" }}>{`₦${item.amount}`}</Text>
-                                                            </View>
-                                                            <View>
-                                                                <Text style={{ color: "grey" }}>{item.validity}</Text>
-                                                            </View>
-                                                        </View>
-                                                        <View style={{ width: "95%", height: 1, backgroundColor: "lightgrey", marginLeft: s(8), marginTop: 5 }}></View>
-                                                    </TouchableOpacity>
-                                                )
-                                            })}
-                                        </ScrollView>
-
-                                    )}
+                                    <TouchableOpacity style={styles.networkContainer} onPress={() => { close(), setValue(item.name, item.image), dataValidate(item.name.toLowerCase()), setPlan(null) }}>
+                                        <Image source={item.image} style={{ width: s(35), height: s(35) }} />
+                                        <Text style={{ marginLeft: s(25), color: "black", fontWeight: "bold", fontSize: s(14), }}>{`${item.name}  Data`}</Text>
+                                    </TouchableOpacity>
+                                    <View style={{ width: "90%", height: 2, backgroundColor: "lightgrey", marginLeft: s(18) }}></View>
                                 </View>
-                                {plan && <AppButton title="Buy Data Bundle" style={{ width: "92%", marginLeft: s(16), position: "absolute", marginTop: "60%" }} onPress={handleSubmit} />}
-                            </>
-                        );
+                            )
+                        })}
 
-                    }}
+                    </View>
+                </View>
 
-                </Formik>
-            </View>)}
-
+            </Modal>
 
         </>
     )
