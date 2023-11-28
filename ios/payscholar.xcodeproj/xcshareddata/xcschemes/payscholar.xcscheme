@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "FixItEasy.app"
-               BlueprintName = "FixItEasy"
-               ReferencedContainer = "container:FixItEasy.xcodeproj">
+               BuildableName = "payscholar.app"
+               BlueprintName = "payscholar"
+               ReferencedContainer = "container:payscholar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FixItEasyTests.xctest"
-               BlueprintName = "FixItEasyTests"
-               ReferencedContainer = "container:FixItEasy.xcodeproj">
+               BuildableName = "payscholarTests.xctest"
+               BlueprintName = "payscholarTests"
+               ReferencedContainer = "container:payscholar.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FixItEasy.app"
-            BlueprintName = "FixItEasy"
-            ReferencedContainer = "container:FixItEasy.xcodeproj">
+            BuildableName = "payscholar.app"
+            BlueprintName = "payscholar"
+            ReferencedContainer = "container:payscholar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FixItEasy.app"
-            BlueprintName = "FixItEasy"
-            ReferencedContainer = "container:FixItEasy.xcodeproj">
+            BuildableName = "payscholar.app"
+            BlueprintName = "payscholar"
+            ReferencedContainer = "container:payscholar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

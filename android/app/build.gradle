@@ -96,13 +96,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.fixit.easy"
+    namespace "com.pay.scholar"
     defaultConfig {
-        applicationId "com.fixit.easy"
+        applicationId "com.pay.scholar"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.0"
         multiDexEnabled true
     }
 
