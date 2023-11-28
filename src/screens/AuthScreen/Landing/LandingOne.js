@@ -9,6 +9,8 @@ const windowHeight = Dimensions.get('window').height;
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
+import { LottieBills } from "../../../components/LottieView"
+
 
 const LandingOne = ({ navigation }) => {
 
@@ -17,16 +19,17 @@ const LandingOne = ({ navigation }) => {
 
   return (
     <>
-    <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+      <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+      
       <View style={styles.container}>
-        <Image source={splash4} style={styles.image} />
+      <LottieBills style={{ width: s(200), height: s(200), alignSelf: "center" }} />
         <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
           <Text style={styles.text}>Pay Bills Fast and Seamless</Text>
           <Text style={styles.text2}>
             Pay your electricity, internet, Tv and other utility bills fast and seamless from your confort zone
           </Text>
           <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10) }}>1 of 3</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("LandingTwo")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center"}}>
+          <TouchableOpacity onPress={() => navigation.navigate("LandingTwo")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
             <MaterialCommunityIcons name="arrow-right" size={s(30)} color="white" />
           </TouchableOpacity>
         </View>
@@ -38,9 +41,9 @@ const LandingOne = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "column",
     backgroundColor: "white",
+    justifyContent: "center"
   },
   image: {
     width: "100%",

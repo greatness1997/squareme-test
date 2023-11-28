@@ -98,7 +98,7 @@ const TranPinField = ({ pin, setPin, pinConfirmation, setPinConfirmation, setPin
 
             if (status === "success") {
                 Alert.alert(status, "Transaction Pin Successfully created")
-                navigation.navigate("CompleteDetails")
+                navigation.navigate("login")
                  setIsLoading(false)
 
             } else {
@@ -142,7 +142,7 @@ const TranPinField = ({ pin, setPin, pinConfirmation, setPinConfirmation, setPin
                     secureTextEntry={secureTextEntry}
                 />
             </View>
-            {error && <Text style={{ fontSize: s(11), color: "red", marginLeft: "20%" }}>{error}</Text>}
+            {error && <Text style={{ fontSize: s(11), color: "green", marginLeft: "20%" }}>{error}</Text>}
 
             <View style={styles.inputBox1}>
                 <TextInput
@@ -183,13 +183,13 @@ const styles = StyleSheet.create({
     },
     box: {
         borderWidth: 2,
-        borderColor: "#454A5E",
+        borderColor: "white",
         width: s(45),
         height: s(50),
         padding: s(10),
         borderRadius: 5,
         marginRight: s(10),
-        backgroundColor: "#454A5E"
+        backgroundColor: "white"
     },
     container: {
         width: '70%',
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         fontSize: s(25),
         fontWeight: 'bold',
         textAlign: 'center',
-        color: "white"
+        color: "#49001b"
     },
     btn: {
         backgroundColor: "white",
@@ -221,11 +221,11 @@ const styles = StyleSheet.create({
         marginTop: 200
     },
     text2: {
-        color: "#6e6e6e",
+        color: "#49001b",
         fontSize: s(10)
     },
     text3: {
-        color: "#3483f5",
+        color: "#49001b",
         fontSize: s(10),
         marginLeft: s(3)
     },

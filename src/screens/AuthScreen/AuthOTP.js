@@ -23,8 +23,8 @@ const AuthOTP = ({ navigation, route }) => {
     return (
             <View style={styles.container}>
                 {/* <Pressable onPress={Keyboard.dismiss}> */}
-                <View style={{ alignItems: "center", marginTop: s(70) }}>
-                    <Image source={Lock} style={{ width: s(60), height: s(60) }}/>
+                <View style={{ backgroundColor: "white", borderRadius: s(50), alignSelf: "center", alignItems: "center", padding: s(15), marginTop: s(70) }}>
+                    <MaterialCommunityIcons name="lock" size={s(35)} color="grey" />
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: s(30) }}>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "#49001b",
     },
     // duration: {
     //     justifyContent: 'center',

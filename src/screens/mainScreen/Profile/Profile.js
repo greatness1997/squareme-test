@@ -182,7 +182,7 @@ const Profile = ({ navigation }) => {
                             <MaterialCommunityIcons name="menu-right" size={s(30)} color="black" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ backgroundColor: "white", marginTop: s(2), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("test")} style={{ backgroundColor: "white", marginTop: s(2), width: "90%", height: s(55), flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: s(10) }}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <View style={{ width: s(30), height: s(30), backgroundColor: "#6C6C6C", borderRadius: s(5), justifyContent: "center", alignItems: "center" }}>
                                     <MaterialCommunityIcons name="clipboard-list" size={s(20)} color="white" />

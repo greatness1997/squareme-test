@@ -114,9 +114,9 @@ const Pin = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTe
 
             <View style={styles.textCont}>
                 {error && <Text style={{ fontSize: s(11), color: "red", marginLeft: s(8) }}>{error}</Text>}
-                <View style={{ flexDirection: "row", marginTop: s(5) }}>
+                {/* <View style={{ flexDirection: "row", marginTop: s(5) }}>
                     <Text style={styles.text2}>Didn't get an OTP?</Text><TouchableOpacity><Text style={styles.text3}>Resend</Text></TouchableOpacity>
-                </View>
+                </View> */}
 
             </View>
 
@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     },
     box: {
         borderWidth: 2,
-        borderColor: "#454A5E",
+        borderColor: "white",
         width: s(45),
         height: s(50),
         padding: s(10),
         borderRadius: 5,
         marginRight: s(10),
-        backgroundColor: "#454A5E"
+        backgroundColor: "white"
     },
     container: {
         width: '70%',
@@ -154,15 +154,15 @@ const styles = StyleSheet.create({
         fontSize: s(25),
         fontWeight: 'bold',
         textAlign: 'center',
-        color: "white"
+        color: "black"
     },
     btn: {
         backgroundColor: "white",
-        top: '50%',
+        top: '40%',
         height: s(50),
         marginBottom: s(20),
-        width: '90%',
-        marginLeft: s(18)
+        width: '80%',
+        marginLeft: "10%"
     },
     text2: {
         color: "#6e6e6e",

@@ -10,9 +10,7 @@ import AuthOTP from '../../AuthScreen/AuthOTP';
 import TransactionPin from '../../AuthScreen/TransactionPin';
 import SendResetCode from '../../AuthScreen/SendResetCode';
 import ResetPassword from '../../AuthScreen/ResetPassword';
-import Document from '../../AuthScreen/Document';
-import UserDetail from '../../AuthScreen/UserDetails';
-import CompleteDetails from '../../AuthScreen/CompleteDetails';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -29,15 +27,11 @@ const AuthSatck = () => {
         >
             <Stack.Screen name='Splash' component={Splash} />
             <Stack.Screen name='login' component={Login} />
-            {/* <Stack.Screen name='PersistLogin' component={PersistLogin} /> */}
             <Stack.Screen name='register' component={Register} />
             <Stack.Screen name='authOTP' component={AuthOTP} />
             <Stack.Screen name='createPin' component={TransactionPin} />
             <Stack.Screen name='ResetCode' component={SendResetCode} />
             <Stack.Screen name='ResetPassword' component={ResetPassword} />
-            <Stack.Screen name='Document' component={Document} />
-            <Stack.Screen name='UserDetails' component={UserDetail} />
-            <Stack.Screen name='CompleteDetails' component={CompleteDetails} />
         </Stack.Navigator>
     )
 }

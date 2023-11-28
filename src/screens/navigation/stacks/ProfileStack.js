@@ -9,6 +9,7 @@ import ProfileEdit from '../../mainScreen/Profile/ProfileEdit';
 import ChangePassword from '../../mainScreen/Settings/ChangePassword';
 import UploadDoc from '../../mainScreen/Profile/AgentOnboarding/UploadDoc';
 import Settings from '../stacks/SettingsStack';
+import Test from '../../mainScreen/test'
 
 
 
@@ -35,6 +36,7 @@ const ProfileStack = () => {
             <Stack.Screen name='ChangePassword' component={ChangePassword} />
             <Stack.Screen name='UploadDoc' component={UploadDoc} />
             <Stack.Screen name='Settings' component={Settings} />
+            <Stack.Screen name='test' component={Test} />
         </Stack.Navigator>
     )
 }

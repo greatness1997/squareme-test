@@ -14,7 +14,6 @@ import ViewShot from 'react-native-view-shot';
 
 
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
-import Options from './AddMoney/Options';
 import AppButton from '../../components/AppButtonBlue';
 import DailyPerformance from '../../components/DailyPerformance';
 
@@ -221,13 +220,26 @@ const HomeScreen = ({ navigation }) => {
 
         return (
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(15), marginBottom: s(10) }}>
-                <View>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        {displayText && <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12), marginRight: s(5) }}>{displayText}</Text>}
-                        <Text style={{ color: "black", fontWeight: "bold" }}>{`₦${format.format(item.amount)}`}</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <View style={{ backgroundColor: "lightgrey", padding: s(7), borderRadius: s(20), marginRight: s(10) }}>
+                        <MaterialCommunityIcons 
+                            name={ 
+                                item.status === "successful" ? "thumb-up" : 
+                                item.status === "failed" ? "thumb-down" : 
+                                item.status === "pending" ? "thumbs-up-down" : null
+                            } 
+                            size={s(20)}
+                            color="grey"
+                        />
                     </View>
 
-                    <Text style={{ color: "grey", fontWeight: "600", marginTop: s(3), fontSize: s(13) }}>mobile wallet</Text>
+                    <View>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            {displayText && <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12), marginRight: s(5) }}>{displayText}</Text>}
+                            <Text style={{ color: "black", fontWeight: "bold" }}>{`₦${format.format(item.amount)}`}</Text>
+                        </View>
+                        <Text style={{ color: "grey", fontWeight: "600", marginTop: s(3), fontSize: s(13) }}>mobile wallet</Text>
+                    </View>
                 </View>
                 <View>
                     <Text style={{ color: item.status === "successful" ? "green" : item.status === "failed" ? "red" : "yellow", fontWeight: "bold", marginRight: s(5) }}>{item.status}</Text>
@@ -443,7 +455,7 @@ const HomeScreen = ({ navigation }) => {
 
                                         <View style={{ backgroundColor: "#3c68f8", alignItems: "center", flexDirection: "row", padding: s(10), marginBottom: s(10), borderRadius: s(15) }}>
                                             <View style={{ backgroundColor: "#0487e2", padding: s(5), borderRadius: s(20), marginRight: s(10) }}>
-                                                <MaterialCommunityIcons name="bell" size={s(25)} color="white" />
+                                                <MaterialCommunityIcons name="lightbulb" size={s(25)} color="white" />
                                             </View>
 
                                             <Text style={{ alignSelf: "center", color: "white", fontWeight: "500" }}>Fund Wallet Using The Account Details Bellow</Text>
@@ -581,7 +593,6 @@ const styles = StyleSheet.create({
         borderRadius: s(10),
         backgroundColor: 'rgba(173, 216, 230, 0.3)',
         resizeMode: "contain",
-
     },
     bg: {
         width: '95%',

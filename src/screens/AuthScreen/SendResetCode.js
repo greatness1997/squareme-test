@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppButton from '../../components/AppButtonWhite'
+import AppButton from '../../components/AppButtonBlue'
 import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -69,14 +69,14 @@ const SendResetCode = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: s(50) }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="white" />
+                        <MaterialCommunityIcons name="arrow-left" size={s(22)} color="#49001b" />
                     </TouchableOpacity>
-                    <Image source={Logo} />
+                    <Image />
                     <Text></Text>
                 </View>
                 <View style={{ marginTop: s(35) }}>
-                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#b7b7b7" }}>Forgot Password?</Text>
-                    <Text style={{ fontSize: s(10), fontWeight: "300", color: "#b7b7b7", marginTop: s(5) }}>Reset it with your registered email</Text>
+                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#49001b" }}>Forgot Password?</Text>
+                    <Text style={{ fontSize: s(10), fontWeight: "300", color: "#49001b", marginTop: s(5) }}>Reset it with your registered email</Text>
                 </View>
                 <View>
                     <Formik
@@ -94,21 +94,21 @@ const SendResetCode = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(40) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Your Email Address'
-                                            placeholderTextColor="#414a5e"
+                                            placeholderTextColor="#49001b"
                                             onChangeText={handleChange('email')}
                                             value={values.email}
                                         />
                                     </View>
 
                                     <AppButton title="Send Reset Code" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
-                                    <View style={{ marginTop: s(30), marginRight: s(5), alignItems: "flex-start" }}>
+                                    {/* <View style={{ marginTop: s(30), marginRight: s(5), alignItems: "flex-start" }}>
                                         <Text style={{ color: "#868686", fontSize: s(12), fontWeight: "500" }}>Didn't get the email? <TouchableWithoutFeedback onPress={() => console.log("press")}><Text style={{ color: "#3483f5" }}>Send another email please</Text></TouchableWithoutFeedback></Text>
-                                    </View>
+                                    </View> */}
 
                                 </View>
                             );
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "white",
         padding: s(8)
 
     },
@@ -139,28 +139,15 @@ const styles = StyleSheet.create({
         marginTop: s(18),
         justifyContent: "center", alignItems: "center"
     },
-    loginContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: s(1),
-        borderRadius: s(50),
-        padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
-        width: '100%',
-        height: s(50),
-        marginTop: '2%',
-    },
     loginContainer2: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: s(2.5),
+        borderWidth: s(1.5),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "#414a5e",
-        backgroundColor: "#000c27",
+        borderColor: "#49001b",
+        backgroundColor: "white",
         width: '100%',
         height: s(55),
         marginBottom: s(30),
@@ -168,12 +155,11 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: s(40),
-        color: "white",
+        color: "black",
         paddingLeft: s(10),
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "white",
         marginTop: s(15),
         height: s(50)
     }

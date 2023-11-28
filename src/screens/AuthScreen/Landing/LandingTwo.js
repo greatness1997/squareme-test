@@ -8,6 +8,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import { LottieApartment } from "../../../components/LottieView"
 
 
 const LandingTwo = ({ navigation }) => {
@@ -19,7 +20,7 @@ const LandingTwo = ({ navigation }) => {
     <>
     <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
       <View style={styles.container}>
-        <Image source={splash4} style={styles.image} />
+      <LottieApartment style={{ width: s(250), height: s(250), alignSelf: "center" }} />
         <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
           <Text style={styles.text}>Apartments</Text>
           <Text style={styles.text2}>
@@ -38,9 +39,9 @@ const LandingTwo = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "column",
     backgroundColor: "white",
+    justifyContent: "center"
   },
   image: {
     width: "100%",
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     color: "#49001b",
     fontSize: s(15),
     fontWeight: "bold",
-    marginTop: 20,
+    // marginTop: 20,
   },
   text2: {
     color: "grey",

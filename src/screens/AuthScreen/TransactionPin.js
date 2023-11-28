@@ -4,6 +4,7 @@ import PinField from '../../components/TranPinField';
 import { Lock } from '../../constants/images.js';
 import { s } from 'react-native-size-matters';
 import AppButton from '../../components/AppButtonWhite';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
 const TransactionPin = ({ navigation, data }) => {
@@ -15,8 +16,8 @@ const TransactionPin = ({ navigation, data }) => {
     return (
 
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Image source={Lock} style={styles.lockImage} />
+            <View style={{ backgroundColor: "white", borderRadius: s(50), alignSelf: "center", alignItems: "center", padding: s(15), marginTop: s(60) }}>
+                <MaterialCommunityIcons name="lock" size={s(35)} color="grey" />
             </View>
 
             <View style={styles.textContainer}>
@@ -38,7 +39,7 @@ const TransactionPin = ({ navigation, data }) => {
                     secureTextEntry={true}
                 />
             </View>
-            
+
         </View>
     );
 };
@@ -46,7 +47,7 @@ const TransactionPin = ({ navigation, data }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#060C27',
+        backgroundColor: '#49001b',
     },
     imageContainer: {
         marginTop: s(40),
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: s(20),
     },
-   
+
 });
 
 export default TransactionPin;

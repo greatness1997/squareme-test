@@ -13,7 +13,7 @@ const Splash = ({ navigation }) => {
             startAnimation()
             checkIfAppInstalledBefore();
             getData()
-        }, 3000)
+        }, 5000)
     }, [])
 
 

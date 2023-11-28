@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AppButton from '../../components/AppButtonWhite'
+import AppButton from '../../components/AppButtonBlue'
 import cred from '../../config'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -77,11 +77,10 @@ const ResetPassword = ({ navigation, route }) => {
             <View style={styles.container}>
 
                 <View style={{ alignItems: "center", marginTop: s(50) }}>
-                    <Image source={Logo} />
+                    <Image />
                 </View>
                 <View style={{ marginTop: s(35) }}>
-                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#b7b7b7" }}>Reset Password?</Text>
-
+                    <Text style={{ fontSize: s(22), fontWeight: "bold", color: "#49001b" }}>Reset Password?</Text>
                 </View>
                 <View>
                     <Formik
@@ -99,12 +98,13 @@ const ResetPassword = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(40) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter New Password'
                                             onChangeText={handleChange('password')}
+                                            placeholderTextColor="#49001b"
                                             secureTextEntry={visible}
                                             value={values.password}
                                         />
@@ -112,7 +112,7 @@ const ResetPassword = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-
+                                                color="#49001b"
                                             />
                                         </TouchableWithoutFeedback>
                                         
@@ -120,12 +120,13 @@ const ResetPassword = ({ navigation, route }) => {
                                     </View>
                                     <Text style={{ marginLeft: 5, marginTop: 10, color: "#c66e54", fontSize: 12}}>Min. of 6 characters </Text>
 
-                                    <Text style={{ color: "white", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Confirm Password</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Confirm Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Confirm New password'
                                             onChangeText={handleChange('password_confirmation')}
+                                            placeholderTextColor="#49001b"
                                             secureTextEntry={visible}
                                             value={values.password_confirmation}
                                         />
@@ -133,19 +134,20 @@ const ResetPassword = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-
+                                                color="#49001b"
                                             />
                                         </TouchableWithoutFeedback>
                                         
 
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Pin</Text>
+                                    <Text style={{ color: "#49001b", marginBottom: s(5), marginTop: s(15), fontSize: s(12), marginLeft: s(5) }}>Pin</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Reset Pin'
                                             onChangeText={handleChange('pin')}
+                                            placeholderTextColor="#49001b"
                                             secureTextEntry={visible}
                                             value={values.pin}
                                         />
@@ -153,11 +155,10 @@ const ResetPassword = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-
+                                                color="#49001b"
                                             />
                                         </TouchableWithoutFeedback>
                                         
-
                                     </View>
 
                                     <AppButton title="Reset Password" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#060C27",
+        backgroundColor: "white",
         padding: s(8)
 
     },
@@ -198,8 +199,8 @@ const styles = StyleSheet.create({
         borderWidth: s(1),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#49001b",
+        backgroundColor: "white",
         width: '100%',
         height: s(50),
         marginTop: '2%',
@@ -211,8 +212,8 @@ const styles = StyleSheet.create({
         borderWidth: s(1),
         borderRadius: s(50),
         padding: ms(10),
-        borderColor: "white",
-        backgroundColor: color.colorOne,
+        borderColor: "#49001b",
+        backgroundColor: "white",
         width: '100%',
         height: s(50),
         marginBottom: s(30),
@@ -225,7 +226,6 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "white",
         marginTop: s(28),
         height: s(50)
     }

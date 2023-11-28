@@ -1,11 +1,38 @@
 import React from "react";
-import { Success } from "../constants/animation"; 
+import { Apartment, Bills, Welcome, Network } from "../constants/animation";
 import Lottie from "lottie-react-native"
+import { View } from 'react-native'
 
-const LottieView = () => {
+const LottieBills = ({ style }) => {
     return (
-        <Lottie source={Success} autoPlay loop />
+        <View style={[style]}>
+            <Lottie source={Bills} autoPlay loop />
+        </View>
     )
 }
 
-export default LottieView
+const LottieApartment = ({ style }) => {
+    return (
+        <View style={[style]}>
+            <Lottie source={Apartment} autoPlay loop />
+        </View>
+    )
+}
+
+const LottieWelcome = ({ style }) => {
+    return (
+        <View style={[style]}>
+            <Lottie source={Welcome} autoPlay loop />
+        </View>
+    )
+}
+
+const LottieNetwork = ({ style }) => {
+    return (
+        <View style={[style]}>
+            <Lottie source={Network} autoPlay loop />
+        </View>
+    )
+}
+
+export { LottieBills, LottieApartment, LottieWelcome, LottieNetwork }

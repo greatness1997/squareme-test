@@ -4,3 +4,8 @@ export const Loading = require('../assets/animation/loading.json')
 export const FailedCard = require('../assets/animation/failedcard.json')
 export const Complete = require('../assets/animation/complete.json')
 export const Empty = require('../assets/animation/empty.json')
+
+export const Bills = require('../assets/animation/paybills.json')
+export const Apartment = require('../assets/animation/apartment.json')
+export const Welcome = require('../assets/animation/welcome.json')
+export const Network = require('../assets/animation/network.json')
