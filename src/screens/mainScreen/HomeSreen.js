@@ -222,12 +222,12 @@ const HomeScreen = ({ navigation }) => {
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(15), marginBottom: s(10) }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ backgroundColor: "lightgrey", padding: s(7), borderRadius: s(20), marginRight: s(10) }}>
-                        <MaterialCommunityIcons 
-                            name={ 
-                                item.status === "successful" ? "thumb-up" : 
-                                item.status === "failed" ? "thumb-down" : 
-                                item.status === "pending" ? "thumbs-up-down" : null
-                            } 
+                        <MaterialCommunityIcons
+                            name={
+                                item.status === "successful" ? "thumb-up" :
+                                    item.status === "failed" ? "thumb-down" :
+                                        item.status === "pending" ? "thumbs-up-down" : null
+                            }
                             size={s(20)}
                             color="grey"
                         />
@@ -268,8 +268,12 @@ const HomeScreen = ({ navigation }) => {
                     <View style={{ marginTop: s(10), flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: ms(20), paddingRight: ms(20) }}>
                         {/* {refreshing && <ActivityIndicator size='large' color="black" />} */}
                         <View>
-                            <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A" }}>Hello,</Text>
-                            <Text style={styles.name}>{nameOne.toLocaleUpperCase()} {nameTwo.toLocaleUpperCase()}</Text>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Text style={styles.name1}>Hello,</Text>
+                                <Text style={styles.name}>{nameOne.toLocaleUpperCase()}</Text>
+                            </View>
+
+                            <Text style={{ fontSize: s(12), fontWeight: "500", color: "#9A9A9A", marginTop: s(5) }}>What do you want to do today?</Text>
                         </View>
 
                         <View style={styles.profileImage}>
@@ -315,33 +319,44 @@ const HomeScreen = ({ navigation }) => {
                         </ImageBackground>
                     </TouchableOpacity>
 
-                    <Text style={{ marginTop: s(30), fontWeight: "bold", fontSize: s(13), marginLeft: "4%", color: "grey" }}>Quick Actions</Text>
+                    <Text style={{ marginTop: s(40), fontWeight: "bold", fontSize: s(13), marginLeft: "4%", color: "grey" }}>Quick Actions</Text>
 
-                    <View style={[styles.billsCont, styles.boxShadow]}>
+                    <View style={[styles.billsCont,]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                        <TouchableOpacity style={{ alignItems: "center" }}>
+                                <View style={styles.productCont}>
+                                    <MaterialCommunityIcons name="book-open-page-variant" size={s(30)} color="#410018" />
+                                    <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Text Books</Text>
+                                </View>
+                                
+                            </TouchableOpacity>
+
                             <TouchableOpacity onPress={() => navigation.navigate("Airtime")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="signal-cellular-3" size={s(25)} color="#410018" />
+                                    <MaterialCommunityIcons name="signal-cellular-3" size={s(30)} color="#410018" />
+                                    <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Airtime</Text>
                                 </View>
-                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Airtime</Text>
+                                
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => navigation.navigate("Data")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="cellphone-wireless" size={s(25)} color="#410018" />
+                                    <MaterialCommunityIcons name="cellphone-wireless" size={s(30)} color="#410018" />
+                                    <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Data</Text>
                                 </View>
-                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Data</Text>
+                               
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")} style={{ alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("All")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
-                                    <MaterialCommunityIcons name="television-classic" size={s(25)} color="#410018" />
+                                    <MaterialCommunityIcons name="view-list" size={s(30)} color="#410018" />
+                                    <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Others</Text>
                                 </View>
-                                <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>TV</Text>
+                                
                             </TouchableOpacity>
                         </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(25) }}>
+                        {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(25) }}>
                             <TouchableOpacity onPress={() => navigation.navigate("Provider")} style={{ alignItems: "center" }}>
                                 <View style={styles.productCont}>
                                     <MaterialCommunityIcons name="lightbulb-on" size={s(25)} color="#410018" />
@@ -362,7 +377,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                                 <Text style={{ fontSize: s(12), marginTop: s(8), color: "#410018" }}>Others</Text>
                             </View>
-                        </View>
+                        </View> */}
 
                     </View>
 
@@ -618,20 +633,18 @@ const styles = StyleSheet.create({
         marginTop: s(0),
     },
     billsCont: {
-        width: "92%",
-        marginLeft: "4%",
+        width: "100%",
         borderRadius: s(10),
-        backgroundColor: "white",
-        marginTop: s(15),
+        marginTop: s(5),
         padding: s(20)
     },
     productCont: {
-        width: s(50),
-        height: s(50),
+        width: s(70),
+        height: s(75),
         backgroundColor: "lightgrey",
         justifyContent: "center",
         alignItems: 'center',
-        borderRadius: s(50)
+        borderRadius: s(10)
     },
     balanceText: {
         fontSize: s(27),
@@ -670,7 +683,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: "DamascusBold",
         color: "black",
-        marginTop: s(10),
+        marginLeft: s(5),
+    },
+    name1: {
+        fontSize: s(14),
+        fontWeight: 'bold',
+        fontFamily: "DamascusBold",
+        color: "black",
+        
     },
     heading: {
         fontSize: s(11),

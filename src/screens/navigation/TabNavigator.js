@@ -9,7 +9,7 @@ const activeTintColor = "black"
 
 import HomeStack from './stacks/HomeStack';
 import HistoryStack from './stacks/HistoryStack';
-import SettingsStack from './stacks/SettingsStack';
+import ServiceStack from './stacks/ServiceStack';
 import ProfileStack from './stacks/ProfileStack';
 
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
@@ -18,14 +18,14 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 
 const TabNavigator = () => {
 
-    
+
 
     const hiddenTabRoutes = [
-        'TransferValidate', 
-        'TransferSummary', 
-        'Completed', 
-        'Provider', 
-        'ElectricityValidation', 
+        'TransferValidate',
+        'TransferSummary',
+        'Completed',
+        'Provider',
+        'ElectricityValidation',
         'Airtime&Data',
         'AirtimeOrData',
         'paymentmethod',
@@ -71,17 +71,29 @@ const TabNavigator = () => {
                 options={({ route }) => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="home" color="#410018" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="home-modern" color="#410018" size={s(28)} />
                     ),
                     headerShown: false,
                     tabBarStyle: ((route) => {
-                      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-                      if (hiddenTabRoutes.includes(routeName)) {
-                        return { display: "none" }
-                      }
-                      return
+                        const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+                        if (hiddenTabRoutes.includes(routeName)) {
+                            return { display: "none" }
+                        }
+                        return
                     })(route),
-                  })}
+                })}
+            />
+
+            <Tab.Screen
+                name="All"
+                component={ServiceStack}
+                options={{
+                    tabBarLabel: 'Service',
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialCommunityIcons focused={focused} name="cart-variant" color="#410018" size={s(28)} />
+                    ),
+                    headerShown: false
+                }}
             />
 
             <Tab.Screen
@@ -90,7 +102,7 @@ const TabNavigator = () => {
                 options={{
                     tabBarLabel: 'History',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#410018" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#410018" size={s(28)} />
                     ),
                     headerShown: false
                 }}
@@ -102,17 +114,17 @@ const TabNavigator = () => {
                 options={({ route }) => ({
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#410018" size={s(25)} />
+                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#410018" size={s(28)} />
                     ),
                     headerShown: false,
                     tabBarStyle: ((route) => {
-                      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-                      if (hiddenTabRoutes.includes(routeName)) {
-                        return { display: "none" }
-                      }
-                      return
+                        const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+                        if (hiddenTabRoutes.includes(routeName)) {
+                            return { display: "none" }
+                        }
+                        return
                     })(route),
-                  })}
+                })}
             />
 
         </Tab.Navigator>
