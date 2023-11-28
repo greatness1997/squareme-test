@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleGetInfoString</key>
-	<string />
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Zocial.ttf</string>
@@ -24,11 +24,11 @@
 		<string>AntDesign.ttf</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
-	<string />
+	<string/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>payscholar</string>
+	<string>PayScholar</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -46,7 +46,7 @@
 	<key>CFBundleVersion</key>
 	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -54,12 +54,12 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string />
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -73,13 +73,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>App requesting face id usage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App requesting access to library for image upload</string>
 	<key>NSHumanReadableCopyright</key>
-	<string />
+	<string/>
 	<key>CodePushDeploymentKey</key>
 	<string>qa9tLIWZ8wa3PmZQwrg1q2XzKUY2gu9Wti-Wa</string>
 </dict>
