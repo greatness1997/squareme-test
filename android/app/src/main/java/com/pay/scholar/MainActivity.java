@@ -1,4 +1,4 @@
-package com.fixit.easy;
+package com.pay.scholar;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Fix It Easy";
+    return "PayScholar";
   }
 
   /**

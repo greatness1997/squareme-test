@@ -1,5 +1,4 @@
-export const wallet2 = require('../assets/wallet2.jpeg');
-export const Logo = require('../assets/unnamed.jpg');
+export const wallet = require('../assets/wallet2.jpeg');
 export const FingerPrint =  require('../assets/fingerPrint.png')
 export const airtel =  require('../assets/networks/airtel.png')
 export const glo =  require('../assets/networks/glo.png')
@@ -33,6 +32,13 @@ export const livechat =  require('../assets/electricity/new/livechat.png')
 export const whatsapp =  require('../assets/electricity/new/whatsapp.png')
 export const call =  require('../assets/electricity/new/call.png')
 export const mail =  require('../assets/electricity/new/mail.png')
+
+export const payLogo =  require('../assets/payscholar.png')
+export const airtime =  require('../assets/unnamed.png')
+export const data =  require('../assets/dataLogo.png')
+export const others =  require('../assets/others.png')
+export const light =  require('../assets/light.png')
+export const tv =  require('../assets/tv.png')
 
 
 

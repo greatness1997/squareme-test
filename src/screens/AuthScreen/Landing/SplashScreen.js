@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Image, View, Animated } from "react-native";
-import { Logo } from "../../../constants/images";
+import { Image, View, Animated, Text } from "react-native";
+import { Logo, payLogo } from "../../../constants/images";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -65,11 +65,11 @@ const Splash = ({ navigation }) => {
     return (
         <View style={{
             flex: 1,
-            backgroundColor: "#49001b",
+            backgroundColor: "black",
             justifyContent: "center",
             alignItems: "center"
         }}>
-            <Animated.View style={[{ width: 100, height: 100 }, {
+            <Animated.View style={[{ flexDirection: "row", justifyContent: "center", alignItems: "center" }, {
                 transform: [
                     {
                         scale: animation.interpolate({
@@ -79,7 +79,8 @@ const Splash = ({ navigation }) => {
                     }
                 ]
             }]}>
-                <Image source={Logo} style={{ width: 200, height: 200, resizeMode: "contain", justifyContent: "center", alignItems: "center" }} />
+                <Image source={payLogo} style={{ width: 70, height: 70, resizeMode: "contain", justifyContent: "center", alignItems: "center",  }} />
+                <Text style={{ color: "white", fontSize: 20, fontWeight: "bold", marginLeft: 5 }}>PayScholar</Text>
             </Animated.View>
         </View>
     )

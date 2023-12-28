@@ -54,81 +54,50 @@ const TabNavigator = () => {
         'WalletHistoryList',
         'HistoryReceipt',
         'liveChat',
-        'Settings'
+        'Settings',
+        'AddBooks'
     ];
+
+    const isTabBarVisible = (route) => {
+        const routeName = route.state
+          ? route.state.routes[route.state.index].name
+          : route.params?.screen || 'Home';
+    
+        return !hiddenTabRoutes.includes(routeName);
+      };
 
     return (
         <Tab.Navigator
-            initialRouteName="Home"
-            tabBarOptions={{
-                activeTintColor,
-                inactiveTintColor: 'gray',
-            }}
+          initialRouteName="Home"
+          screenOptions={({ route }) => ({
+            tabBarStyle: { backgroundColor: 'black', height: 100 },
+            tabBarActiveTintColor: 'white',
+            tabBarInactiveTintColor: 'gray',
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+    
+              if (route.name === 'Home') {
+                iconName = 'home';
+              } else if (route.name === 'All') {
+                iconName = 'cart-variant';
+              } else if (route.name === 'History') {
+                iconName = 'chart-box';
+              } else if (route.name === 'Profile') {
+                iconName = 'account-circle';
+              }
+    
+              return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+            },
+            tabBarVisible: isTabBarVisible(route),
+          })}
         >
-            <Tab.Screen
-                name="Home"
-                component={HomeStack}
-                options={({ route }) => ({
-                    tabBarLabel: 'Home',
-                    tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="home-modern" color="#410018" size={s(28)} />
-                    ),
-                    headerShown: false,
-                    tabBarStyle: ((route) => {
-                        const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-                        if (hiddenTabRoutes.includes(routeName)) {
-                            return { display: "none" }
-                        }
-                        return
-                    })(route),
-                })}
-            />
-
-            <Tab.Screen
-                name="All"
-                component={ServiceStack}
-                options={{
-                    tabBarLabel: 'Service',
-                    tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="cart-variant" color="#410018" size={s(28)} />
-                    ),
-                    headerShown: false
-                }}
-            />
-
-            <Tab.Screen
-                name="History"
-                component={HistoryStack}
-                options={{
-                    tabBarLabel: 'History',
-                    tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="chart-box" color="#410018" size={s(28)} />
-                    ),
-                    headerShown: false
-                }}
-            />
-
-            <Tab.Screen
-                name="Profile"
-                component={ProfileStack}
-                options={({ route }) => ({
-                    tabBarLabel: 'Profile',
-                    tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons focused={focused} name="account-circle" color="#410018" size={s(28)} />
-                    ),
-                    headerShown: false,
-                    tabBarStyle: ((route) => {
-                        const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-                        if (hiddenTabRoutes.includes(routeName)) {
-                            return { display: "none" }
-                        }
-                        return
-                    })(route),
-                })}
-            />
-
+          <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+          <Tab.Screen name="All" component={ServiceStack} options={{ headerShown: false }} />
+          <Tab.Screen name="History" component={HistoryStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
         </Tab.Navigator>
-    )
+      );
+    
 }
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-package com.fixit.easy;
+package com.pay.scholar;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

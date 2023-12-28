@@ -96,7 +96,7 @@ const Login = ({ navigation, route }) => {
 
     return (
         <>
-            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+            <StatusBar barStyle={Platform.select({ android: 'light-content', ios: 'light-content' })} />
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={messageOne} />}
                 {/* {!isToastVisible && <View style={{ alignItems: "center", marginTop: s(20) }}>
@@ -104,11 +104,11 @@ const Login = ({ navigation, route }) => {
                 </View>} */}
                 <View style={{ marginBottom: s(30), marginTop: s(60) }}>
                     <View style={{ flexDirection: "row", alignSelf: "center" }}>
-                        <Text style={{ color: "#49001b", fontSize: s(20), fontWeight: "bold", marginRight: s(5) }}>Sign In</Text>
-                        <MaterialCommunityIcons name="login" size={s(25)} color="#49001b" />
+                        <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginRight: s(5) }}>Sign In</Text>
+                        <MaterialCommunityIcons name="login" size={s(25)} color="white" />
                     </View>
 
-                    <Text style={{ color: "#49001b", fontSize: s(11), fontWeight: "400", alignSelf: "center", marginTop: s(3) }}>Login your account to continue</Text>
+                    <Text style={{ color: "white", fontSize: s(11), fontWeight: "400", alignSelf: "center", marginTop: s(3) }}>Login your account to continue</Text>
                 </View>
 
 
@@ -128,12 +128,12 @@ const Login = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(10) }}>
-                                    <Text style={{ color: "#49001b", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='example@gmail.com'
-                                            placeholderTextColor="grey"
+                                            placeholderTextColor="#28231d"
                                             onChangeText={handleChange('login')}
                                             value={values.login}
                                         />
@@ -141,16 +141,16 @@ const Login = ({ navigation, route }) => {
                                         <MaterialCommunityIcons
                                             name="email"
                                             size={s(25)}
-                                            color="#49001b"
+                                            color="#28231d"
                                         />
 
                                     </View>
-                                    <Text style={{ color: "#49001b", fontWeight: "bold", marginBottom: s(10), fontSize: s(14), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(10), fontSize: s(14), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Enter Password'
-                                            placeholderTextColor="grey"
+                                            placeholderTextColor="#28231d"
                                             onChangeText={handleChange('password')}
                                             secureTextEntry={visible}
                                             value={values.password}
@@ -159,7 +159,7 @@ const Login = ({ navigation, route }) => {
                                             <MaterialCommunityIcons
                                                 name={showPassword === true ? "eye-outline" : "eye-off-outline"}
                                                 size={s(25)}
-                                                color="#49001b"
+                                                color="#28231d"
                                             />
                                         </TouchableWithoutFeedback>
 
@@ -167,13 +167,13 @@ const Login = ({ navigation, route }) => {
 
                                     <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", { data: "from login" })}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                            <Text style={{ color: "#49001b", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "#49001b", fontSize: s(12), fontWeight: "500" }}>Don't have an account? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#49001b" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
+                                        <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Don't have an account? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "white" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
                                     </View>
                                 </View>
                             );
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "white",
+        backgroundColor: "black",
         padding: s(8)
     },
     profileImage: {
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#49001b",
+        backgroundColor: "#00bdfe",
         marginTop: s(28),
         height: s(50)
     },

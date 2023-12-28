@@ -148,16 +148,16 @@ const History = ({ navigation }) => {
 
     return (
         <>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView>
-                <View style={{ marginTop: s(30), alignItems: "center", marginBottom: s(10) }}>
-                    <Text style={{ fontSize: s(18), fontWeight: "700", color: "black" }}>Transaction History</Text>
+            <StatusBar barStyle="light-content" />
+            <View style={{ backgroundColor: "black", height: "100%" }}>
+                <View style={{ marginTop: s(60), alignItems: "center", marginBottom: s(10) }}>
+                    <Text style={{ fontSize: s(18), fontWeight: "700", color: "white" }}>Transaction History</Text>
                 </View>
                 <View style={{ width: "100%", height: "90%", padding: s(15), justifyContent: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", padding: s(5), marginTop: s(10) }}>
                         <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => setModalVisible(true)}>
-                            <Ionicons name="calendar" size={s(18)} color="#0B44BD" />
-                            <Text style={{ marginLeft: s(4), fontWeight: "500", color: "black" }}>Filter By Date</Text>
+                            <Ionicons name="calendar" size={s(18)} color="white" />
+                            <Text style={{ marginLeft: s(4), fontWeight: "500", color: "white" }}>Filter By Date</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Text style={{ marginLeft: s(4), fontWeight: "500", color: "#3C6BFA" }}>All Transactions</Text>
@@ -237,11 +237,11 @@ const History = ({ navigation }) => {
                     <ScrollView>
                         {loading === true && <ActivityIndicator color="black" style={{ width: s(40), height: s(40), marginLeft: "50%" }} />}
                         {transaction.length === 0 ? <NoHistory style={{ marginTop: s(5) }} /> : null}
-                        {transaction.length === 0 ? <Text style={{ color: "black", marginTop: s(10), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
+                        {transaction.length === 0 ? <Text style={{ color: "white", marginTop: s(10), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
                             No Transaction Found,
                         </Text> : null}
 
-                        {transaction.length === 0 ? <Text style={{ color: "black", marginTop: s(5), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
+                        {transaction.length === 0 ? <Text style={{ color: "white", marginTop: s(5), paddingLeft: s(30), paddingRight: s(30), textAlign: "center", }}>
                             Start Transacting or Use Date Filter
                         </Text> : null}
 
@@ -285,7 +285,7 @@ const History = ({ navigation }) => {
                     </ScrollView>
                 </View>
 
-            </SafeAreaView>
+            </View>
         </>
     )
 }

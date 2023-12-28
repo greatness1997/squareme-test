@@ -142,12 +142,12 @@ const PersistLogin = ({ navigation, route }) => {
 
     return (
         <>
-            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+            <StatusBar barStyle={Platform.select({ android: 'light-content', ios: 'light-content' })} />
             <View style={styles.container}>
                 <View style={{ alignItems: "center", padding: ms(20), marginTop: s(40) }}>
                     <View style={{ alignItems: "center", marginTop: s(20) }}>
-                        <Text style={{ color: "black", fontWeight: "bold", marginBottom: s(5) }}>WELCOME BACK,</Text>
-                        <Text style={{ color: "black", fontSize: s(16), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
+                        <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(5) }}>WELCOME BACK,</Text>
+                        <Text style={{ color: "white", fontSize: s(16), fontWeight: "500" }}>{`${nameOne} ${nameTwo}`}</Text>
                     </View>
                 </View>
                 <View>
@@ -194,7 +194,7 @@ const PersistLogin = ({ navigation, route }) => {
                                         <AppButton title="Sign In" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                         <View style={{ marginTop: s(20), alignItems: "center" }}>
                                             <TouchableWithoutFeedback onPress={authenticate} >
-                                                {biometrics === "FaceId" && Platform.OS === "ios" ? <MaterialCommunityIcons name='face-recognition' size={45} color="black" /> : <Image source={FingerPrint} />}
+                                                {biometrics === "FaceId" && Platform.OS === "ios" ? <MaterialCommunityIcons name='face-recognition' size={45} color="white" /> : <Image source={FingerPrint} />}
                                             </TouchableWithoutFeedback>
                                         </View>
                                     </View>
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "white",
+        backgroundColor: "black",
         padding: s(8)
     },
     loginContainer: {
@@ -228,12 +228,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: s(1.5),
-        borderRadius: s(50),
+        borderRadius: s(10),
         padding: ms(10),
         borderColor: "#414a5e",
         backgroundColor: "white",
         width: '100%',
-        height: s(55),
+        height: s(50),
         marginTop: '2%',
     },
     input: {
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#49001b",
+        backgroundColor: "#00bdfe",
         marginTop: s(28),
         width: "82%"
     }

@@ -103,7 +103,7 @@ const Profile = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#49001b" }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
             <View style={{ marginTop: s(30), flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: s(10) }}>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
                     <MaterialCommunityIcons name="arrow-left-thick" size={s(25)} color="white" />
@@ -216,17 +216,18 @@ const styles = StyleSheet.create({
         justifyContent: "center", alignItems: "center"
     },
     box1: {
-        backgroundColor: "white",
+        backgroundColor: "black",
         width: "100%",
         height: "100%",
         borderRadius: s(20),
-        marginTop: s(20)
+        marginTop: s(20),
+        alignItems: "center"
     },
     box2: {
-        width: "100%",
+        width: "95%",
         height: "100%",
-        backgroundColor: "#ffffff",
-        borderRadius: s(20),
+        backgroundColor: "white",
+        borderRadius: s(10),
         alignItems: "center"
     },
     edit: {
