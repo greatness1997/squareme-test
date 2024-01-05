@@ -103,28 +103,16 @@ const History = ({ navigation }) => {
 
     const transactionHistory = async () => {
 
-
-
-        const url = `${credentials.URL2}/user/transaction-history`
+        const url = `${credentials.URL}/wallet/history`
         const options = { headers: { Authorization: `Bearer ${user.token}` } }
-        const body = {
-            "page": 1,
-            "startDate": startText ? startText : startDate,
-            "endDate": endText ? endText : endDate,
-            "status": "",
-            "reference": "",
-            "product": "",
-            "account": "",
-            "channel": "",
-            "provider": ""
-        }
+
 
         try {
             setLoading(true)
-            const response = await axios.post(url, body, options)
-            const { transactions } = response.data
+            const response = await axios.get(url, options)
+            const { data } = response.data
 
-            setTransaction(transactions.docs)
+            setTransaction(data.docs)
             setLoading(false)
 
         } catch (error) {
@@ -214,7 +202,7 @@ const History = ({ navigation }) => {
                                         return (
                                             <TouchableOpacity style={styles.filterItem} key={index} onPress={() => setFilterVal(item.value)}>
                                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                                    <Text style={{ fontSize: s(14), fontWeight: "500", color: "black" }}>{item.name}</Text>
+                                                    <Text style={{ fontSize: s(14), fontWeight: "500", color: "white" }}>{item.name}</Text>
                                                     <CheckBox
                                                         disabled={false}
                                                         value={item.isChecked}
@@ -264,16 +252,17 @@ const History = ({ navigation }) => {
                                                     item.product === "ibedc" ? <Image source={ibedc} style={{ width: s(30), height: s(30) }} /> : item.product === "eedc" ? <Image source={eedc} style={{ width: s(30), height: s(30) }} /> : item.product === "phedc" ? <Image source={phdc} style={{ width: s(30), height: s(30) }} /> : item.product === "aedc" ? <Image source={abdc} style={{ width: s(30), height: s(30) }} /> :
                                                         item.product === "jedc" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kedco" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" /> : item.product === "kadec" ? <MaterialCommunityIcons name="lightbulb-outline" size={s(18)} color="#896cfa" />
                                                             : null}
+                                                {item.product === "book" ? <MaterialCommunityIcons name="book-open-page-variant" size={s(20)} color="#896cfa" /> : null}
                                             </View>
                                             <View style={{ marginLeft: s(5) }}>
-                                                <Text style={{ fontSize: s(10), fontWeight: "500", color: "grey" }}>{item.product.charAt(0).toUpperCase() + item.product.slice(1)}</Text>
-                                                <Text style={{ fontSize: s(12), fontWeight: "600", color: "black", marginTop: s(2) }}>{item.account}</Text>
+                                                <Text style={{ fontSize: s(10), fontWeight: "500", color: "lightgrey" }}>{item.product}</Text>
+                                                <Text style={{ fontSize: s(12), fontWeight: "600", color: "white", marginTop: s(2) }}>{item.walletId}</Text>
                                             </View>
                                         </View>
                                         <View style={{ alignItems: "flex-end" }}>
-                                            <Text style={{ fontSize: s(14), fontWeight: "600", color: "#484747", marginBottom: s(5) }}>{`₦${format.format(item.amount)}`}</Text>
-                                            {item.status === "successful" ? <Text style={{ color: "green" }} >{item.status}</Text> : item.status === "pending" ? <Text style={{ color: "yellow" }} >{item.status}</Text> : <Text style={{ color: "red" }} >{item.status}</Text>}
-                                            <Text style={{ marginTop: s(2) }}>{formatDate(item.createdAt)}</Text>
+                                            <Text style={{ fontSize: s(14), fontWeight: "600", color: "lightgrey", marginBottom: s(5) }}>{`₦${format.format(item.amount)}`}</Text>
+                                            {item.type === "credit" ? <Text style={{ color: "green" }} >{item.type}</Text> : <Text style={{ color: "red" }} >{item.type}</Text>}
+                                            <Text style={{ marginTop: s(2), color: "white" }}>{formatDate(item.createdAt)}</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <View style={{ height: s(0.5), backgroundColor: "#e0e0e0", width: "100%", marginTop: s(8) }}></View>

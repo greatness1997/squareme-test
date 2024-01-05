@@ -28,8 +28,9 @@ import StartimesCompleted from '../../mainScreen/Tv/StartimesCompleted';
 import VirtualAccount from '../../mainScreen/Profile/AgentOnboarding/VirtualAccount';
 import WalletHistory from '../../mainScreen/WalletHistory';
 import WalletHistoryList from '../../mainScreen/WalletHistoryList';
-import TextBooks from '../../mainScreen/TextBooks';
-import AddBooks from '../../mainScreen/AddBooks';
+import TextBooks from '../../mainScreen/Books/TextBooks';
+import AddBooks from '../../mainScreen/Books/AddBooks';
+import ViewBooks from '../../mainScreen/Books/ViewBooks';
 
 
 const Stack = createNativeStackNavigator();
@@ -74,6 +75,7 @@ const HomeStack = () => {
             <Stack.Screen name='WalletHistoryList' component={WalletHistoryList} />
             <Stack.Screen name='TextBooks' component={TextBooks} />
             <Stack.Screen name='AddBooks' component={AddBooks} />
+            <Stack.Screen name='ViewBooks' component={ViewBooks} />
         </Stack.Navigator>
     )
 }

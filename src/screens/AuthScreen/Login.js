@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableWithoutFe
 import { color } from '../../constants/color'
 import { Logo, FingerPrint, image } from '../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import Entypo from "react-native-vector-icons/Entypo"
 import { useFocusEffect } from '@react-navigation/native'
 
 import { Formik } from 'formik';
@@ -34,7 +35,7 @@ const Login = ({ navigation, route }) => {
 
 
     const Schema = Yup.object().shape({
-        login: Yup.string().email().required('Email field is required'),
+        phoneNumber: Yup.string().required('Phone number is required'),
         password: Yup.string().required('Password field is required'),
     });
 
@@ -61,14 +62,15 @@ const Login = ({ navigation, route }) => {
 
     const Login = async (res) => {
 
-        const url = `${cred.URL}/auth/get-token`
+        const url = `${cred.URL}/auth/login`
 
         try {
             setIsLoadking(true)
             const response = await axios.post(url, res)
-            const { status, message, userData, token } = response.data
+            const { success, message, data } = response.data
+            const { token, userData } = data
 
-            if (status !== "success") {
+            if (success !== "success") {
                 showToast(message);
                 setIsLoadking(false)
             } else {
@@ -114,7 +116,7 @@ const Login = ({ navigation, route }) => {
 
                 <View>
                     <Formik
-                        initialValues={{ login: "", password: "" }}
+                        initialValues={{ phoneNumber: "", password: "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
@@ -128,18 +130,18 @@ const Login = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(10) }}>
-                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Phone Number</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
-                                            placeholder='example@gmail.com'
+                                            placeholder='Enter Phone Number'
                                             placeholderTextColor="#28231d"
-                                            onChangeText={handleChange('login')}
-                                            value={values.login}
+                                            onChangeText={handleChange('phoneNumber')}
+                                            value={values.phoneNumber}
                                         />
 
-                                        <MaterialCommunityIcons
-                                            name="email"
+                                        <Entypo
+                                            name="old-phone"
                                             size={s(25)}
                                             color="#28231d"
                                         />
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#00bdfe",
+        backgroundColor: "#454545",
         marginTop: s(28),
         height: s(50)
     },

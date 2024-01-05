@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Modal, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform, TouchableOpacity } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Modal, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform, TouchableOpacity, ScrollView } from 'react-native'
 import { color } from '../../constants/color'
 import { Logo, FingerPrint, image, lock } from '../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -35,8 +35,17 @@ const Register = ({ navigation, route }) => {
     const [toggleCheckbox, setToggleCheckbox] = useState(false)
     const [ref, setRef] = useState(false)
     const [pin, setPin] = useState("")
+    const [userType, setUserType] = useState("")
+    const [instName, setInstName] = useState("")
+    const [depName, setDepName] = useState("")
     const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible2, setModalVisible2] = useState(false)
+    const [modalVisible3, setModalVisible3] = useState(false)
     const [fields, setFields] = useState({})
+    const [institution, setInstitution] = useState([])
+    const [institutionId, setInstitutionId] = useState("")
+    const [department, setDepartment] = useState([])
+    const [departmentId, setDepartmentId] = useState("")
 
     const Schema = Yup.object().shape({
         email: Yup.string().email('Invalid Email').required('Email field is required'),
@@ -61,27 +70,51 @@ const Register = ({ navigation, route }) => {
         }
     }
 
+    const type = [{ label: "Student", name: "student" }, { label: "Lecturer", name: "lecturer" }, { label: "Regular", name: "regular" }]
+
+    const setType = (type) => {
+        setUserType(type)
+    }
+
+    const institutionName = (name) => {
+        setInstName(name)
+    }
+
+    const departmentName = (name) => {
+        setDepName(name)
+    }
+
+    const close = () => {
+        setModalVisible(false)
+        setModalVisible2(false)
+        setModalVisible3(false)
+    }
+
 
     const Register = async (res) => {
-        setFields(res)
-        const url = `${cred.URL}/mobile/create-user`;
+
+        const url = `${cred.URL}/auth/register`;
+        const body = {
+            "firstName": res.firstName,
+            "lastName": res.lastName,
+            "email": res.email,
+            "phoneNumber": res.phoneNumber,
+            "password": res.password,
+            "userType": userType,
+            "institution": institutionId, 
+            "department": departmentId
+        }
+
 
         try {
             setIsLoadking(true);
-            const response = await axios.post(url, res);
-            const { status, message, activationPin } = response.data;
+            const response = await axios.post(url, body);
             console.log(response.data)
+            const { success, message } = response.data;
 
-            if (status === "success") {
-                if (activationPin === null) {
-                    // If activationPin is null, navigate to "authOTP" directly
-                    navigation.navigate("authOTP", { data: res.email });
-                } else {
-                    // If activationPin is not null, set it to the state variable "pin"
-                    setPin(activationPin.toString());
-                    // Show the modal
-                    setModalVisible(true);
-                }
+            if (success === "success") {
+                navigation.navigate("authOTP", { data: res.phoneNumber });
+                Alert.alert("Success", `${message}`)
             } else {
                 showToast(message);
                 setIsLoadking(false)
@@ -96,6 +129,37 @@ const Register = ({ navigation, route }) => {
         }
     };
 
+    const getInstitution = async () => {
+        const url = `${cred.URL}/misc/institutions`
+
+        try {
+            const res = await axios.get(url)
+            const { status, message, data } = res.data
+            setInstitution(data)
+
+        } catch (error) {
+            console.log(error)
+            console.log(error.response.data)
+            setIsLoadking(false)
+        }
+
+    }
+
+    const getDepartment = async () => {
+        const url = `${cred.URL}/misc/departments`
+
+        try {
+            const res = await axios.get(url)
+            const { status, message, data } = res.data
+            setDepartment(data)
+
+        } catch (error) {
+            console.log(error.response.data)
+            setIsLoadking(false)
+        }
+
+    }
+
     const showToast = (message) => {
         setMessage(message);
         setIsToastVisible(true);
@@ -108,21 +172,21 @@ const Register = ({ navigation, route }) => {
 
     return (
         <>
-            <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+            <StatusBar barStyle={Platform.select({ android: 'light-content', ios: 'light-content' })} />
 
             <View style={styles.container}>
                 {isToastVisible && <ToastNotification message={message} />}
                 {!isToastVisible && <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: s(40) }}>
-                    <MaterialCommunityIcons name="arrow-left" size={s(25)} color="#49001b" />
+                    <MaterialCommunityIcons name="arrow-left" size={s(25)} color="white" />
                 </TouchableOpacity>}
                 <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: s(5), marginTop: s(20) }}>
-                    <Text style={{ color: "#49001b", fontSize: s(20), fontWeight: "bold", marginRight: s(7)  }}>Sign Up</Text>
-                    <MaterialCommunityIcons name="account-plus" size={s(25)} color="#49001b" />
+                    <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginRight: s(7) }}>Sign Up</Text>
+                    <MaterialCommunityIcons name="account-plus" size={s(25)} color="white" />
                 </View>
 
                 <KeyboardAvoidView>
                     <Formik
-                        initialValues={{ email: "", firstName: "", lastName: "", phoneNumber: "", password: "", referenceEmail: "" }}
+                        initialValues={{ email: "", firstName: "", lastName: "", phoneNumber: "", password: "" }}
                         enableReinitialize={true}
                         onSubmit={(values) => {
                             Schema.validate(values)
@@ -140,7 +204,7 @@ const Register = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(30) }}>
-                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -155,7 +219,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
+                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -170,7 +234,7 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
+                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
                                     <View style={styles.loginContainer2}>
                                         {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
@@ -185,23 +249,52 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
-                                    <View style={styles.loginContainer2}>
-                                        {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
-                                        <TextInput
-                                            style={styles.input}
-                                            placeholder='Active phone number'
-                                            placeholderTextColor="#414a5e"
-                                            keyboardType='numeric'
-                                            onChangeText={(text) => {
-                                                handleChange("phoneNumber")(text)
-                                                setError(null);
-                                            }}
-                                            value={values.phoneNumber}
-                                        />
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
+                                        <Text style={{ color: "white", fontSize: s(11), marginBottom: s(4), }}>Select User Type</Text>
                                     </View>
 
-                                    <Text style={{ color: "#49001b", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <View style={styles.loginContainer3}>
+                                            {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
+                                            <TextInput
+                                                style={styles.input}
+                                                placeholder='11 Digits'
+                                                placeholderTextColor="#414a5e"
+                                                keyboardType='numeric'
+                                                onChangeText={(text) => {
+                                                    handleChange("phoneNumber")(text)
+                                                    setError(null);
+                                                }}
+                                                value={values.phoneNumber}
+                                            />
+                                        </View>
+
+                                        <View style={styles.formContainer5}>
+                                            <TouchableOpacity onPress={() => setModalVisible(true)} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Text style={{ color: "black", fontWeight: "500", fontSize: s(14), marginLeft: s(6) }}>{userType}</Text>
+                                                <MaterialCommunityIcons name="chevron-down" size={s(22)} color="black" />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+
+                                    <Text style={{ color: "white", fontSize: s(11), marginBottom: s(4), }}>Select Institution</Text>
+                                    <View style={styles.formContainer6}>
+                                        <TouchableOpacity onPress={() => { setModalVisible2(true), getInstitution() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                            <Text style={{ color: "black", fontWeight: "500", fontSize: s(14), marginLeft: s(6) }}>{instName}</Text>
+                                            <MaterialCommunityIcons name="chevron-down" size={s(22)} color="black" />
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <Text style={{ color: "white", fontSize: s(11), marginBottom: s(5), marginTop: s(10), }}>Select Department</Text>
+                                    <View style={styles.formContainer6}>
+                                        <TouchableOpacity onPress={() => { setModalVisible3(true), getDepartment() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                            <Text style={{ color: "black", fontWeight: "500", fontSize: s(14), marginLeft: s(6) }}>{depName}</Text>
+                                            <MaterialCommunityIcons name="chevron-down" size={s(22)} color="black" />
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <Text style={{ color: "white", marginBottom: s(10), marginTop: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -236,6 +329,98 @@ const Register = ({ navigation, route }) => {
                     </Formik>
                 </KeyboardAvoidView>
             </View>
+
+            <Modal
+                visible={modalVisible}
+                animationType='slide'
+                transparent={true}
+            >
+                <View style={styles.modalScreen}>
+                    <View style={styles.transparentContainer} />
+                    <SafeAreaView style={styles.contentContainer}>
+                        <View style={styles.closeIconContainer}>
+                            <TouchableWithoutFeedback onPress={close}>
+                                <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
+                            </TouchableWithoutFeedback>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Gender Options</Text>
+                            <Text></Text>
+                        </View>
+                        <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
+                            <View style={{ padding: s(10), marginBottom: s(0), }}>
+                                {type.map((item, key) => (
+                                    <TouchableOpacity key={key} onPress={() => { setType(item.name), setModalVisible(false) }}>
+                                        <Text style={{ fontSize: s(14), marginBottom: s(15), marginLeft: s(10), color: "black" }}>{item.label}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </View>
+                    </SafeAreaView>
+                </View>
+            </Modal>
+
+            <Modal
+                visible={modalVisible2}
+                animationType='slide'
+                transparent={true}
+            >
+                <View style={styles.modalScreen2}>
+                    <View style={styles.transparentContainer2} />
+                    <SafeAreaView style={styles.contentContainer2}>
+                        <View style={styles.closeIconContainer}>
+                            <TouchableWithoutFeedback onPress={close}>
+                                <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
+                            </TouchableWithoutFeedback>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Institution Options</Text>
+                            <Text></Text>
+                        </View>
+                        <ScrollView style={{ padding: 0, marginTop: 0, width: "100%" }}>
+                            <View style={{ padding: s(10), marginBottom: s(0), }}>
+                                {institution.map((item, key) => (
+                                    <>
+                                        <TouchableOpacity key={key} onPress={() => { institutionName(item.name), setInstitutionId(item._id), setModalVisible2(false) }}>
+                                            <Text style={{ fontSize: s(14), marginBottom: s(15), marginLeft: s(10), color: "black" }}>{item.name}</Text>
+                                        </TouchableOpacity>
+                                        <View style={{ backgroundColor: 'grey', height: s(0.3), marginBottom: s(5) }}></View>
+                                    </>
+                                ))}
+                            </View>
+
+                        </ScrollView>
+                    </SafeAreaView>
+                </View>
+            </Modal>
+
+            <Modal
+                visible={modalVisible3}
+                animationType='slide'
+                transparent={true}
+            >
+                <View style={styles.modalScreen3}>
+                    <View style={styles.transparentContainer3} />
+                    <SafeAreaView style={styles.contentContainer3}>
+                        <View style={styles.closeIconContainer}>
+                            <TouchableWithoutFeedback onPress={close}>
+                                <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
+                            </TouchableWithoutFeedback>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Department Options</Text>
+                            <Text></Text>
+                        </View>
+                        <ScrollView style={{ padding: 0, marginTop: 0, width: "100%" }}>
+                            <View style={{ padding: s(10), marginBottom: s(0), }}>
+                                {department.map((item, key) => (
+                                    <>
+                                        <TouchableOpacity key={key} onPress={() => { departmentName(item.name), setDepartmentId(item._id), setModalVisible3(false) }}>
+                                            <Text style={{ fontSize: s(14), marginBottom: s(15), marginLeft: s(10), color: "black" }}>{item.name}</Text>
+                                        </TouchableOpacity>
+                                        <View style={{ backgroundColor: 'grey', height: s(0.3), marginBottom: s(5) }}></View>
+                                    </>
+                                ))}
+                            </View>
+
+                        </ScrollView>
+                    </SafeAreaView>
+                </View>
+            </Modal>
         </>
     )
 }
@@ -245,7 +430,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%",
-        backgroundColor: "white",
+        backgroundColor: "black",
         padding: s(8)
     },
     profileImage: {
@@ -283,6 +468,19 @@ const styles = StyleSheet.create({
         width: '100%',
         height: s(50),
         marginBottom: s(20),
+    },
+    loginContainer3: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: s(1.5),
+        borderRadius: s(50),
+        padding: ms(10),
+        borderColor: "#49001b",
+        backgroundColor: "white",
+        width: '48%',
+        height: s(50),
+        marginBottom: s(15),
     },
     input: {
         flex: 1,
@@ -354,10 +552,103 @@ const styles = StyleSheet.create({
         height: s(180),
 
     },
+    formContainer5: {
+        justifyContent: 'space-between',
+        borderWidth: s(1.5),
+        borderRadius: s(50),
+        padding: ms(10),
+        borderColor: "#49001b",
+        backgroundColor: "white",
+        width: '48%',
+        height: s(50),
+        marginTop: '1%',
+    },
+
+    formContainer6: {
+        justifyContent: 'space-between',
+        borderWidth: s(1.5),
+        borderRadius: s(50),
+        padding: ms(10),
+        borderColor: "#49001b",
+        backgroundColor: "white",
+        width: '100%',
+        height: s(50),
+        marginTop: '1%',
+    },
     // imageContainer: {
     //     position: "absolute",
     //     top: 0
-    // }
+    // },
+
+    modalScreen: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    transparentContainer: {
+        flex: 3,
+        backgroundColor: 'transparent',
+    },
+    contentContainer: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(20),
+        borderTopRightRadius: s(20),
+        paddingHorizontal: s(20),
+        paddingVertical: s(20),
+
+    },
+    closeIconContainer: {
+        marginLeft: s(10),
+        marginTop: s(20),
+        marginBottom: s(10),
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+
+    modalScreen2: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    transparentContainer2: {
+        flex: 3,
+        backgroundColor: 'transparent',
+    },
+    contentContainer2: {
+        flex: 6,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(20),
+        borderTopRightRadius: s(20),
+        paddingHorizontal: s(20),
+        paddingVertical: s(20),
+
+    },
+
+    modalScreen3: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    transparentContainer3: {
+        flex: 3,
+        backgroundColor: 'transparent',
+    },
+    contentContainer3: {
+        flex: 6,
+        backgroundColor: 'white',
+        borderTopLeftRadius: s(20),
+        borderTopRightRadius: s(20),
+        paddingHorizontal: s(20),
+        paddingVertical: s(20),
+
+    },
+    closeIconContainer: {
+        marginLeft: s(10),
+        marginTop: s(20),
+        marginBottom: s(10),
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
 })
 
 export default Register

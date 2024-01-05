@@ -96,13 +96,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.pay.scholar"
+    namespace "com.spout.payment"
     defaultConfig {
-        applicationId "com.pay.scholar"
+        applicationId "com.spout.payment"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.0"
+        versionCode 7
+        versionName "1.0.3"
         multiDexEnabled true
     }
 

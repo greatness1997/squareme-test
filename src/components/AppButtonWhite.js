@@ -9,7 +9,7 @@ const AppButton = ({ onPress, isSubmitting, title, style }) => {
 
     return (
         <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-            {isSubmitting ? <ActivityIndicator color="black" /> : <Text style={styles.text}>{title}</Text>}
+            {isSubmitting ? <ActivityIndicator color="white" /> : <Text style={styles.text}>{title}</Text>}
         </TouchableOpacity>
     );
 }
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // textTransform: 'uppercase',
         fontSize: 18,
-        color: color.primary2,
+        color: "white",
     },
 });
 

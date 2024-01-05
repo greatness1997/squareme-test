@@ -3,6 +3,7 @@ import { Dimensions, View, SafeAreaView, StatusBar, StyleSheet, Modal, Text, Ima
 import { image, swit, wallet, wallet2, backgroundImage, Logo, LogoBlue, Add, Send, Airtime, Data, Electricity, CableTv, Others, Insurance, ServiceView, Ads } from '../../constants/images'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { useSelector } from 'react-redux'
 import cred from '../../config'
 import axios from 'axios'
@@ -74,48 +75,37 @@ const HomeScreen = ({ navigation }) => {
     const { auth: { user } } = useSelector(state => state)
 
     const getBalance = async () => {
-        const url = `${cred.URL}/user/wallet-balance`
-        const options = { headers: { Authorization: `Bearer ${user.token}` } }
+        const url = `${cred.URL}/wallet`
+        const options = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
 
         try {
-            const response = await axios.get(url, options)
-            const { data, message, status } = response.data
-            setBalance(data.balance)
-            setCommission(data.commission)
+            const response = await axios.get(url, options);
+            const { data, message } = response.data;
+            setBalance(data.balance);
+            setCommission(data.commission);
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error.response.data);
         }
     }
 
-    const getProfile = async () => {
-        const url = `${cred.URL}/user/profile`
-        const options = { headers: { Authorization: `Bearer ${user.token}` } }
-
-        try {
-            const response = await axios.get(url, options)
-            const { user, message, status } = response.data
-            setAccountDetails(user.vfdAcctDetails || vfdAcctDetails)
-            setUserData(user)
-        } catch (error) {
-            console.log(error.response.data)
-        }
-    }
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             getBalance()
-            getProfile()
         }, 5000);
         return () => clearInterval(intervalId);
     }, [])
 
     useEffect(() => {
         getBalance()
-        getProfile()
     }, [])
 
-    const name = `${userData.firstName}`
-    const secondName = `${userData.lastName}`
+    const name = `${user.firstName}`
+    const secondName = `${user.lastName}`
 
     const nameOne = name.replace(/^\w/, c => c.toUpperCase())
     const nameTwo = secondName.replace(/^\w/, c => c.toUpperCase())
@@ -158,34 +148,20 @@ const HomeScreen = ({ navigation }) => {
     const endDate = today.format('YYYY-MM-DD');
 
     const transactionHistory = async () => {
-        const url = `${cred.URL2}/user/transaction-history`
+        const url = `${cred.URL}/wallet/history`
         const options = { headers: { Authorization: `Bearer ${user.token}` } }
 
-        const body = {
-            "page": 1,
-            "startDate": startDate,
-            "endDate": endDate,
-            "status": "",
-            "reference": "",
-            "product": "",
-            "account": "",
-            "channel": "",
-            "provider": ""
-        }
-
         try {
-            const response = await axios.post(url, body, options)
-            const { transactions } = response.data
+            const response = await axios.get(url, options)
+            const { data } = response.data
 
-            setTransaction(transactions.docs)
+            setTransaction(data.docs)
             setRefreshing(false)
 
 
         } catch (error) {
-            console.log(error.response.data, 'from catch')
             const { message } = error.response.data
             setRefreshing(false)
-            Alert.alert(`${message}`);
 
         }
     }
@@ -206,12 +182,15 @@ const HomeScreen = ({ navigation }) => {
     };
 
     const renderItem = ({ item }) => {
+
         let displayText = '';
 
         if (item.product.includes('data')) {
             displayText = 'Data Purchase';
         } else if (item.product.includes('vtu')) {
             displayText = 'Airtime Purchase';
+        } else if (item.product.includes('book')) {
+            displayText = 'Book Purchase';
         } else if (item.product.includes('multichoice') || item.product.includes('startimes')) {
             displayText = 'TV Subscription';
         } else {
@@ -227,14 +206,13 @@ const HomeScreen = ({ navigation }) => {
             //         />
             //     }
             // >
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(15) }}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20), marginTop: s(20) }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ backgroundColor: "lightgrey", padding: s(7), borderRadius: s(20), marginRight: s(10) }}>
                         <MaterialCommunityIcons
                             name={
-                                item.status === "successful" ? "thumb-up" :
-                                    item.status === "failed" ? "thumb-down" :
-                                        item.status === "pending" ? "thumbs-up-down" : null
+                                item.type === "credit" ? "thumb-up" :
+                                    item.type === "debit" ? "thumb-down" : null
                             }
                             size={s(20)}
                             color="grey"
@@ -243,14 +221,14 @@ const HomeScreen = ({ navigation }) => {
 
                     <View>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            {displayText && <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12), marginRight: s(5) }}>{displayText}</Text>}
-                            <Text style={{ color: "black", fontWeight: "bold" }}>{`₦${format.format(item.amount)}`}</Text>
+                            {displayText && <Text style={{ color: "white", fontWeight: "bold", fontSize: s(12), marginRight: s(5) }}>{displayText}</Text>}
+                            <Text style={{ color: "white", fontWeight: "bold" }}>{`₦${format.format(item.amount)}`}</Text>
                         </View>
                         <Text style={{ color: "grey", fontWeight: "600", marginTop: s(3), fontSize: s(13) }}>mobile wallet</Text>
                     </View>
                 </View>
                 <View>
-                    <Text style={{ color: item.status === "successful" ? "green" : item.status === "failed" ? "red" : "yellow", fontWeight: "bold", marginRight: s(5) }}>{item.status}</Text>
+                    <Text style={{ color: item.type === "credit" ? "green" : "red", fontWeight: "bold", marginRight: s(5) }}>{item.type}</Text>
                     <Text style={{ color: "grey", fontWeight: "bold", marginTop: s(3) }}>{formatDate(item.createdAt)}</Text>
                 </View>
             </View>
@@ -282,7 +260,7 @@ const HomeScreen = ({ navigation }) => {
 
                 </View>
 
-                <TouchableOpacity> 
+                <TouchableOpacity>
                     <ImageBackground
                         source={wallet}
                         style={styles.bg}
@@ -307,14 +285,23 @@ const HomeScreen = ({ navigation }) => {
                                     </View> */}
 
                             </View>
-                            <View style={{ flexDirection: "row", paddingLeft: ms(30), paddingRight: ms(30), marginTop: s(10), justifyContent: "center" }}>
-                                <TouchableOpacity style={styles.AddIcon} onPress={() => setModalVisible(true)}>
+                            <View style={{ flexDirection: "row", justifyContent: user.userType === "student" ? "center" : "space-between", marginTop: s(10), paddingRight: s(20), paddingLeft: s(20) }}>
+                                <TouchableOpacity style={user.userType === "student" ? styles.centeredAddIcon : styles.AddIcon} onPress={() => setModalVisible(true)}>
                                     <View>
                                         <MaterialCommunityIcons name="plus-circle" size={40} color="white" />
                                     </View>
                                     <Text style={{ marginLeft: s(8), fontSize: s(14), fontWeight: 'bold', color: 'white' }}>Fund Wallet</Text>
                                 </TouchableOpacity>
+                                {user.userType === "lecturer" && (
+                                    <TouchableOpacity style={styles.AddIcon2}>
+                                        <View>
+                                            <Entypo name="paper-plane" size={35} color="white" />
+                                        </View>
+                                        <Text style={{ marginLeft: s(8), fontSize: s(14), fontWeight: 'bold', color: 'white' }}>Withdrawal</Text>
+                                    </TouchableOpacity>
+                                )}
                             </View>
+
                         </View>
                     </ImageBackground>
                 </TouchableOpacity>
@@ -628,7 +615,7 @@ const styles = StyleSheet.create({
         textShadowRadius: s(5)
     },
     AddIcon: {
-        width: "55%",
+        width: "50%",
         height: s(50),
         flexDirection: "row",
         alignItems: "center",
@@ -637,6 +624,31 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         padding: s(5),
         backgroundColor: 'rgba(255, 255, 255, 0.2)'
+    },
+    AddIcon2: {
+        width: "50%",
+        height: s(50),
+        flexDirection: "row",
+        alignItems: "center",
+        borderColor: "white",
+        marginLeft: s(20),
+        borderWidth: 0.5,
+        borderRadius: 50,
+        padding: s(5),
+        backgroundColor: 'rgba(255, 255, 255, 0.2)'
+    },
+    centeredAddIcon: {
+        alignItems: 'center', 
+        width: "50%",
+        height: s(50),
+        flexDirection: "row",
+        borderColor: "white",
+        marginLeft: s(20),
+        borderWidth: 0.5,
+        borderRadius: 50,
+        padding: s(5),
+        backgroundColor: 'rgba(255, 255, 255, 0.2)'
+       
     },
     sendIcon: {
         width: "50%",

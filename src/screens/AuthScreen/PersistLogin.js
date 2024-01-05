@@ -30,7 +30,7 @@ const PersistLogin = ({ navigation, route }) => {
 
 
     const Schema = Yup.object().shape({
-        login: Yup.string().required('Email field is required'),
+        phoneNumber: Yup.string().required('Phone Number field is required'),
         password: Yup.string().required('Password field is required'),
     });
 
@@ -38,14 +38,14 @@ const PersistLogin = ({ navigation, route }) => {
 
         console.log(res)
 
-        const url = `${cred.URL}/auth/get-token`
+        const url = `${cred.URL}/auth/login`
 
         try {
             setIsLoadking(true)
             const response = await axios.post(url, res)
-            const { status, message, userData, token } = response.data
+            const { success, message, userData, token } = response.data
 
-            if (status !== "success") {
+            if (success !== "success") {
                 Alert.alert(`${status}`, `${message}`)
                 setIsLoadking(false)
             } else {
@@ -67,7 +67,7 @@ const PersistLogin = ({ navigation, route }) => {
             const userData = await AsyncStorage.getItem('userData');
             const data = JSON.parse(userData)
             setAsyncData(data || { "firstName": "N/A", "lastName": "N/A" })
-            setEmail(data.email)
+            setEmail(data.phoneNumber)
         } catch (e) {
             console.log(e)
         }
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#00bdfe",
+        backgroundColor: "#454545",
         marginTop: s(28),
         width: "82%"
     }

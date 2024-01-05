@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { TextInput, View, Text, StyleSheet, Pressable, Alert, TouchableOpacity } from 'react-native'
+import { TextInput, View, Text, StyleSheet, TouchableWithoutFeedback, Pressable, Alert, TouchableOpacity } from 'react-native'
 import { color } from '../constants/color'
 import { useSelector } from "react-redux"
 import AppButton from './AppButtonWhite'
@@ -58,33 +58,57 @@ const Pin = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTe
     const verifyOTP = async () => {
 
         setIsLoading(true)
-        const url = `${cred.URL}/auth/verify-email`
+        const url = `${cred.URL}/auth/verify-otp`
         const body = {
-            "email": data.data,
-            "activationPin": code
+            "phoneNumber": data.data,
+            "otp": code
         }
 
 
         try {
             const data = await axios.post(url, body)
 
-            const {message, status, token} = data.data
-            
+            const { message, success } = data.data
 
-            if (status === "success") {
-                Alert.alert(status, "Account Verification Successful")
-                navigation.navigate("createPin")
-                dispatch({ type: "LOGIN", user: { token: `${token}` } })
-                setIsLoading(false)
+
+            if (success === "success") {
+                Alert.alert(`${success}`, `${message}`)
+                navigation.navigate("login")
 
             } else {
                 setIsLoading(false)
-                setError(message, "could'nt verify your email")
+                setError(message, "could'nt verify otp")
             }
 
         } catch (error) {
             setIsLoading(false)
             const { message } = error.response.data
+            setError(message)
+        }
+    }
+
+    const resendOTP = async () => {
+        const url = `${cred.URL}/auth/resend-otp`
+        const body = {
+            "phoneNumber": data.data,
+        }
+
+
+        try {
+            const res = await axios.post(url, body)
+
+            const { message, success, data } = res.data
+
+
+            if (success === "success") {
+                Alert.alert(`${success}`, `${data.message}`)
+
+            } else {
+                setError(message, "could'nt resend otp")
+            }
+
+        } catch (error) {
+            const { message } = error.response.data  
             setError(message)
         }
     }
@@ -114,13 +138,11 @@ const Pin = ({ code, setCode, setPinReady, maxLength, navigation, data, secureTe
 
             <View style={styles.textCont}>
                 {error && <Text style={{ fontSize: s(11), color: "red", marginLeft: s(8) }}>{error}</Text>}
-                {/* <View style={{ flexDirection: "row", marginTop: s(5) }}>
-                    <Text style={styles.text2}>Didn't get an OTP?</Text><TouchableOpacity><Text style={styles.text3}>Resend</Text></TouchableOpacity>
-                </View> */}
-
             </View>
-
-            <AppButton title="Confirm Pin" isSubmitting={loading} onPress={() => verifyOTP()} style={styles.btn} />
+            <View style={{ marginTop: s(18), alignItems: "center" }}>
+                <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Don't receive code? <TouchableWithoutFeedback onPress={() => resendOTP()}><Text style={{ color: "grey" }}>Resend</Text></TouchableWithoutFeedback></Text>
+            </View>
+            <AppButton title="Verify" isSubmitting={loading} onPress={() => verifyOTP()} style={styles.btn} />
         </>
     )
 }
@@ -157,7 +179,7 @@ const styles = StyleSheet.create({
         color: "black"
     },
     btn: {
-        backgroundColor: "white",
+        backgroundColor: "#4b4b4b",
         top: '40%',
         height: s(50),
         marginBottom: s(20),

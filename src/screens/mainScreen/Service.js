@@ -18,13 +18,13 @@ const Service = ({ navigation }) => {
                 </TouchableWithoutFeedback>
 
                 <View style={{ justifyContent: "center", marginLeft: s(95) }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>Service</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>All Service</Text>
                 </View>
             </View>
             <Text style={{ fontSize: 15, fontWeight: "500", marginTop: s(35), marginLeft: s(20), color: "white" }}>Services selected for you, choosee what you want.</Text>
             <View style={[styles.billsCont,]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("ProviderTv")} style={{ alignItems: "center" }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("TextBooks")} style={{ alignItems: "center" }}>
                         <View style={styles.productCont}>
                             <MaterialCommunityIcons name="book-open-page-variant" size={s(30)} color="white" />
                             <Text style={{ fontSize: s(12), marginTop: s(8), color: "white" }}>Text Books</Text>

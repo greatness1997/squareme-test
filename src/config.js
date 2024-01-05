@@ -5,9 +5,7 @@ const liveCredentials = {
 }
 
 const testCredentials = {
-    URL: "http://139.162.214.131:5010/api/v1",
-    URL2: "http://139.162.214.131:5011/api/v1",
-    API_KEY: "a44b0faaff867ead5fa27a05b43e4589517e62da5d32c3d210a119e5b6da9ed2",
+    URL: "http://176.58.106.27/api/v1",
 }
 
 

@@ -1,4 +1,4 @@
-package com.pay.scholar;
+package com.spout.payment;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

@@ -15,7 +15,6 @@ import AppNavigator from './src/screens/navigation/AppNavigator'
 import { color } from './src/constants/color';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OfflineNotice from "./src/screens/mainScreen/OfflineNotice";
-import codePush from "react-native-code-push";
 
 
 

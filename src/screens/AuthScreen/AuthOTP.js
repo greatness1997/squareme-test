@@ -31,8 +31,8 @@ const AuthOTP = ({ navigation, route }) => {
 
                     <View style={styles.textCont}>
                     <Text style={styles.text4}>Enter OTP Below</Text>
-                        <Text style={styles.text2}>We sent an OTP code your email</Text>
-                        <Text style={styles.text1}>address just now</Text>
+                        <Text style={styles.text2}>We sent an OTP code your</Text>
+                        <Text style={styles.text1}>phone number just now</Text>
                         <Text style={styles.text3}>{data.data.toLowerCase()}</Text>
                     </View>
                 </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "#49001b",
+        backgroundColor: "black",
     },
     // duration: {
     //     justifyContent: 'center',
