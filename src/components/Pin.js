@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         color: "black"
     },
     btn: {
-        backgroundColor: "#4b4b4b",
+        backgroundColor: "#49001b",
         top: '40%',
         height: s(50),
         marginBottom: s(20),

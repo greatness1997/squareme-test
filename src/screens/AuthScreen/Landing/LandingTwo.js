@@ -7,6 +7,8 @@ import AppButton from "../../../components/AppButtonBlue";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { innovation } from "../../../constants/images";
+
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { LottieApartment } from "../../../components/LottieView"
 
@@ -17,19 +19,25 @@ const LandingTwo = ({ navigation }) => {
 
 
   return (
-    <>
-    <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+    
+     <>
+      <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+
       <View style={styles.container}>
-      <LottieApartment style={{ width: s(250), height: s(250), alignSelf: "center" }} />
+        <Image source={innovation} style={{ width: "90%", height: s(200), alignSelf: "center" }} />
         <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
-          <Text style={styles.text}>Apartments</Text>
+          <Text style={styles.text}>Innovation</Text>
           <Text style={styles.text2}>
-            Secure and apartment of yours quickly anywhere in Nigeria on fix it easy and beat the stress from apartment agents
+            
+Innovative education blends technology and creative approaches, simplifying learning, inspiring curiosity, and preparing students for a dynamic future.
           </Text>
-          <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10) }}>2 of 3</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("LandingThree")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center"}}>
-            <MaterialCommunityIcons name="arrow-right" size={s(30)} color="white" />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10), marginRight: 10 }}>2 of 3</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("LandingThree")} style={{ marginTop: s(0), width: s(30), height: s(30), backgroundColor: "black", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
+              <MaterialCommunityIcons name="arrow-right" size={s(20)} color="white" />
+            </TouchableOpacity>
+          </View>
+
         </View>
       </View>
     </>

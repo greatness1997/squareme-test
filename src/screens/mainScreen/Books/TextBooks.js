@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 import cred from '../../../config'
 import axios from 'axios'
 
+import "intl"
+import "intl/locale-data/jsonp/en";
 
 
 const TextBooks = ({ navigation }) => {
@@ -18,7 +20,7 @@ const TextBooks = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(false);
 
     const { auth: { user } } = useSelector(state => state)
-  
+
 
     const getMyBooks = async () => {
 
@@ -63,6 +65,11 @@ const TextBooks = ({ navigation }) => {
         setRefreshing(false);
     };
 
+    const format = new Intl.NumberFormat("en-US", {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 2
+    })
+
     // useEffect(() => {
     //     const intervalId = setInterval(() => {
     //         getMyBooks()
@@ -74,99 +81,104 @@ const TextBooks = ({ navigation }) => {
         getMyBooks()
     }, [])
 
-    const renderItem = ({ item }) => (
-
-        <TouchableOpacity style={styles.card}>
-            <Image source={{ uri: item.image }} style={styles.house} />
-            <View style={{ marginTop: s(10) }}>
-                <Text style={{ fontSize: s(13), fontWeight: "bold", color: "white" }}>{item.title}</Text>
-                <Text style={{ fontSize: s(13), color: "white" }}>by {item.author}</Text>
-                <Text style={{ fontWeight: "bold", fontSize: s(14), color: "grey" }}>{`₦${item.price}`}</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("ViewBooks", { data: item })} style={styles.button}>
-                    <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12) }}>VIEW</Text>
-                </TouchableOpacity>
-            </View>
-        </TouchableOpacity>
-    );
-
-    return (
-        // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{ padding: s(10), backgroundColor: "black", height: "100%" }}>
-            <View style={{ marginTop: s(40), flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name="arrow-left-thick" color="white" size={s(22)} />
-                </TouchableOpacity>
-                <Text style={{ color: "white", fontSize: s(14), fontWeight: "bold" }}>My Book List</Text>
-                <Text></Text>
-            </View>
-            <View style={{ marginTop: s(10), marginBottom: s(120) }}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
-                    <View style={{ width: "85%", marginBottom: s(10) }}>
-                        <Formik
-                            initialValues={{ book: "" }}
-                            enableReinitialize={true}
-                            onSubmit={(values) => {
-                                Schema.validate(values)
-                                    .then((res) => {
-
-                                    })
-                                    .catch((err) => Alert.alert('Please provide proper details', err.message));
-                            }}>
-                            {(props) => {
-                                const { handleChange, values, handleSubmit } = props;
-
-                                return (
-                                    <View>
-                                        <View style={styles.searchContainer}>
-                                            <MaterialCommunityIcons name="magnify" size={s(22)} color="grey" style={{ marginRight: s(10) }} />
-                                            <TextInput
-                                                style={styles.input}
-                                                placeholder='Search Book Title?'
-                                                placeholderTextColor="grey"
-                                                onChangeText={(text) => {
-                                                    handleChange('book')(text);
-                                                    // filterBanks(text);
-                                                }}
-                                            // value={values.banks}
-                                            />
-                                        </View>
-                                    </View>
-                                );
-                            }}
-                        </Formik>
-                    </View>
-                    {user.userType === "lecturer" && (<TouchableOpacity onPress={() => navigation.navigate("AddBooks")} style={styles.add}>
-                        <MaterialCommunityIcons name="plus" color="white" size={s(20)} />
-                    </TouchableOpacity>)}
+    const renderItem = ({ item }) => {
+        let originalText = item.description;
+        let limitedText = originalText.split(' ').slice(0, 10).join(' ');
+    
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate("ViewBooks", { data: item })} style={styles.card}>
+                <Image source={{ uri: item.image }} style={styles.house} />
+                <View style={{ marginTop: s(10) }}>
+                    <Text style={{ fontSize: s(13), fontWeight: "bold", color: "white" }}>{item.title}</Text>
+                    <Text style={{ fontSize: s(13), color: "white", fontStyle: 'italic'  }}>{item.author}</Text>
+                    <Text style={{ fontWeight: "bold", fontSize: s(14), color: "grey" }}>{`₦${format.format(item.price)}`}</Text>
+                    <Text style={{ fontSize: s(11), color: "white", marginTop: s(3) }}>{limitedText} ...</Text>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate("ViewBooks", { data: item })} style={styles.button}>
+                            <Text style={{ color: "black", fontWeight: "bold", fontSize: s(12) }}>VIEW</Text>
+                        </TouchableOpacity> */}
                 </View>
+            </TouchableOpacity>
+        );
+    };
 
-                <FlatList
-                    data={books}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item._id}
-                    numColumns={2}
-                    contentContainerStyle={{ justifyContent: 'space-between' }}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={refreshData}
-                            colors={['white']} // Set your desired loading indicator color
-                        />
-                    }
-                />
-
-                {loading && (<View style={styles.overlay}>
-                    <ActivityIndicator size="large" color="white" />
-                </View>)}
-
-                {refreshing && <View style={styles.overlay}>
-                    <ActivityIndicator size="large" color="white" />
-                    <Text style={{ color: 'white', marginTop: 10 }}>Refreshing...</Text>
-                </View>}
-
-            </View>
+return (
+    // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ padding: s(10), backgroundColor: "black", height: "100%" }}>
+        <View style={{ marginTop: s(40), flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <MaterialCommunityIcons name="arrow-left-thick" color="white" size={s(22)} />
+            </TouchableOpacity>
+            <Text style={{ color: "white", fontSize: s(14), fontWeight: "bold" }}>My Book List</Text>
+            <Text></Text>
         </View>
-    )
+        <View style={{ marginTop: s(10), marginBottom: s(120) }}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
+                <View style={{ width: "85%", marginBottom: s(10) }}>
+                    <Formik
+                        initialValues={{ book: "" }}
+                        enableReinitialize={true}
+                        onSubmit={(values) => {
+                            Schema.validate(values)
+                                .then((res) => {
+
+                                })
+                                .catch((err) => Alert.alert('Please provide proper details', err.message));
+                        }}>
+                        {(props) => {
+                            const { handleChange, values, handleSubmit } = props;
+
+                            return (
+                                <View>
+                                    <View style={styles.searchContainer}>
+                                        <MaterialCommunityIcons name="magnify" size={s(22)} color="grey" style={{ marginRight: s(10) }} />
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder='Search Book Title?'
+                                            placeholderTextColor="grey"
+                                            onChangeText={(text) => {
+                                                handleChange('book')(text);
+                                                // filterBanks(text);
+                                            }}
+                                        // value={values.banks}
+                                        />
+                                    </View>
+                                </View>
+                            );
+                        }}
+                    </Formik>
+                </View>
+                {user.userType === "lecturer" && (<TouchableOpacity onPress={() => navigation.navigate("AddBooks")} style={styles.add}>
+                    <MaterialCommunityIcons name="plus" color="white" size={s(20)} />
+                </TouchableOpacity>)}
+            </View>
+
+            <FlatList
+                data={books}
+                renderItem={renderItem}
+                keyExtractor={(item) => item._id}
+                numColumns={2}
+                contentContainerStyle={{ justifyContent: 'space-between' }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={refreshData}
+                        colors={['white']} // Set your desired loading indicator color
+                    />
+                }
+            />
+
+            {loading && (<View style={styles.overlay}>
+                <ActivityIndicator size="large" color="white" />
+            </View>)}
+
+            {refreshing && <View style={styles.overlay}>
+                <ActivityIndicator size="large" color="white" />
+                <Text style={{ color: 'white', marginTop: 10 }}>Refreshing...</Text>
+            </View>}
+
+        </View>
+    </View>
+)
 }
 
 const styles = StyleSheet.create({

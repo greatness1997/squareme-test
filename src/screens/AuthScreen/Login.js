@@ -106,8 +106,8 @@ const Login = ({ navigation, route }) => {
                 </View>} */}
                 <View style={{ marginBottom: s(30), marginTop: s(60) }}>
                     <View style={{ flexDirection: "row", alignSelf: "center" }}>
-                        <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginRight: s(5) }}>Sign In</Text>
-                        <MaterialCommunityIcons name="login" size={s(25)} color="white" />
+                        <Text style={{ color: "#c66e54", fontSize: s(20), fontWeight: "bold", marginRight: s(5) }}>Sign In</Text>
+                        <MaterialCommunityIcons name="login" size={s(25)} color="#c66e54" />
                     </View>
 
                     <Text style={{ color: "white", fontSize: s(11), fontWeight: "400", alignSelf: "center", marginTop: s(3) }}>Login your account to continue</Text>
@@ -130,7 +130,7 @@ const Login = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(10) }}>
-                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Phone Number</Text>
+                                    <Text style={{ color: "#c66e54", fontWeight: "bold", marginBottom: s(15), fontSize: s(14), marginLeft: s(5) }}>Phone Number</Text>
                                     <View style={styles.loginContainer2}>
                                         <TextInput
                                             style={styles.input}
@@ -147,7 +147,7 @@ const Login = ({ navigation, route }) => {
                                         />
 
                                     </View>
-                                    <Text style={{ color: "white", fontWeight: "bold", marginBottom: s(10), fontSize: s(14), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "#c66e54", fontWeight: "bold", marginBottom: s(10), fontSize: s(14), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -169,13 +169,13 @@ const Login = ({ navigation, route }) => {
 
                                     <TouchableWithoutFeedback onPress={() => navigation.navigate("ResetCode", { data: "from login" })}  >
                                         <View style={{ marginTop: s(18), alignItems: "flex-end" }}>
-                                            <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
+                                            <Text style={{ color: "#c66e54", fontSize: s(12), fontWeight: "500" }}>Forget Password?</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <AppButton title="Login" onPress={handleSubmit} isSubmitting={loading} style={styles.btn} />
                                     <View style={{ marginTop: s(18), marginRight: s(5), alignItems: "flex-end" }}>
-                                        <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Don't have an account? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "white" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
+                                        <Text style={{ color: "white", fontSize: s(12), fontWeight: "500" }}>Don't have an account? <TouchableWithoutFeedback onPress={() => navigation.navigate('register')}><Text style={{ color: "#c66e54" }}>Sign Up</Text></TouchableWithoutFeedback></Text>
                                     </View>
                                 </View>
                             );
@@ -239,9 +239,9 @@ const styles = StyleSheet.create({
         fontSize: s(15)
     },
     btn: {
-        backgroundColor: "#454545",
+        backgroundColor: "#49001b",
         marginTop: s(28),
-        height: s(50)
+        height: s(50),
     },
     message: {
         position: "absolute"

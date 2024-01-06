@@ -8,6 +8,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import { education } from "../../../constants/images";
 
 import { LottieBills } from "../../../components/LottieView"
 
@@ -20,18 +21,21 @@ const LandingOne = ({ navigation }) => {
   return (
     <>
       <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
-      
+
       <View style={styles.container}>
-      <LottieBills style={{ width: s(200), height: s(200), alignSelf: "center" }} />
+        <Image source={education} style={{ width: "90%", height: s(200), alignSelf: "center" }} />
         <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
-          <Text style={styles.text}>Pay Bills Fast and Seamless</Text>
+          <Text style={styles.text}>Education</Text>
           <Text style={styles.text2}>
-            Pay your electricity, internet, Tv and other utility bills fast and seamless from your confort zone
+            Streamlined education leverages technology, fostering accessibility, personalized learning, and simplicity to make acquiring knowledge effortless and enjoyable.
           </Text>
-          <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10) }}>1 of 3</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("LandingTwo")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
-            <MaterialCommunityIcons name="arrow-right" size={s(30)} color="white" />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10), marginRight: 10 }}>1 of 3</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("LandingTwo")} style={{ marginTop: s(0), width: s(30), height: s(30), backgroundColor: "black", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
+              <MaterialCommunityIcons name="arrow-right" size={s(20)} color="white" />
+            </TouchableOpacity>
+          </View>
+
         </View>
       </View>
     </>

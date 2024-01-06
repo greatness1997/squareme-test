@@ -138,7 +138,7 @@ const History = ({ navigation }) => {
         <>
             <StatusBar barStyle="light-content" />
             <View style={{ backgroundColor: "black", height: "100%" }}>
-                <View style={{ marginTop: s(60), alignItems: "center", marginBottom: s(10) }}>
+                <View style={{ marginTop: s(40), alignItems: "center", marginBottom: s(10) }}>
                     <Text style={{ fontSize: s(18), fontWeight: "700", color: "white" }}>Transaction History</Text>
                 </View>
                 <View style={{ width: "100%", height: "90%", padding: s(15), justifyContent: "center" }}>
@@ -236,7 +236,7 @@ const History = ({ navigation }) => {
                         {transaction.map((item, key) => {
                             return (
                                 <React.Fragment key={key}>
-                                    <TouchableOpacity onPress={() => navigation.navigate("HistoryReceipt", { item })} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(18), alignItems: "center" }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("HistoryReceipt", { item })} style={{ flexDirection: "row", justifyContent: "space-between", marginTop: s(8), alignItems: "center" }}>
                                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                                             {item.status === "successful" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="green" /> : item.status === "pending" ? <MaterialCommunityIcons name="arrow-top-right-thick" size={s(18)} color="yellow" /> :
                                                 <MaterialCommunityIcons name="arrow-bottom-left-thick" size={s(18)} color="red" />}
@@ -256,16 +256,16 @@ const History = ({ navigation }) => {
                                             </View>
                                             <View style={{ marginLeft: s(5) }}>
                                                 <Text style={{ fontSize: s(10), fontWeight: "500", color: "lightgrey" }}>{item.product}</Text>
-                                                <Text style={{ fontSize: s(12), fontWeight: "600", color: "white", marginTop: s(2) }}>{item.walletId}</Text>
+                                                <Text style={{ fontSize: s(11), fontWeight: "600", color: "white", marginTop: s(2) }}>{item.walletId}</Text>
                                             </View>
                                         </View>
                                         <View style={{ alignItems: "flex-end" }}>
-                                            <Text style={{ fontSize: s(14), fontWeight: "600", color: "lightgrey", marginBottom: s(5) }}>{`₦${format.format(item.amount)}`}</Text>
+                                            <Text style={{ fontSize: s(11), fontWeight: "600", color: "lightgrey", marginBottom: s(5) }}>{`₦${format.format(item.amount)}`}</Text>
                                             {item.type === "credit" ? <Text style={{ color: "green" }} >{item.type}</Text> : <Text style={{ color: "red" }} >{item.type}</Text>}
-                                            <Text style={{ marginTop: s(2), color: "white" }}>{formatDate(item.createdAt)}</Text>
+                                            <Text style={{ fontSize: s(11), marginTop: s(2), color: "white" }}>{formatDate(item.createdAt)}</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <View style={{ height: s(0.5), backgroundColor: "#e0e0e0", width: "100%", marginTop: s(8) }}></View>
+                                    <View style={{ height: s(0.5), backgroundColor: "lightgrey", width: "100%", marginTop: s(8) }}></View>
                                 </React.Fragment>
                             )
 

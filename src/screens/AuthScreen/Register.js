@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, SafeAreaView, Text, Modal, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Modal, View, StatusBar, Image, TextInput, TouchableWithoutFeedback, Alert, Platform, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import { color } from '../../constants/color'
 import { Logo, FingerPrint, image, lock } from '../../constants/images'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -27,6 +27,7 @@ import ToastNotification from '../../components/Toast'
 const Register = ({ navigation, route }) => {
 
     const [loading, setIsLoadking] = useState(false)
+    const [load, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [visible, setVisible] = useState(true)
     const [error, setError] = useState(null)
@@ -101,7 +102,7 @@ const Register = ({ navigation, route }) => {
             "phoneNumber": res.phoneNumber,
             "password": res.password,
             "userType": userType,
-            "institution": institutionId, 
+            "institution": institutionId,
             "department": departmentId
         }
 
@@ -130,14 +131,17 @@ const Register = ({ navigation, route }) => {
     };
 
     const getInstitution = async () => {
+        setLoading(true)
         const url = `${cred.URL}/misc/institutions`
 
         try {
             const res = await axios.get(url)
             const { status, message, data } = res.data
             setInstitution(data)
+            setLoading(false)
 
         } catch (error) {
+            setLoading(false)
             console.log(error)
             console.log(error.response.data)
             setIsLoadking(false)
@@ -146,14 +150,17 @@ const Register = ({ navigation, route }) => {
     }
 
     const getDepartment = async () => {
+        setLoading(true)
         const url = `${cred.URL}/misc/departments`
 
         try {
             const res = await axios.get(url)
             const { status, message, data } = res.data
             setDepartment(data)
+            setLoading(false)
 
         } catch (error) {
+            setLoading(false)
             console.log(error.response.data)
             setIsLoadking(false)
         }
@@ -180,8 +187,8 @@ const Register = ({ navigation, route }) => {
                     <MaterialCommunityIcons name="arrow-left" size={s(25)} color="white" />
                 </TouchableOpacity>}
                 <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: s(5), marginTop: s(20) }}>
-                    <Text style={{ color: "white", fontSize: s(20), fontWeight: "bold", marginRight: s(7) }}>Sign Up</Text>
-                    <MaterialCommunityIcons name="account-plus" size={s(25)} color="white" />
+                    <Text style={{ color: "#c66e54", fontSize: s(20), fontWeight: "bold", marginRight: s(7) }}>Sign Up</Text>
+                    <MaterialCommunityIcons name="account-plus" size={s(25)} color="#c66e54" />
                 </View>
 
                 <KeyboardAvoidView>
@@ -204,9 +211,9 @@ const Register = ({ navigation, route }) => {
 
                             return (
                                 <View style={{ marginTop: s(30) }}>
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
+                                    <Text style={{ color: "#c66e54", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Email</Text>
                                     <View style={styles.loginContainer2}>
-                                        {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
+                                        {/* <Text style={{ color: "#c66e54", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
                                             style={styles.input}
                                             placeholder='example@gmail.com'
@@ -219,9 +226,9 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
+                                    <Text style={{ color: "#c66e54", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>First Name</Text>
                                     <View style={styles.loginContainer2}>
-                                        {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
+                                        {/* <Text style={{ color: "#c66e54", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Your first name'
@@ -234,9 +241,9 @@ const Register = ({ navigation, route }) => {
                                         />
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
+                                    <Text style={{ color: "#c66e54", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Last Name</Text>
                                     <View style={styles.loginContainer2}>
-                                        {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
+                                        {/* <Text style={{ color: "#c66e54", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Your last name'
@@ -250,13 +257,13 @@ const Register = ({ navigation, route }) => {
                                     </View>
 
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={{ color: "white", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
-                                        <Text style={{ color: "white", fontSize: s(11), marginBottom: s(4), }}>Select User Type</Text>
+                                        <Text style={{ color: "#c66e54", marginBottom: s(10), fontSize: s(12), marginLeft: s(5) }}>Phone Number</Text>
+                                        <Text style={{ color: "#c66e54", fontSize: s(11), marginBottom: s(4), }}>Select User Type</Text>
                                     </View>
 
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                         <View style={styles.loginContainer3}>
-                                            {/* <Text style={{ color: "white", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
+                                            {/* <Text style={{ color: "#c66e54", fontWeight: "bold", fontSize: s(15), marginLeft: s(5) }}>+234</Text> */}
                                             <TextInput
                                                 style={styles.input}
                                                 placeholder='11 Digits'
@@ -278,23 +285,23 @@ const Register = ({ navigation, route }) => {
                                         </View>
                                     </View>
 
-                                    <Text style={{ color: "white", fontSize: s(11), marginBottom: s(4), }}>Select Institution</Text>
+                                    <Text style={{ color: "#c66e54", fontSize: s(11), marginBottom: s(4), }}>Select Institution</Text>
                                     <View style={styles.formContainer6}>
-                                        <TouchableOpacity onPress={() => { setModalVisible2(true), getInstitution() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => { setLoading(true), setModalVisible2(true), getInstitution() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                             <Text style={{ color: "black", fontWeight: "500", fontSize: s(14), marginLeft: s(6) }}>{instName}</Text>
                                             <MaterialCommunityIcons name="chevron-down" size={s(22)} color="black" />
                                         </TouchableOpacity>
                                     </View>
 
-                                    <Text style={{ color: "white", fontSize: s(11), marginBottom: s(5), marginTop: s(10), }}>Select Department</Text>
+                                    <Text style={{ color: "#c66e54", fontSize: s(11), marginBottom: s(5), marginTop: s(10), }}>Select Department</Text>
                                     <View style={styles.formContainer6}>
-                                        <TouchableOpacity onPress={() => { setModalVisible3(true), getDepartment() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => { setLoading(true), setModalVisible3(true), getDepartment() }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                             <Text style={{ color: "black", fontWeight: "500", fontSize: s(14), marginLeft: s(6) }}>{depName}</Text>
                                             <MaterialCommunityIcons name="chevron-down" size={s(22)} color="black" />
                                         </TouchableOpacity>
                                     </View>
 
-                                    <Text style={{ color: "white", marginBottom: s(10), marginTop: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
+                                    <Text style={{ color: "#c66e54", marginBottom: s(10), marginTop: s(10), fontSize: s(12), marginLeft: s(5) }}>Password</Text>
                                     <View style={styles.loginContainer}>
                                         <TextInput
                                             style={styles.input}
@@ -342,7 +349,7 @@ const Register = ({ navigation, route }) => {
                             <TouchableWithoutFeedback onPress={close}>
                                 <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
                             </TouchableWithoutFeedback>
-                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Gender Options</Text>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Select User Type</Text>
                             <Text></Text>
                         </View>
                         <View style={{ padding: 0, marginTop: 0, width: "100%" }}>
@@ -370,10 +377,11 @@ const Register = ({ navigation, route }) => {
                             <TouchableWithoutFeedback onPress={close}>
                                 <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
                             </TouchableWithoutFeedback>
-                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Institution Options</Text>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Select Institution</Text>
                             <Text></Text>
                         </View>
                         <ScrollView style={{ padding: 0, marginTop: 0, width: "100%" }}>
+                            {load && <ActivityIndicator color="black" />}
                             <View style={{ padding: s(10), marginBottom: s(0), }}>
                                 {institution.map((item, key) => (
                                     <>
@@ -402,10 +410,11 @@ const Register = ({ navigation, route }) => {
                             <TouchableWithoutFeedback onPress={close}>
                                 <MaterialCommunityIcons name="close-circle" size={s(22)} color="black" />
                             </TouchableWithoutFeedback>
-                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Department Options</Text>
+                            <Text style={{ fontSize: s(15), fontWeight: "600", color: "black" }}>Select Department</Text>
                             <Text></Text>
                         </View>
                         <ScrollView style={{ padding: 0, marginTop: 0, width: "100%" }}>
+                            {load && <ActivityIndicator color="black" />}
                             <View style={{ padding: s(10), marginBottom: s(0), }}>
                                 {department.map((item, key) => (
                                     <>

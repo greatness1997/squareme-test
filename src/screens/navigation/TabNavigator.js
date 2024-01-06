@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Tab = createBottomTabNavigator()
 
@@ -70,7 +70,7 @@ const TabNavigator = () => {
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({
-            tabBarStyle: { backgroundColor: 'black', height: 100 },
+            tabBarStyle: { backgroundColor: 'black', height: Platform.OS === "ios" ? 100 : 60 },
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: 'gray',
             tabBarIcon: ({ focused, color, size }) => {

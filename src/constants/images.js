@@ -40,5 +40,9 @@ export const others =  require('../assets/others.png')
 export const light =  require('../assets/light.png')
 export const tv =  require('../assets/tv.png')
 
+export const education =  require('../assets/Education.jpeg')
+export const innovation =  require('../assets/innovation.jpeg')
+export const technology =  require('../assets/technology.jpeg')
+
 
 

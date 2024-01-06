@@ -96,9 +96,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.spout.payment"
+    namespace "com.pay.scholar"
     defaultConfig {
-        applicationId "com.spout.payment"
+        applicationId "com.pay.scholar"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7

@@ -6,6 +6,7 @@ import AppButton from "../../../components/AppButtonBlue";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { technology } from "../../../constants/images";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { LottieWelcome } from "../../../components/LottieView"
@@ -18,18 +19,23 @@ const LandingThree = ({ navigation }) => {
 
   return (
     <>
-    <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+      <StatusBar barStyle={Platform.select({ android: 'dark-content', ios: 'dark-content' })} />
+
       <View style={styles.container}>
-      <LottieWelcome style={{ width: s(250), height: s(250), alignSelf: "center" }} />
+        <Image source={technology} style={{ width: "90%", height: s(200), alignSelf: "center" }} />
         <View style={{ alignItems: "center", width: windowWidth, height: windowHeight / 3, padding: s(10) }}>
-          <Text style={styles.text}>Welcome</Text>
+          <Text style={styles.text}>Technology</Text>
           <Text style={styles.text2}>
-          Excited to have you here! Dive in and enjoy the magic of Fix it Easy
+
+          Transformative educational experience integrates cutting-edge technology, enhancing engagement, fostering collaboration, and preparing students for a tech-driven future.
           </Text>
-          <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10) }}>3 of 3</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("LandingFour")} style={{ marginTop: s(0), width: s(60), height: s(60), backgroundColor: "#49001b", borderRadius: s(50), justifyContent: "center", alignItems: "center"}}>
-            <MaterialCommunityIcons name="arrow-right" size={s(30)} color="white" />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ color: "black", fontWeight: "bold", fontSize: s(15), marginBottom: s(10), marginRight: 10 }}>2 of 3</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("login")} style={{ marginTop: s(0), width: s(30), height: s(30), backgroundColor: "black", borderRadius: s(50), justifyContent: "center", alignItems: "center" }}>
+              <MaterialCommunityIcons name="arrow-right" size={s(20)} color="white" />
+            </TouchableOpacity>
+          </View>
+
         </View>
       </View>
     </>

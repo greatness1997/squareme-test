@@ -31,7 +31,7 @@ const AuthOTP = ({ navigation, route }) => {
 
                     <View style={styles.textCont}>
                     <Text style={styles.text4}>Enter OTP Below</Text>
-                        <Text style={styles.text2}>We sent an OTP code your</Text>
+                        <Text style={styles.text2}>We sent an OTP code to your</Text>
                         <Text style={styles.text1}>phone number just now</Text>
                         <Text style={styles.text3}>{data.data.toLowerCase()}</Text>
                     </View>
@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
     text2: {
         fontSize: s(12),
         fontWeight: "500",
-        color: "#6e6e6e"
+        color: "#c66e54"
     },
 
     text1: {
         fontSize: s(12),
         marginTop: s(4),
         fontWeight: "500",
-        color: "#6e6e6e"
+        color: "#c66e54"
     },
 
     text3: {
