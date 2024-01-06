@@ -96,9 +96,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.pay.scholar"
+    namespace "com.testApp"
     defaultConfig {
-        applicationId "com.pay.scholar"
+        applicationId "com.testApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
