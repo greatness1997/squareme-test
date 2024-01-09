@@ -7,13 +7,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const activeTintColor = "black"
 
-import HomeStack from './stacks/HomeStack';
-import HistoryStack from './stacks/HistoryStack';
-import ServiceStack from './stacks/ServiceStack';
-import ProfileStack from './stacks/ProfileStack';
 
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
+import colors from '../../component/Colors';
+
+import HomeStack from './stacks/HomeStack';
+import ScheduleStack from './stacks/ScheduleStack';
 
 
 const TabNavigator = () => {
@@ -21,41 +21,7 @@ const TabNavigator = () => {
 
 
     const hiddenTabRoutes = [
-        'TransferValidate',
-        'TransferSummary',
-        'Completed',
-        'Provider',
-        'ElectricityValidation',
-        'Airtime&Data',
-        'AirtimeOrData',
-        'paymentmethod',
-        'GuarantorDetails',
-        'PersonalDetails',
-        'ProfileEdit',
-        'Help',
-        'ChangePassword',
-        'ResetCode2',
-        "UploadDoc",
-        'ProviderTv',
-        'VirtualAccount',
-        'TvValidation',
-        'StartimesValidation',
-        'TvSummary',
-        'Notification',
-        'StartimesSum',
-        'ResetCode2',
-        'ResetCode3',
-        'ChangePassword',
-        'ChangePin',
-        'AirtimeSummary',
-        'DataSummary',
-        'ElectricitySummary',
-        'WalletHistory',
-        'WalletHistoryList',
-        'HistoryReceipt',
-        'liveChat',
-        'Settings',
-        'AddBooks'
+        
     ];
 
     const isTabBarVisible = (route) => {
@@ -68,23 +34,26 @@ const TabNavigator = () => {
 
     return (
         <Tab.Navigator
-          initialRouteName="Home"
+          initialRouteName="Schedule"
           screenOptions={({ route }) => ({
-            tabBarStyle: { backgroundColor: 'black', height: Platform.OS === "ios" ? 100 : 60 },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: { backgroundColor: 'white', height: Platform.OS === "ios" ? 100 : 60 },
+            tabBarActiveTintColor: colors.color1,
+            tabBarInactiveTintColor: colors.color2,
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
     
               if (route.name === 'Home') {
                 iconName = 'home';
-              } else if (route.name === 'All') {
-                iconName = 'cart-variant';
-              } else if (route.name === 'History') {
-                iconName = 'chart-box';
+              } else if (route.name === 'Schedule') {
+                iconName = 'calendar-clock';
+              } else if (route.name === 'Wallet') {
+                iconName = 'wallet';
+              } else if (route.name === 'Chatroom') {
+                iconName = 'chat';
               } else if (route.name === 'Profile') {
-                iconName = 'account-circle';
+                iconName = 'account';
               }
+    
     
               return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
             },
@@ -92,9 +61,10 @@ const TabNavigator = () => {
           })}
         >
           <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
-          <Tab.Screen name="All" component={ServiceStack} options={{ headerShown: false }} />
-          <Tab.Screen name="History" component={HistoryStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Schedule" component={ScheduleStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Wallet" component={HomeStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Chatroom" component={HomeStack} options={{ headerShown: false }} />
+          <Tab.Screen name="Profile" component={HomeStack} options={{ headerShown: false }} />
         </Tab.Navigator>
       );
     

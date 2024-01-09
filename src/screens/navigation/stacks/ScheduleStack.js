@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import TabNavigator from './TabNavigator'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Request from '../../Schedule/Request';
+import PickUp from '../../Schedule/PickUp';
 
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = () => {
+const ScheduleStack = () => {
 
 
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="Schedule"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerShown: false,
             })}
         >
-            <Stack.Screen name="Home" component={TabNavigator} />
+            <Stack.Screen name="Schedule" component={Request} />
+            <Stack.Screen name="PickUp" component={PickUp} />
         </Stack.Navigator>
 
     )
@@ -27,5 +29,5 @@ const styles = StyleSheet.create({
 
 })
 
-export default AppNavigator
+export default ScheduleStack
 

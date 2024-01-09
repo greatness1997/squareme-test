@@ -364,7 +364,7 @@ PODS:
     - glog
   - react-native-cameraroll (5.6.0):
     - React-Core
-  - react-native-image-picker (5.6.0):
+  - react-native-image-picker (5.7.0):
     - React-Core
   - react-native-netinfo (9.4.1):
     - React-Core
@@ -801,7 +801,7 @@ SPEC CHECKSUMS:
   React-jsinspector: c712f9e3bb9ba4122d6b82b4f906448b8a281580
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
   react-native-cameraroll: 755bcc628148a90a7c9cf3f817a252be3a601bc5
-  react-native-image-picker: db60857e03d63721f19b6f4027de20429ddd9cba
+  react-native-image-picker: 3269f75c251cdcd61ab51b911dd30d6fff8c6169
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-safe-area-context: f5549f36508b1b7497434baa0cd97d7e470920d4
   react-native-view-shot: 705f999ac2a24e4e6c909c0ca65c732ed33ca2ff
@@ -837,6 +837,6 @@ SPEC CHECKSUMS:
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 29d12e860058289fe324b9f8ffcb7ccad83b1a9f
+PODFILE CHECKSUM: ee701e76305a652b236657831702e7ecacc19ac8
 
 COCOAPODS: 1.12.1
