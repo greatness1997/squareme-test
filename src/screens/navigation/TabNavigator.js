@@ -13,7 +13,6 @@ import { s, vs, ms, mvs, ScaledSheet } from 'react-native-size-matters';
 import colors from '../../component/Colors';
 
 import HomeStack from './stacks/HomeStack';
-import ScheduleStack from './stacks/ScheduleStack';
 
 
 const TabNavigator = () => {
@@ -61,10 +60,6 @@ const TabNavigator = () => {
           })}
         >
           <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Schedule" component={ScheduleStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Wallet" component={HomeStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Chatroom" component={HomeStack} options={{ headerShown: false }} />
-          <Tab.Screen name="Profile" component={HomeStack} options={{ headerShown: false }} />
         </Tab.Navigator>
       );
     
