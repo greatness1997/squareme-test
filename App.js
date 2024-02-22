@@ -18,8 +18,6 @@ import AppNavigator from './src/screens/navigation/AppNavigator'
 
 
 
-
-
 const app = () => {
 
   return (
