@@ -1,5 +1,5 @@
 {
-  "name": "pakam",
+  "name": "squareme",
   "version": "1.0",
   "private": true,
   "scripts": {
@@ -42,7 +42,7 @@
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-picker": "^5.6.0",
-    "react-native-linear-gradient": "^2.6.2",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-local-authentication": "^0.1.1",
     "react-native-modal-datetime-picker": "^15.0.1",
     "react-native-reanimated": "^3.3.0",

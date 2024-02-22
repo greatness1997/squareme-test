@@ -1,0 +1,7 @@
+export const imageOne =  require('./assets/1.png')
+export const imageTwo =  require('./assets/2.png')
+export const imageThree =  require('./assets/3.jpeg')
+export const imageSqm =  require('./assets/sqm.png')
+export const flag =  require('./assets/flag.png')
+export const success =  require('./assets/success.png')
+export const empty =  require('./assets/empty.png')

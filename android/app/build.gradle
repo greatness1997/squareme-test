@@ -96,9 +96,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.pakam"
+    namespace "com.squareme"
     defaultConfig {
-        applicationId "com.pakam"
+        applicationId "com.squareme"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7

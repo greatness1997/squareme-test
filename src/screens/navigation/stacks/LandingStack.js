@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../../mainScreens/HomeScreen';
-import KeyPad from '../../mainScreens/KeyPad';
+import LandingPageOne from '../../Onboarding/LandingPageOne';
+import LandingPageTwo from '../../Onboarding/LandingPageTwo';
+import LandingPageThree from '../../Onboarding/LandingPageThree';
 
 
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const LandingStack = () => {
 
 
     return (
         <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="landing"
             headerMode={Platform.select({ ios: 'float', android: 'screen' })}
             screenOptions={() => ({
                 headerShown: false,
             })}
         >
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Keyboard" component={KeyPad} />
+            <Stack.Screen name="landing" component={LandingPageOne} />
+            <Stack.Screen name="landingtwo" component={LandingPageTwo} />
+            <Stack.Screen name="landingthree" component={LandingPageThree} />
         </Stack.Navigator>
 
     )
@@ -29,5 +31,5 @@ const styles = StyleSheet.create({
 
 })
 
-export default HomeStack
+export default LandingStack
 

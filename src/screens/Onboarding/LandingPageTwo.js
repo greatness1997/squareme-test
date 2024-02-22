@@ -1,16 +1,16 @@
 import React from "react";
 import { View, StyleSheet, ImageBackground, Text, Image, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { imageOne, imageSqm } from "../../component/images";
+import { imageTwo, imageSqm } from "../../component/images";
 import { s } from "react-native-size-matters";
 
 
-const LandingPageOne = ({ navigation }) => {
+const LandingPageTwo = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={imageOne}
-                style={[styles.image, { width: '102%', height: '100%' }]}
+                source={imageTwo}
+                style={[styles.image, { width: '100%', height: '100%' }]}
             >
 
                 <LinearGradient
@@ -34,18 +34,18 @@ const LandingPageOne = ({ navigation }) => {
 
                     <View style={[styles.textContainer]}>
                         <View style={{ flexDirection: "row", padding: s(10), marginBottom: s(10) }}>
-                            <View style={{ width: s(30), height: s(4), backgroundColor: "white", borderRadius: 2, marginRight: s(5) }}></View>
                             <View style={{ width: s(30), height: s(4), backgroundColor: "grey", borderRadius: 2, marginRight: s(5) }}></View>
+                            <View style={{ width: s(30), height: s(4), backgroundColor: "white", borderRadius: 2, marginRight: s(5) }}></View>
                             <View style={{ width: s(30), height: s(4), backgroundColor: "grey", borderRadius: 2 }}></View>
                         </View>
                         <View style={styles.textContent}>
-                            <Text style={styles.title}>Fast and easy payments to</Text>
-                            <Text style={styles.title}>anyone.</Text>
-                            <Text style={styles.subtitle}>Receive funds sent to you in seconds</Text>
+                            <Text style={styles.title}>A super secure way to pay</Text>
+                            <Text style={styles.title}>your bills</Text>
+                            <Text style={styles.subtitle}>Pay your bills with the cheapest rate in town</Text>
                         </View>
                         <View style={styles.buttons}>
                             <Text style={styles.skip}>Skip</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate("landingtwo")} style={styles.nextButton}>
+                            <TouchableOpacity onPress={() => navigation.navigate("landingthree")} style={styles.nextButton}>
                                 <Text style={styles.nextButtonText}>Next</Text>
                             </TouchableOpacity>
                         </View>
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
+        resizeMode: 'contain',
+        
     },
     gradient: {
         flex: 1,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: "white",
-        fontWeight: "400",
+        fontWeight: "500",
         fontSize: s(24),
     },
     subtitle: {
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LandingPageOne;
+export default LandingPageTwo;
