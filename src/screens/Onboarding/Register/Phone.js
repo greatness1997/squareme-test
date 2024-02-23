@@ -65,7 +65,7 @@ const Phone = ({ navigation }) => {
             </View>
 
 
-            <View style={{ marginTop: "80%", flexDirection: "row", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20) }}>
+            <View style={{ marginTop: "70%", flexDirection: "row", justifyContent: "space-between", paddingLeft: s(20), paddingRight: s(20) }}>
                 <View style={[styles.buttonContainer1, { backgroundColor: "white" }]}>
                     <Text style={{ color: "#000a4a", fontWeight: "500" }}>Call me</Text>
                 </View>

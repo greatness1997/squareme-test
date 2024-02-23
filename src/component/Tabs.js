@@ -9,13 +9,13 @@ const Tabs = ({ navigation, keyPad, style, tabColor }) => {
     return (
         <View style={[styles.tabsContainer, style]}>
             <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.tabItem}>
-                <Ionicons name="home" size={24} color="grey" />
+                <Ionicons name="home" size={s(18)} color="grey" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Keyboard")} style={styles.tabItem}>
-                <AntDesign name="appstore1" size={24} color="grey" />
+                <AntDesign name="appstore1" size={s(18)} color="grey" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.tabItem}>
-                <Ionicons name="person" size={24} color="grey" />
+                <Ionicons name="person" size={s(18)} color="grey" />
             </TouchableOpacity>
         </View>
     )

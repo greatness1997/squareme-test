@@ -82,7 +82,7 @@ const KeyPad = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: s(30) }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: s(20) }}>
                     <View style={[styles.buttonContainer, { backgroundColor: "#28283a" }]}>
                         <Text style={{ color: "#747474", fontWeight: "500" }}>Request</Text>
                     </View>
@@ -90,7 +90,7 @@ const KeyPad = ({ navigation }) => {
                         <Text style={{ color: "#747474", fontWeight: "500" }}>Send</Text>
                     </View>
                 </View>
-                <Tabs navigation={navigation} keyPad={true} style={{ bottom: s(-30) }} />
+                <Tabs navigation={navigation} keyPad={true} style={{ bottom: s(-25) }} />
             </View>
         </>
     );
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
     display: {
         color: "white",
-        fontSize: s(60),
+        fontSize: s(50),
         fontWeight: "400",
         alignSelf: "center",
         marginLeft: s(5)
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     },
     number: {
         color: "#BDBDBD",
-        fontSize: s(20),
+        fontSize: s(18),
         fontWeight: "400"
     },
     naira: {
